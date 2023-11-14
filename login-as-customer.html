@@ -42,17 +42,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function validateForm() {
-            const emailAddress = document.getElementById("emailAddress");
-            const userPassword = document.getElementById("employeePassword");
-            if (!emailAddress.checkValidity() && !userPassword.checkValidity() || !emailAddress.checkValidity() || !employeePassword.checkValidity()) {
-                document.getElementById("employeeEmail").innerHTML = employeeEmail.validationMessage;
-                document.getElementById("employeePassword").innerHTML = employeePassword.validationMessage;
-            } else {
-                location.replace("stock-page.html");
-            }
-        }
-    </script>
 </body>
 </html>
