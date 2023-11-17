@@ -179,19 +179,21 @@
     <div id="Putaway" class="tabcontent">
         <br><br><br>
         <h2>Stock Putaway</h2>
-        </br></br>
+        <br><br>
+        <form name="orderForm" onsubmit="return validateOrder()" method="post" required>
         <label for="product-num">Product No.</label>
-        <input type="text" name="product-num" placeholder="Insert your product number" required />
+        <input id="productNum" type="text" name="product-num" placeholder="Insert your product number" required />
         <br><br><br><br>
         <label for="bin-loc">Bin Location</label>
-        <input type="text" name="bin-loc" placeholder="Provide the location of the bin" required />
+        <input id="binLocation" type="text" name="bin-loc" placeholder="Provide the location of the bin" required />
         </br></br></br></br>
         <label for="qty">Qty Putaway</label>
-        <input type="text" name="qty" placeholder="Provide the quantity to put away" required />
+        <input id="quantity" type="text" name="qty" placeholder="Provide the quantity to put away" required />
         <br><br><br>
         <div class="center">
-            <button class="btn" onclick="alert('Order is empty!')">Confirm Order</button>
+            <button class="btn">Confirm Order</button>
         </div>
+    </form>
     </div>
 
     <script>
@@ -211,6 +213,14 @@
 
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
+
+        function validateOrder() {
+            var field = document.forms["orderForm"].value;
+            if (field == "" || field == null) {
+                alert("Fields cannot be left blank!");
+                return false;
+            }
+        }
     </script>
 </body>
 </html>

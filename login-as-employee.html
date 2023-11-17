@@ -30,10 +30,10 @@
                         <p>Use your organisation email and password to login.
                         </p>
                         <label for="employeeEmail">Email Address</label>
-                        <input id="employeeEmail" type="email" name="employeeEmail" required />
+                        <input id="emailAddress" type="email" name="email" required />
                         <br><br>
                         <label for="employeePassword">Password</label>
-                        <input id="employeePassword" type="password" name="employeePassword"
+                        <input id="inPassword" type="password" name="employeePassword"
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
                         <br><br>
                         <button class="loginbtn" onclick="validateForm()">Login</button>
@@ -46,11 +46,11 @@
     </div>
     <script>
         function validateForm() {
-            const employeeEmail = document.getElementById("employeeEmail");
-            const employeePassword = document.getElementById("employeePassword");
-            if (!employeeEmail.checkValidity() && !employeePassword.checkValidity() || !employeeEmail.checkValidity() || !employeePassword.checkValidity()) {
-                document.getElementById("employeeEmail").innerHTML = employeeEmail.validationMessage;
-                document.getElementById("employeePassword").innerHTML = employeePassword.validationMessage;
+            const email = document.getElementById("emailAddress");
+            const password = document.getElementById("password");
+            if (!email.checkValidity() && !password.checkValidity() || !email.checkValidity() || !password.checkValidity()) {
+                document.getElementById("emailAddress").innerHTML = email.validationMessage;
+                document.getElementById("inPassword").innerHTML = password.validationMessage;
             } else {
                 location.replace("stock-page.html");
             }
