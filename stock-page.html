@@ -190,7 +190,7 @@
         <input type="text" name="qty" placeholder="Provide the quantity to put away" required />
         <br><br><br>
         <div class="center">
-            <button class="btn" onclick="validateOrder()">Confirm Order</button>
+            <button class="btn" onclick="alert('Order is empty!')">Confirm Order</button>
         </div>
     </div>
 
@@ -211,14 +211,6 @@
 
         // Get the element with id="defaultOpen" and click on it
         document.getElementById("defaultOpen").click();
-
-        function validateOrder() {
-            var input = document.getElementsByTagName("input");
-            if ((input = "" || input == null)) {
-                alert("Fields must be filled out!");
-                return false;
-            }
-        }
     </script>
 </body>
 </html>
