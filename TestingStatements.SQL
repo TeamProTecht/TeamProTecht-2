@@ -4,7 +4,7 @@
 INSERT INTO Users (User_ID, UserName, Created_at) VALUES (1, 'JohnDoe', CURRENT_TIMESTAMP);
 
 -- Inserting into Location
-INSERT INTO Location (Location_ID, Shelf, Row, Created_at) VALUES (1, 'A1', 1, CURRENT_TIMESTAMP);
+INSERT INTO Location (Location_ID, Shelf, RowNum, Created_at) VALUES (1, 'A1', 1, CURRENT_TIMESTAMP);
 
 -- Inserting into Warranty
 INSERT INTO Warranty (Warranty_ID, WarrantyDetails, Created_at) VALUES (1, '2-year limited warranty', CURRENT_TIMESTAMP);
@@ -51,7 +51,7 @@ SELECT * FROM Item WHERE Item_ID = 1;
 UPDATE Users SET UserName = 'JaneDoe', Updated_at = CURRENT_TIMESTAMP WHERE User_ID = 1;
 
 -- Updating location details
-UPDATE Location SET Shelf = 'B2', Row = 2, Updated_at = CURRENT_TIMESTAMP WHERE Location_ID = 1;
+UPDATE Location SET Shelf = 'B2', RowNum = 2, Updated_at = CURRENT_TIMESTAMP WHERE Location_ID = 1;
 
 -- Updating warranty details
 UPDATE Warranty SET WarrantyDetails = '3-year extended warranty', Updated_at = CURRENT_TIMESTAMP WHERE Warranty_ID = 1;
