@@ -11,7 +11,7 @@ CREATE TABLE Users (
 CREATE TABLE Location (
     Location_ID INT PRIMARY KEY,
     Shelf VARCHAR(255),
-    Row INT,
+    RowNum INT,
     Deleted_at TIMESTAMP,
     Updated_at TIMESTAMP,
     Created_at TIMESTAMP
