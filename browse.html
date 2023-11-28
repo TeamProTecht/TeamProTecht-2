@@ -11,6 +11,7 @@
         <title>Teamprotecht</title>
         <!--Attaching css file-->
         <link rel="stylesheet" href="CSS Images\style.css" />
+        <script defer src="JavaScript/script.js"></script>
         <!-- Add icon library -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -27,7 +28,6 @@
                         <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
                         <li><a href="Teamprotecht - HomePage.html">Home</a></li>
                         <li><a href="browse.html">Browse</a></li>
-                        <li><a href="">Android</a></li>
                         <li style="float:right"><a href="basket.html"><i class="fa fa-shopping-basket"></i></a></li>
                         <li style="float:right"><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
                         
@@ -78,34 +78,6 @@
                             <label for="brand5">Blackberry</label><br>
                         </div><br>
                     </section>
-
-                    <script>
-                        function searchSQL(){
-                            // call SQL table for products with name
-                        }
-                        function myPrices() {
-                            document.getElementById("myPriceDropdown").classList.toggle("show");
-                        }
-                        function myColours() {
-                            document.getElementById("myColourDropdown").classList.toggle("show");
-                        }
-                        function myBrands() {
-                            document.getElementById("myBrandDropdown").classList.toggle("show");
-                        }
-
-                        window.onclick = function(event) {
-                            if (!event.target.matches('.dropbtn')) {
-                                var dropdowns = document.getElementsByClassName("dropdown-content");
-                                var i;
-                                for (i = 0; i < dropdowns.length; i++) {
-                                    var openDropdown = dropdowns[i];
-                                    if (openDropdown.classList.contains('show')) {
-                                        openDropdown.classList.remove('show');
-                                    }
-                                }
-                            }
-                        }
-                    </script>
                 </main>
     </body>
 </html>
