@@ -135,13 +135,20 @@
         }
 
         .select-buttons button {
-            margin: 0 10px;
+               margin: 0;
+    color: white;
+	    background-color: rgb(73, 7, 73);
+
         }
 
         .filtering {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+h4 {
+    text-align: center;
+    text-transform: uppercase;
 }
 
 .filtering label, .filtering input, .filtering select {
@@ -164,7 +171,7 @@
             <li class="logout-link"><a href="http://localhost/Year%202%20Team%20Project/login.html" onclick="logout()">Logout</a></li>
         </ul>
     </div>
-
+    <h4> edit quaintity</h4>
     <div class="select-buttons">
         <button onclick="setTo()">Set To</button>
         <span>OR</span>
@@ -172,7 +179,7 @@
          <input type="number" class="integer-input" placeholder="Enter positive integer" min="0" step="1">
     </div>
 
-
+<h4>seacrh</h4>
 <div class="filtering">
     <label for="amount">Amount:</label>
     <input type="number" id="amount" class="filter-input" placeholder="Enter positive integer" min="0" step="1">
@@ -182,10 +189,12 @@
         <option value=">">Greater Than</option>
     </select>
 </div>
+<br>
 <div class="filtering">
     <label for="product">Product:</label>
     <input type="text" id="product" class="filter-input">
 </div>
+<br>
 <div class="filtering">
     <label for="binLocation">Bin Location:</label>
     <input type="text" id="binLocation" class="filter-input">
