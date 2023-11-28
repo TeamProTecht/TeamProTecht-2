@@ -173,25 +173,40 @@
     </div>
 
 
-            <div class="filtering">
-            <label for="amount">Amount:</label>
-            <input type="number" id="amount" class="filter-input" placeholder="Enter positive integer" min="0" step="1">
-            <select id="amountFilter">
-                <option value="=">Equal</option>
-                <option value="<">Less Than</option>
-                <option value=">">Greater Than</option>
-            </select>
-        </div >
-        <div class="filtering">
-            <label for="product">Product:</label>
-            <input type="text" id="product" class="filter-input">
-        </div>
-        <div class="filtering">
-            <label for="binLocation">Bin Location:</label>
-            <input type="text" id="binLocation" class="filter-input">
-
-        </div>
+<div class="filtering">
+    <label for="amount">Amount:</label>
+    <input type="number" id="amount" class="filter-input" placeholder="Enter positive integer" min="0" step="1">
+    <select id="amountFilter">
+        <option value="=">Equal</option>
+        <option value="<">Less Than</option>
+        <option value=">">Greater Than</option>
+    </select>
+</div>
+<div class="filtering">
+    <label for="product">Product:</label>
+    <input type="text" id="product" class="filter-input">
+</div>
+<div class="filtering">
+    <label for="binLocation">Bin Location:</label>
+    <input type="text" id="binLocation" class="filter-input">
+</div>
+<div class="select-buttons">
+<button id="searchButton">Search</button>
+</div>
     <script>
+            function searchDatabase() {
+            // Get values from inputs
+            var amount = document.getElementById('amount').value;
+            var amountFilter = document.getElementById('amountFilter').value;
+            var product = document.getElementById('product').value;
+            var binLocation = document.getElementById('binLocation').value;
+
+            // Perform SQL query
+        }
+
+
+
+
         function setTo() {
             // Implement SQL query for setting a value
  
