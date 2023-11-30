@@ -179,22 +179,57 @@ h4 {
 
 
 
-
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve the input value from the HTML form
-    $userInput = $_POST["userInput"];
+    // Retrieve the input values from the HTML form
+    $userAmount = $_POST["userAmount"];
+    $selectedOption = $_POST["selectedOption"];
+    $itemID = $_POST["itemID"];
 
-    // Now $userInput is a PHP variable containing the input from the HTML form
-    echo "You entered: " . $userInput;
+
+    echo "Amount: " . $userAmount . "<br>";
+    echo "Selected Option: " . $selectedOption . "<br>";
+    echo "Item ID: " . $itemID . "<br>";
 }
+	if ($selectedOption=="Y"){
+		
+		
+		$pdo = new PDO('sqlite:stock.db');
+		$statement = $pdo->query("
+		UPDATE Item
+		SET Quantity = '$userAmount'
+		WHERE Item_ID = '$itemID'");
+		
+	}
+	if ($selectedOption=="N"){
+		
+		
+		$pdo = new PDO('sqlite:stock.db');
+		$statement = $pdo->query("
+		UPDATE Item
+SET Quantity = Quantity - '$userAmount'
+WHERE Item_ID = '$itemID'");
+		
+	}
 ?>
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-    <label for="userInput">Enter something:</label>
-    <input type="text" id="userInput" name="userInput">
+    <label for="userAmount">Enter amount:</label>
+    <input type="text" id="userAmount" name="userAmount"><br>
+
+    <label for="selectedOption">Select an option:</label>
+    <select id="selectedOption" name="selectedOption">
+        <option value="Y">set to</option>
+        <option value="N">remove</option>
+
+    </select><br>
+
+    <label for="itemID">Enter item ID:</label>
+    <input type="text" id="itemID" name="itemID"><br>
+
     <button type="submit">Submit</button>
 </form>
+
 <h4>seacrh</h4>
 <div class="filtering">
     <label for="amount">Amount:</label>
@@ -219,23 +254,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <button id="searchButton">Search</button>
 </div>
   <script>
-    function Choice(choice) {
-      var output = document.getElementById('output');
-      var inputText = document.getElementById('inputText').value;
 
-      if (choice === 'set') {
-        output.innerText = 'You chose to set: ' + inputText;
-	<?php
-$pdo = new PDO('sqlite:stock.db');
-	$statement = $pdo->query("
-UPDATE Item
-SET Quantity = '$userInput'
-WHERE Item_ID = 1");
-?>
-      } else if (choice === 'remove') {
-        output.innerText = 'You chose to remove: ' + inputText;
-      }
-    }
+
+
   </script>
 
 <table border="1">
