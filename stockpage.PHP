@@ -226,6 +226,41 @@ h4 {
             
         }
     </script>
+<table border="1">
+    <tr>
+        <th>Shelf</th>
+        <th>RowNum</th>
+        <th>BrandName</th>
+        <th>Quantity</th>
+    </tr>
+
+    <?php
+	$pdo = new PDO('sqlite:stock.db');
+	$statement = $pdo->query("SELECT
+    Location.Shelf,
+    Location.RowNum,
+    Brand.BrandName,
+    Item.Quantity
+FROM
+    Item
+JOIN SerialNumber ON Item.SerialNumber = SerialNumber.Serial_ID
+JOIN Location ON SerialNumber.Location_ID = Location.Location_ID
+JOIN Brand ON SerialNumber.Brand_ID = Brand.Brand_ID;
+");
+
+
+
+
+
+	foreach($statement as $rows){
+		print "<td>".$rows['Shelf']."</td>";
+		print "<td>".$rows['RowNum']."</td>";
+		print "<td>".$rows['BrandName']."</td>";
+		print "<td>".$rows['Quantity']."</td>";
+
+	}
+    ?>
+</table>
 </body>
 
 </html>
