@@ -172,12 +172,13 @@ h4 {
         </ul>
     </div>
     <h4> edit quaintity</h4>
-    <div class="select-buttons">
-        <button onclick="setTo()">Set To</button>
-        <span>OR</span>
-        <button onclick="removeAmount()">Remove Amount</button>
-         <input type="number" class="integer-input" placeholder="Enter positive integer" min="0" step="1">
-    </div>
+<div class="select-buttons">
+    <button onclick="Choice('set')">Set to</button>
+    <span>OR</span>
+    <button onclick="Choice('remove')">Remove amount</button>
+    <input type="number" class="integer-input" placeholder="Enter positive integer" min="0" step="1" id="inputText">
+<p id="output"></p>
+</div>
 
 <h4>seacrh</h4>
 <div class="filtering">
@@ -202,26 +203,18 @@ h4 {
 <div class="select-buttons">
 <button id="searchButton">Search</button>
 </div>
-<script>
-    function searchDatabase() {
-        // Get values from inputs
-        var amount = document.getElementById('amount').value;
-        var amountFilter = document.getElementById('amountFilter').value;
-        var product = document.getElementById('product').value;
-        var binLocation = document.getElementById('binLocation').value;
+  <script>
+    function Choice(choice) {
+      var output = document.getElementById('output');
+      var inputText = document.getElementById('inputText').value;
 
-        // Perform an AJAX request to your server-side PHP script
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                // Update the table with the retrieved data
-                document.getElementById('table-container').innerHTML = xhr.responseText;
-            }
-        };
-        xhr.open('GET', 'search.php?amount=' + amount + '&amountFilter=' + amountFilter + '&product=' + product + '&binLocation=' + binLocation, true);
-        xhr.send();
+      if (choice === 'set') {
+        output.innerText = 'You chose to set: ' + inputText;
+      } else if (choice === 'remove') {
+        output.innerText = 'You chose to remove: ' + inputText;
+      }
     }
-</script>
+  </script>
 
 <table border="1">
     <tr>
