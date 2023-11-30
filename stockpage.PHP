@@ -202,30 +202,27 @@ h4 {
 <div class="select-buttons">
 <button id="searchButton">Search</button>
 </div>
-    <script>
-            function searchDatabase() {
-            // Get values from inputs
-            var amount = document.getElementById('amount').value;
-            var amountFilter = document.getElementById('amountFilter').value;
-            var product = document.getElementById('product').value;
-            var binLocation = document.getElementById('binLocation').value;
+<script>
+    function searchDatabase() {
+        // Get values from inputs
+        var amount = document.getElementById('amount').value;
+        var amountFilter = document.getElementById('amountFilter').value;
+        var product = document.getElementById('product').value;
+        var binLocation = document.getElementById('binLocation').value;
 
-            // Perform SQL query
-        }
+        // Perform an AJAX request to your server-side PHP script
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                // Update the table with the retrieved data
+                document.getElementById('table-container').innerHTML = xhr.responseText;
+            }
+        };
+        xhr.open('GET', 'search.php?amount=' + amount + '&amountFilter=' + amountFilter + '&product=' + product + '&binLocation=' + binLocation, true);
+        xhr.send();
+    }
+</script>
 
-
-
-
-        function setTo() {
-            // Implement SQL query for setting a value
- 
-        }
-
-        function removeAmount() {
-            // Implement SQL query for removing an amount
-            
-        }
-    </script>
 <table border="1">
     <tr>
         <th>Shelf</th>
@@ -256,7 +253,8 @@ JOIN Brand ON SerialNumber.Brand_ID = Brand.Brand_ID;
 		print "<td>".$rows['Shelf']."</td>";
 		print "<td>".$rows['RowNum']."</td>";
 		print "<td>".$rows['BrandName']."</td>";
-		print "<td>".$rows['Quantity']."</td>";
+		print "<td>".$rows['Quantity']."</td><tr>";
+		
 
 	}
     ?>
