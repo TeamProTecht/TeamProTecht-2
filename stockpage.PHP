@@ -180,37 +180,42 @@ h4 {
 
 
 <?php
+$userAmount = $selectedOption = $itemID = "";
+$Amount = $amountFilter = $shelf = $row = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Retrieve the input values from the HTML form
     $userAmount = $_POST["userAmount"];
     $selectedOption = $_POST["selectedOption"];
     $itemID = $_POST["itemID"];
-
+    $Amount = $_POST["amount"];
+    $amountFilter = $_POST["amountFilter"];
+    $shelf = $_POST["shelf"];
+    $row = $_POST["row"];
 
     echo "Amount: " . $userAmount . "<br>";
     echo "Selected Option: " . $selectedOption . "<br>";
     echo "Item ID: " . $itemID . "<br>";
+    echo "Amount: " . $Amount . "<br>";
+    echo "Selected Option: " . $amountFilter . "<br>";
+    echo "Shelf: " . $shelf . "<br>";
+    echo "Row: " . $row . "<br>";
 }
-	if ($selectedOption=="Y"){
-		
-		
-		$pdo = new PDO('sqlite:stock.db');
-		$statement = $pdo->query("
+
+if ($selectedOption == "Y") {
+    $pdo = new PDO('sqlite:stock.db');
+    $statement = $pdo->query("
 		UPDATE Item
 		SET Quantity = '$userAmount'
 		WHERE Item_ID = '$itemID'");
-		
-	}
-	if ($selectedOption=="N"){
-		
-		
-		$pdo = new PDO('sqlite:stock.db');
-		$statement = $pdo->query("
+}
+
+if ($selectedOption == "N") {
+    $pdo = new PDO('sqlite:stock.db');
+    $statement = $pdo->query("
 		UPDATE Item
-SET Quantity = Quantity - '$userAmount'
-WHERE Item_ID = '$itemID'");
-		
-	}
+		SET Quantity = Quantity - '$userAmount'
+		WHERE Item_ID = '$itemID'");
+}
 ?>
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
@@ -221,43 +226,39 @@ WHERE Item_ID = '$itemID'");
     <select id="selectedOption" name="selectedOption">
         <option value="Y">set to</option>
         <option value="N">remove</option>
-
     </select><br>
 
     <label for="itemID">Enter item ID:</label>
     <input type="text" id="itemID" name="itemID"><br>
 
+    <h4>Search</h4>
+    <div class="filtering">
+        <label for="amount">Amount:</label>
+        <input type="number" id="amount" class="filter-input" placeholder="Enter positive integer" min="0" step="1">
+        <select id="amountFilter">
+            <option value="=">Equal</option>
+            <option value="<">Less Than</option>
+            <option value=">">Greater Than</option>
+        </select>
+    </div>
+    <br>
+    <div class="filtering">
+        <label for="product">Product:</label>
+        <input type="text" id="product" class="filter-input">
+    </div>
+    <br>
+    <div class="filtering">
+        <label for="shelf">Shelf:</label>
+        <input type="text" id="shelf" name="shelf" class="filter-input">
+    </div>
+    <br>
+    <div class="filtering">
+        <label for="row">Row:</label>
+        <input type="text" id="row" name="row" class="filter-input">
+    </div>
+
     <button type="submit">Submit</button>
 </form>
-
-<h4>seacrh</h4>
-<div class="filtering">
-    <label for="amount">Amount:</label>
-    <input type="number" id="amount" class="filter-input" placeholder="Enter positive integer" min="0" step="1">
-    <select id="amountFilter">
-        <option value="=">Equal</option>
-        <option value="<">Less Than</option>
-        <option value=">">Greater Than</option>
-    </select>
-</div>
-<br>
-<div class="filtering">
-    <label for="product">Product:</label>
-    <input type="text" id="product" class="filter-input">
-</div>
-<br>
-<div class="filtering">
-    <label for="binLocation">Bin Location:</label>
-    <input type="text" id="binLocation" class="filter-input">
-</div>
-<div class="select-buttons">
-<button id="searchButton">Search</button>
-</div>
-  <script>
-
-
-
-  </script>
 
 <table border="1">
     <tr>
@@ -268,33 +269,20 @@ WHERE Item_ID = '$itemID'");
     </tr>
 
     <?php
-	$pdo = new PDO('sqlite:stock.db');
-	$statement = $pdo->query("SELECT
-    Location.Shelf,
-    Location.RowNum,
-    Brand.BrandName,
-    Item.Quantity
-FROM
-    Item
-JOIN SerialNumber ON Item.SerialNumber = SerialNumber.Serial_ID
-JOIN Location ON SerialNumber.Location_ID = Location.Location_ID
-JOIN Brand ON SerialNumber.Brand_ID = Brand.Brand_ID;
-");
+    $pdo = new PDO('sqlite:stock.db');
+    $statement = $pdo->query("SELECT Location.Shelf, Location.RowNum, Brand.BrandName, Item.Quantity
+        FROM Item
+        JOIN SerialNumber ON Item.SerialNumber = SerialNumber.Serial_ID
+        JOIN Location ON SerialNumber.Location_ID = Location.Location_ID
+        JOIN Brand ON SerialNumber.Brand_ID = Brand.Brand_ID;");
 
-
-
-
-
-	foreach($statement as $rows){
-		print "<td>".$rows['Shelf']."</td>";
-		print "<td>".$rows['RowNum']."</td>";
-		print "<td>".$rows['BrandName']."</td>";
-		print "<td>".$rows['Quantity']."</td><tr>";
-		
-
-	}
+    foreach ($statement as $rows) {
+        print "<td>" . $rows['Shelf'] . "</td>";
+        print "<td>" . $rows['RowNum'] . "</td>";
+        print "<td>" . $rows['BrandName'] . "</td>";
+        print "<td>" . $rows['Quantity'] . "</td><tr>";
+    }
     ?>
 </table>
 </body>
-
 </html>
