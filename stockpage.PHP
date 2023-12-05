@@ -220,21 +220,21 @@ if ($selectedOption == "N") {
 
 <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
     <label for="userAmount">Enter amount:</label>
-    <input type="text" id="userAmount" name="userAmount"><br>
+    <input type="number" id="userAmount" name="userAmount" min="0" step="1"><br><br>
 
     <label for="selectedOption">Select an option:</label>
     <select id="selectedOption" name="selectedOption">
         <option value="Y">set to</option>
         <option value="N">remove</option>
-    </select><br>
+    </select><br><br>
 
     <label for="itemID">Enter item ID:</label>
-    <input type="text" id="itemID" name="itemID"><br>
+    <input type="number" id="itemID" name="itemID" min="0" step="1"><br>
 
     <h4>Search</h4>
     <div class="filtering">
         <label for="amount">Amount:</label>
-        <input type="text" id="amount" name="amount">
+        <input type="number" id="amount" name="amount" min="0" step="1">
 
         <select id="amountFilter" name="amountFilter">
             <option value="=">Equal</option>
