@@ -225,10 +225,10 @@ h4 {
 
 
 	   <label for="iteam_shelf" id="iteam_shelf_label" style="display:none;">shelf:</label>
-	   <textarea id="iteam_shelf" name="iteam_shelf" style="display:none;"></textarea>
+	   <input type="number" id="iteam_shelf" name="iteam_shelf" style="display:none;"  min="0" step="1"></textarea>
 
 	   <label for="iteam_row" id="iteam_row_label" style="display:none;">row:</label>
-	   <textarea id="iteam_row" name="row_shelf" style="display:none;"></textarea>
+	   <input type="number" id="iteam_row" name="row_shelf" style="display:none;"  min="0" step="1"></textarea>
 
 	  <br>
 
@@ -323,8 +323,8 @@ h4 {
 
 
         } else if (actionSelect.value === 'filter') {
-            user_AmountLabel.style.display = 'none';
-            user_AmountInput.style.display = 'none';
+            user_AmountLabel.style.display = 'block';
+            user_AmountInput.style.display = 'block';
 
             amount_Filterlabel.style.display = 'block';
             amount_Filterinput.style.display = 'block';
