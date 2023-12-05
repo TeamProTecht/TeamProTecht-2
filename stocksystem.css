@@ -14,9 +14,6 @@ body {
     overflow: hidden;
 }
 
-
-
-
 .navbar ul {
     list-style-type: none;
     margin: 0;
@@ -124,5 +121,3 @@ form input[type="submit"] {
 form input[type="submit"]:hover {
     background-color: #a19c9c;
 }
-
-
