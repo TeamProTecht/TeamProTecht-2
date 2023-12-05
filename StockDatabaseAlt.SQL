@@ -51,5 +51,5 @@ CREATE TABLE Item (
     FOREIGN KEY (Location_ID) REFERENCES Location(Location_ID),
     FOREIGN KEY (Type_ID) REFERENCES Type(Type_ID),
     FOREIGN KEY (Brand_ID) REFERENCES Brand(Brand_ID),
-    FOREIGN KEY (Warranty_ID) REFERENCES Warranty(Warranty_ID),
+    FOREIGN KEY (Warranty_ID) REFERENCES Warranty(Warranty_ID)
 );
