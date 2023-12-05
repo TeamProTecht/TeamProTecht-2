@@ -192,7 +192,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $shelf = $_POST["shelf"];
     $row = $_POST["row"];
 
-    echo "Amount: " . $userAmount . "<br>";
+    echo " userAmount: " . $userAmount . "<br>";
     echo "Selected Option: " . $selectedOption . "<br>";
     echo "Item ID: " . $itemID . "<br>";
     echo "Amount: " . $Amount . "<br>";
@@ -234,8 +234,9 @@ if ($selectedOption == "N") {
     <h4>Search</h4>
     <div class="filtering">
         <label for="amount">Amount:</label>
-        <input type="number" id="amount" class="filter-input" placeholder="Enter positive integer" min="0" step="1">
-        <select id="amountFilter">
+        <input type="text" id="amount" name="amount">
+
+        <select id="amountFilter" name="amountFilter">
             <option value="=">Equal</option>
             <option value="<">Less Than</option>
             <option value=">">Greater Than</option>
