@@ -186,7 +186,7 @@ h4 {
 
 
 
-<    <form method="post" action=""><br>
+<form method="post" action=""><br>
         <select name="action" id="action-select">
             <option value="null">null</option>
             <option value="update">update</option>
@@ -211,11 +211,11 @@ h4 {
 
 
 
-	  <label for="find_product" id="find_product_label" style="display:none;">End Date:</label>
+	  <label for="find_product" id="find_product_label" style="display:none;">product name:</label>
 	  <input type="text" id="find_product" name="find_product" style="display:none;">
 
 
-	  <label for="amount_Filter" id="amount_Filter_label" style="display:none;">project amount_Filter:</label>
+	  <label for="amount_Filter" id="amount_Filter_label" style="display:none;">amount_Filter:</label>
 	  <select name="amount_Filter" id="amount_Filter" style="display:none;">
 		<option value="=">equal</option>
       	<option value="<">less then</option>
@@ -247,8 +247,8 @@ h4 {
     const selected_optionlabel = document.getElementById('selected_option_label');
     const selected_optioninput = document.getElementById('selected_option');
 
-    const itemidlabel = document.getElementById('item_id_label');
-    const itemidinput = document.getElementById('item_id');
+    const itemidlabel = document.getElementById('item_id_label'); 
+    const itemidinput = document.getElementById('item_id'); 
 
     const rowlabel = document.getElementById('iteam_row_label');
     const rowinput = document.getElementById('iteam_row');
@@ -277,8 +277,8 @@ h4 {
             amount_Filterlabel.style.display = 'none';
             amount_Filterinput.style.display = 'none';
 
-            productlabel.style.display = 'none';
-            productinput.style.display = 'none';
+            findproductlabel.style.display = 'none';
+            findproductinput.style.display = 'none';
 
             rowlabel.style.display = 'none';
             rowinput.style.display = 'none';
@@ -297,6 +297,9 @@ h4 {
             user_AmountLabel.style.display = 'block';
             user_AmountInput.style.display = 'block';
 
+            itemidlabel.style.display = 'block'; 
+            itemidinput.style.display = 'block';
+
             amount_Filterlabel.style.display = 'none';
             amount_Filterinput.style.display = 'none';
 
@@ -304,8 +307,9 @@ h4 {
             selected_optioninput.style.display = 'block';
 
 
-            productlabel.style.display = 'none';
-            productinput.style.display = 'none';
+            findproductlabel.style.display = 'none';
+            findproductinput.style.display = 'none';
+
 
             rowlabel.style.display = 'none';
             rowinput.style.display = 'none';
@@ -316,9 +320,6 @@ h4 {
 
             findproductlabel.style.display = 'none';
             findproductinput.style.display = 'none';
-
-            itemidlabel.style.display = 'block';
-            itemidinput.style.display = 'block';
 
 
         } else if (actionSelect.value === 'filter') {
@@ -334,9 +335,6 @@ h4 {
             amount_Filterlabel.style.display = 'block';
             amount_Filterinput.style.display = 'block';
 
-            productlabel.style.display = 'block';
-            productinput.style.display = 'block';
-
             rowlabel.style.display = 'block';
             rowinput.style.display = 'block';
 
@@ -345,7 +343,7 @@ h4 {
 
 
             findproductlabel.style.display = 'block';
-            findproductinput.style.display = 'bloxk';
+            findproductinput.style.display = 'block';
 
             itemidlabel.style.display = 'none';
             itemidinput.style.display = 'none';
