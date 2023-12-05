@@ -27,17 +27,18 @@
         <h1>Employee Registration</h1>
         <!-- Form for registration -->
          <p style="color:red">Required fields are marked with an asterisk(*)</p>
-                        <label for="fname">Employee's First Name</label>
-                        <input type="text" name="fname" placeholder="*" required />
+         <form action="" method="post"  enctype="multipart/form-data">
+                        <label for="FirstName">Employee's First Name</label>
+                        <input type="text" name="FirstName" placeholder="*" required />
                         <br><br>
-                        <label for="lname">Employee's Last Name</label>
-                        <input type="text" name="lname" placeholder="*" required />
+                        <label for="LastName">Employee's Last Name</label>
+                        <input type="text" name="LastName" placeholder="*" required />
                         <br><br>
-                        <label for="employeeEmail">Employee Email Address</label>
-                        <input type="email" name="employeeEmail" placeholder="*" required />
+                        <label for="employee_email">Employee Email Address</label>
+                        <input type="email" name="employee_email" placeholder="*" required />
                         <br><br>
-                        <label for="first_pass">Password</label>
-                        <input type="password" name="first_pass" id="userInput" placeholder="*"
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="userInput" placeholder="*"
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 characters"
                             required />
@@ -48,7 +49,36 @@
                         <input type="checkbox" onclick="showPassword()"> Show Password
                         <br><br>
                         <button type="reset" class="cancelbtn">Cancel</button>
-                        <button class="regbtn" onclick="validateForm()">Register</button>
+                        <button class="regbtn" onclick="validateForm()" name="user_register">Register</button>
+</form>
+
 
         
     </div>
+
+</html>
+
+<!--php to post the user data to the db-->
+
+<?php
+if (isset($_POST['user_register'])){
+    //assign them to local variables
+    $user_firstname = $_POST['FirstName'];
+    $user_lastname = $_POST['LastName'];
+    $user_email = $_POST['employee_email'];
+    $user_pasword = $_POST['password'];
+
+    //put into the db
+    $insert_query = "INSERT INTO `employees` (LastName, FirstName, password, employee_email) VALUES
+    ('$user_lastname', '$user_firstname', '$user_email', '$user_pasword')";
+    
+    $sql_execute = mysqli_query($con, $insert_query);
+    
+    if ($sql_execute) {
+        echo "<script>alert('Account created')</script>";
+    } else {
+        die(mysqli_error($con));
+    }
+}
+?>
+

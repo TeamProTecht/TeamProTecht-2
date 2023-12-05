@@ -94,7 +94,8 @@ h1 {
 }
 
 form {
-    max-width: 250px;
+    width: 200px;
+    height: 25px;
     margin:0 auto;
 }
 
@@ -104,10 +105,21 @@ form label {
 }
 
 form input[type="text"] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    box-sizing: border-box;
+    width: 200px; 
+    height: 25px; 
+    margin: 2px; 
+}
+
+form input[type="email"] {
+    width: 200px; 
+    height: 25px; 
+    margin: 2px; 
+}
+
+form input[type="password"] {
+    width: 200px; 
+    height: 25px; 
+    margin: 2px; 
 }
 
 form input[type="submit"] {
