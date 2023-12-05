@@ -93,12 +93,14 @@ h1 {
 
 .main-content {
     margin: 20px;
+    text-align: center;
 }
 
 form {
-    max-width: 300px;
-    margin: auto;
+    max-width: 250px;
+    margin:0 auto;
 }
+
 
 form label {
     font-weight: bold;
