@@ -10,7 +10,11 @@
         <!--Title of web page-->
         <title>Teamprotecht</title>
         <!--Attaching css file-->
+<<<<<<< HEAD
         <!-- <link rel="stylesheet" href="CSS Images\style.css" /> -->
+=======
+        <link rel="stylesheet" href="CSS Images\style.css" />
+>>>>>>> 6a13b77d32043341a682d3f2a352c109b6fecb60
         <script defer src="JavaScript/script.js"></script>
         <!-- Add icon library -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -28,7 +32,11 @@
                 <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
                 <li><a href="Teamprotecht - HomePage.html">Home</a></li>
                 <li><a href="browse.html">Browse</a></li>
+<<<<<<< HEAD
                 <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
+=======
+                <li style="float:right"><a href="Product_Basket.html"><i class="fa fa-shopping-basket"></i></a></li>
+>>>>>>> 6a13b77d32043341a682d3f2a352c109b6fecb60
                 <li style="float:right"><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
                         
             </ul>
@@ -37,6 +45,7 @@
         <main>
             <section id="basket">
                 <!-- Create a product gallery for shopping cart -->
+<<<<<<< HEAD
                 <?php
                 try{
                     include "connectdb.php";
@@ -73,6 +82,10 @@
 
 
                     $product_array = $db->query("SELECT * FROM item ORDER BY Item_ID ASC");
+=======
+                <?php       
+                    $product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
+>>>>>>> 6a13b77d32043341a682d3f2a352c109b6fecb60
                     if (!empty($product_array)){
                         foreach($product_array as $key=>$value){
                 ?>
@@ -149,7 +162,10 @@
 
                 <section id="remove_empty">
                     <?php
+<<<<<<< HEAD
                     switch ($variable) {
+=======
+>>>>>>> 6a13b77d32043341a682d3f2a352c109b6fecb60
                         case "remove":
                             if(!empty($_SESSION["cart_item"])) {
                                 foreach($_SESSION["cart_item"] as $k => $v) {
@@ -163,7 +179,10 @@
                         case "empty":
                             unset($_SESSION["cart_item"]);
                                 break;
+<<<<<<< HEAD
                         }
+=======
+>>>>>>> 6a13b77d32043341a682d3f2a352c109b6fecb60
                     ?>
                 </section>
                 <!-- Database product table for shopping cart -->
