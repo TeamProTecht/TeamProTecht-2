@@ -265,6 +265,7 @@ if ($selectedOption == "N") {
     <tr>
         <th>Shelf</th>
         <th>RowNum</th>
+	<th>product name</th>
         <th>BrandName</th>
         <th>Quantity</th>
     </tr>
@@ -280,6 +281,7 @@ if ($selectedOption == "N") {
     foreach ($statement as $rows) {
         print "<td>" . $rows['Shelf'] . "</td>";
         print "<td>" . $rows['RowNum'] . "</td>";
+	print "<td>" . $rows['ItemName'] . "</td>";
         print "<td>" . $rows['BrandName'] . "</td>";
         print "<td>" . $rows['Quantity'] . "</td><tr>";
     }
