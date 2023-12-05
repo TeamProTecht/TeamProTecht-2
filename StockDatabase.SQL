@@ -2,46 +2,46 @@
 CREATE TABLE Users (
     User_ID INT PRIMARY KEY,
     UserName VARCHAR(255),
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the Location table
 CREATE TABLE Location (
     Location_ID INT PRIMARY KEY,
     Shelf VARCHAR(255),
-    RowNum INT,
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP
+    Row INT,
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the Warranty table
 CREATE TABLE Warranty (
     Warranty_ID INT PRIMARY KEY,
     WarrantyDetails TEXT,
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the Brand table
 CREATE TABLE Brand (
     Brand_ID INT PRIMARY KEY,
     BrandName TEXT,
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the Type table
 CREATE TABLE Type (
     Type_ID INT PRIMARY KEY,
     TypeName TEXT,
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Creating the SerialNumber table
@@ -53,9 +53,9 @@ CREATE TABLE SerialNumber (
     Brand_ID INT,
     Warranty_ID INT,
     User_ID INT,
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP,
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Location_ID) REFERENCES Location(Location_ID),
     FOREIGN KEY (Type_ID) REFERENCES Type(Type_ID),
     FOREIGN KEY (Brand_ID) REFERENCES Brand(Brand_ID),
@@ -66,10 +66,11 @@ CREATE TABLE SerialNumber (
 -- Creating the Item table
 CREATE TABLE Item (
     Item_ID INT PRIMARY KEY,
+    ItemName VARCHAR(255) NOT NULL,
     SerialNumber INT,
     Quantity INT,
-    Deleted_at TIMESTAMP,
-    Updated_at TIMESTAMP,
-    Created_at TIMESTAMP,
+    Deleted_at TIMESTAMP NULL,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (SerialNumber) REFERENCES SerialNumber(Serial_ID)
 );
