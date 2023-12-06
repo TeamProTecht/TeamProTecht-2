@@ -13,13 +13,12 @@
         <link rel="stylesheet" href="CSS Images\style.css" />
         <script defer src="JavaScript/script.js"></script>
         <!-- Add icon library -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
         
 
     </head>
 
     <body>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <!--Creating the navigation bar-->
         <nav>
@@ -28,7 +27,7 @@
                 <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
                 <li><a href="Teamprotecht - HomePage.html">Home</a></li>
                 <li><a href="browse.html">Browse</a></li>
-                <li style="float:right"><a href="Product_Basket.html"><i class="fa fa-shopping-basket"></i></a></li>
+                <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
                 <li style="float:right"><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
                         
             </ul>
@@ -37,8 +36,52 @@
         <main>
             <section id="basket">
                 <!-- Create a product gallery for shopping cart -->
-                <?php       
-                    $product_array = $db_handle->runQuery("SELECT * FROM tblproduct ORDER BY id ASC");
+                <?php
+                try{
+                    include "connectdb.php";
+                    $title = "SELECT * FROM item";
+                    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                    $rows = $db->query($title);
+                    foreach($rows as $row){
+                        $iteid = $row['Item_ID'];
+                        $iteName = $row['ItemName'];
+                        $iteQuan = $row['Quantity'];
+                        $itePrice = $row['Price']*$iteQuan;
+
+                        echo "<br><br><table><tr>";
+                        echo "<th>Basket number</th>";
+                        echo "<th>Item name</th>";
+                        echo "<th>Quantity</th>";
+                        echo "<th>Price</th>";
+                        echo "<th>Delete Item</th></tr>";
+                        echo "<tr>";
+                        echo "<td>".$iteid."</td>";
+                        echo "<td>".$iteName."</td>";
+                        echo "<td>".$iteQuan."</td>";
+                        echo "<td>".$itePrice."</td>";
+                        echo "<td><button onclick='deleteItem()'>Delete</button><p id='delete".$iteid."'></td>";
+                        echo "</tr></table>";
+
+                        echo "<script>function deleteItem(){";
+                        echo   "var txt;";
+                        echo    "if(confirm('Are you sure you want to delete item?')){";
+                        echo        "txt = 'Successful deletion';";
+                        echo    "} else{";
+                        echo        "txt = 'Cancelled deletion';";
+                        echo    "}";
+                        echo    "document.getElementById('delete".$iteid."').innerHTML=txt;";
+                        echo "}</script>";
+
+                        }
+                    } catch(PDOException $er){
+                        echo "Display failed: " . $er->getMessage();
+                }
+                
+
+
+
+                    $product_array = $db->query("SELECT * FROM item ORDER BY Item_ID ASC");
                     if (!empty($product_array)){
                         foreach($product_array as $key=>$value){
                 ?>
@@ -115,6 +158,7 @@
 
                 <section id="remove_empty">
                     <?php
+                    switch ($variable) {
                         case "remove":
                             if(!empty($_SESSION["cart_item"])) {
                                 foreach($_SESSION["cart_item"] as $k => $v) {
@@ -128,6 +172,7 @@
                         case "empty":
                             unset($_SESSION["cart_item"]);
                                 break;
+                        }
                     ?>
                 </section>
                 <!-- Database product table for shopping cart -->

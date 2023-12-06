@@ -31,8 +31,6 @@ nav>ul{
 
 ul{
     list-style-type: none;
-    margin:0;
-    padding:0;
     overflow: hidden;
     background-color: rgb(255, 255, 255);
     position: fixed;
@@ -73,7 +71,6 @@ li a:hover{
 #filter > button {
     background-color: rgb(255, 195, 253);
     border-style: solid;
-    color:;
     padding: 16px;
     font-size: 16px;
     border: none;
@@ -112,4 +109,12 @@ li a:hover{
   
 .show {
     display: block;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    line-height: 10cm;
 }
