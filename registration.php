@@ -67,9 +67,21 @@ if (isset($_POST['user_register'])){
     $user_lastname = $_POST['LastName'];
     $user_email = $_POST['employee_email'];
     $user_pasword = $_POST['password'];
+    $confirm_pass = $_POST['confirm_pass'];
 
+    //select query for user
+    $check_user= "select * from `employees` where employee_email='$user_email'";
+    $result=mysqli_query($con, $check_user);
+    $dup_users_result=mysqli_num_rows($result);
+    if ($dup_users_result>0){
+        echo "<script>alert('this user already exists')</script>";
+    }
+    else if ($user_pasword!=$confirm_pass){
+        echo "<script>alert('the passwords do not match, please try again')</script>";
+    }
+    else{
     //put into the db
-    $insert_query = "INSERT INTO `employees` (LastName, FirstName, password, employee_email) VALUES
+    $insert_query = "INSERT INTO `employees` (LastName, FirstName, employee_email, password) VALUES
     ('$user_lastname', '$user_firstname', '$user_email', '$user_pasword')";
     
     $sql_execute = mysqli_query($con, $insert_query);
@@ -80,5 +92,7 @@ if (isset($_POST['user_register'])){
         die(mysqli_error($con));
     }
 }
+}
+
 ?>
 
