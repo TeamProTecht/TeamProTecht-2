@@ -53,6 +53,7 @@ CREATE TABLE Warranty (
     FOREIGN KEY (Item_ID) REFERENCES Item(Item_ID)
 );
 
+--Creating the User table
 CREATE TABLE User (
     User_ID INT PRIMARY KEY,
     Username VARCHAR(255),
