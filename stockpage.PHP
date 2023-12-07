@@ -228,7 +228,7 @@ h4 {
 	   <input type="number" id="iteam_shelf" name="iteam_shelf" style="display:none;"  min="0" step="1"></textarea>
 
 	   <label for="iteam_row" id="iteam_row_label" style="display:none;">row:</label>
-	   <input type="number" id="iteam_row" name="row_shelf" style="display:none;"  min="0" step="1"></textarea>
+	   <input type="number" id="iteam_row" name="iteam_row" style="display:none;"  min="0" step="1"></textarea>
 
 	  <br>
 
@@ -371,18 +371,18 @@ $Amount = $amountFilter = $shelf = $row = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $action = $_POST["action"];
-    $userAmount = $_POST["userAmount"];
-    $selectedOption = $_POST["selectedOption"];
-    $itemID = $_POST["itemID"];
-    $Amount = $_POST["amount"];
-    $amountFilter = $_POST["amountFilter"];
-    $shelf = $_POST["shelf"];
-    $row = $_POST["row"];
+    $userAmount = $_POST["user_Amount"];
+    $selectedOption = $_POST["selected_option"];
+    $itemID = $_POST["item_id"];
+    $product = $_POST["find_product"];
+    $amountFilter = $_POST["amount_Filter"];
+    $shelf = $_POST["iteam_shelf"];
+    $row = $_POST["iteam_row"];
 
-    echo " userAmount: " . $action . "<br>";
+    echo " userAmount: " . $userAmount . "<br>";
     echo "Selected Option: " . $selectedOption . "<br>";
     echo "Item ID: " . $itemID . "<br>";
-    echo "Amount: " . $Amount . "<br>";
+    echo "product: " . $product . "<br>";
     echo "Selected Option: " . $amountFilter . "<br>";
     echo "Shelf: " . $shelf . "<br>";
     echo "Row: " . $row . "<br>";
