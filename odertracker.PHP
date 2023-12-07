@@ -223,21 +223,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 }
 
-if ($selectedOption == "Y") {
+if ($status == "pending" || $status == "paid" || $status == "pending" || $status == "shipped" || $status == "received") {
     $pdo = new PDO('sqlite:stock.db');
     $statement = $pdo->query("
 		UPDATE Item
 		SET Quantity = '$userAmount'
 		WHERE Item_ID = '$itemID'");
-}
 
-if ($selectedOption == "N") {
-    $pdo = new PDO('sqlite:stock.db');
-    $statement = $pdo->query("
-		UPDATE Item
-		SET Quantity = Quantity - '$userAmount'
-		WHERE Item_ID = '$itemID'");
-}
 ?>
     <?php
     $pdo = new PDO('sqlite:stock.db');
