@@ -387,21 +387,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Shelf: " . $shelf . "<br>";
     echo "Row: " . $row . "<br>";
 }
+if ($action == "update"){
+	if ($selectedOption == "Y") {
+ 	   $pdo = new PDO('sqlite:stock.db');
+ 	   $statement = $pdo->query("
+			UPDATE Item
+			SET Quantity = '$userAmount'
+			WHERE Item_ID = '$itemID'");
+	}
 
-if ($selectedOption == "Y") {
-    $pdo = new PDO('sqlite:stock.db');
-    $statement = $pdo->query("
-		UPDATE Item
-		SET Quantity = '$userAmount'
-		WHERE Item_ID = '$itemID'");
-}
+	if ($selectedOption == "N") {
+	    $pdo = new PDO('sqlite:stock.db');
+	    $statement = $pdo->query("
+			UPDATE Item
+			SET Quantity = Quantity - '$userAmount'
+			WHERE Item_ID = '$itemID'");
+	}
 
-if ($selectedOption == "N") {
-    $pdo = new PDO('sqlite:stock.db');
-    $statement = $pdo->query("
-		UPDATE Item
-		SET Quantity = Quantity - '$userAmount'
-		WHERE Item_ID = '$itemID'");
+}elseif($action =="filter"){
+
+
+
+}else{
 }
 ?>
     <?php
