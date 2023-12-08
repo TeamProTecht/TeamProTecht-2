@@ -212,7 +212,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $shelf = $_POST["iteam_shelf"];
     $row = $_POST["iteam_row"];
 
-    echo " userAmount: " . $userAmount . "<br>";
+    echo " userAmount: " . $action . "<br>";
     echo "Selected Option: " . $selectedOption . "<br>";
     echo "Item ID: " . $itemID . "<br>";
     echo "product: " . $product . "<br>";
@@ -230,25 +230,23 @@ if ($action == "update"){
 
 
 
-    $pdo = new PDO('sqlite:new.db');
-    $statement = $pdo->query("SELECT
-    L.Shelf,
-    L.Row,
-    B.BrandName,
-    I.Item_ID,
-    I.ItemName,
-    I.Quantity
-FROM
-    Location L
-JOIN
-    Item I ON L.Location_ID = I.Location_ID
-JOIN
-    Brand B ON I.Item_ID = B.Item_ID;
+    			$pdo = new PDO('sqlite:new.db');
+   			$statement = $pdo->query("SELECT
+   			L.Shelf,
+    			L.Row,
+    			B.BrandName,
+    			I.Item_ID,
+    			I.ItemName,
+    			I.Quantity
+			FROM
+    				Location L
+			JOIN
+    				Item I ON L.Location_ID = I.Location_ID
+			JOIN
+    				Brand B ON I.Item_ID = B.Item_ID;
 
-");
-	}
-
-	if ($selectedOption == "remove") {
+			");
+	}else if($selectedOption == "remove") {
 	    $pdo = new PDO('sqlite:new.db');
 	    $statement = $pdo->query("
 			UPDATE Item
@@ -271,14 +269,16 @@ JOIN
     			Brand B ON I.Item_ID = B.Item_ID;
 
 		");
-	
+	}
 
-}elseif ($action == "filter") {
+}else if ($action == "filter") {
+	echo "Debugging - Action is 'filter'.<br>";
     $pdo = new PDO('sqlite:new.db');
     $query = "SELECT
         Location.Shelf,
         Location.Row,
         Item.ItemName,
+	Item.Item_ID,
         Brand.BrandName,
         Item.Quantity
     FROM
@@ -301,17 +301,15 @@ JOIN
         $query .= " AND Item.ItemName = '$product'";
     }
 
-    if ($selectedOption != "" && $userAmount != "") {
+    if ($amountFilter != "" && $userAmount != "") {
         $query .= " AND Item.Quantity $selectedOption '$userAmount'";
     }
 
     $query .= ";";  // End the SQL query
 
     $statement = $pdo->query($query);
-    echo "Debugging - Query: $query <br>";
-}
-
-
+    
+	
 }else{
 
     $pdo = new PDO('sqlite:new.db');
