@@ -37,21 +37,36 @@ CREATE TABLE Users (
 
 -- Creating the Basket table
 CREATE TABLE Basket (
+    Basket_ID INT AUTO_INCREMENT,
+    Quantity INT,
+    User_ID INT,
+    Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (Basket_ID),
+    FOREIGN KEY (User_ID)
+);
+
+-- Create the BasketItem table
+CREATE TABLE BasketItem (
+    BasketItem_ID INT AUTO_INCREMENT,
     Basket_ID INT,
     Item_ID INT,
     Quantity INT,
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (Item_ID) REFERENCES Item(Item_ID),
-    PRIMARY KEY (Basket_ID)
+    PRIMARY KEY (BasketItem_ID),
+    FOREIGN KEY (Basket_ID) REFERENCES Basket(Basket_ID),
+    FOREIGN KEY (Item_ID) REFERENCES Item(Item_ID)
 );
+
 
 -- Creating the Order table
 CREATE TABLE Orders (
     Order_ID INT AUTO_INCREMENT,
-    Basket_ID INT,
+    BasketNo INT,
     User_ID INT,
     Address_Order VARCHAR(255),
+    Order_Status VARCHAR(255),
     Updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (Basket_ID) REFERENCES Basket(Basket_ID),
