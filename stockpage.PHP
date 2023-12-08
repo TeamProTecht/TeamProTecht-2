@@ -412,16 +412,24 @@ if ($action == "update"){
 }
 ?>
     <?php
-    $pdo = new PDO('sqlite:stock.db');
-    $statement = $pdo->query("SELECT Location.Shelf, Location.RowNum, Brand.BrandName, Item.Quantity
-        FROM Item
-        JOIN SerialNumber ON Item.SerialNumber = SerialNumber.Serial_ID
-        JOIN Location ON SerialNumber.Location_ID = Location.Location_ID
-        JOIN Brand ON SerialNumber.Brand_ID = Brand.Brand_ID;");
+    $pdo = new PDO('sqlite:new.db');
+    $statement = $pdo->query("SELECT
+    L.Shelf,
+    L.Row,
+    B.BrandName,
+    I.ItemName,
+    I.Quantity
+FROM
+    Location L
+JOIN
+    Item I ON L.Location_ID = I.Location_ID
+JOIN
+    Brand B ON I.Item_ID = B.Item_ID;
+");
 
     foreach ($statement as $rows) {
         print "<td>" . $rows['Shelf'] . "</td>";
-        print "<td>" . $rows['RowNum'] . "</td>";
+        print "<td>" . $rows['Row'] . "</td>";
 	print "<td>" . $rows['ItemName'] . "</td>";
         print "<td>" . $rows['BrandName'] . "</td>";
         print "<td>" . $rows['Quantity'] . "</td><tr>";
