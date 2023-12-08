@@ -179,11 +179,16 @@ h4 {
 
 
 
+<head>
 
+<script>
+  if (performance.navigation.type === 1) {
+    // The page is reloaded, redirect to a different website
+    window.location.href = 'http://localhost/demo/stockpage.PHP';
+  }
+</script>
 
-
-
-
+</head>
 
 
 <form method="post" action=""><br>
@@ -204,7 +209,7 @@ h4 {
 	  <label for="selected_option" id="selected_option_label" style="display:none;">selected_option:</label>
 	  <select name="selected_option" id="selected_option" style="display:none;">
 		<option value="null">select</option>
-      	<option value="set to">set to</option>
+      	<option value="setto">set to</option>
       	<option value="remove">remove</option>
 
 	   </select>
@@ -359,9 +364,16 @@ h4 {
         <th>Shelf</th>
         <th>RowNum</th>
 	<th>product name</th>
+	<th>item id</th>
         <th>BrandName</th>
         <th>Quantity</th>
     </tr>
+
+
+    
+
+
+
 <?php
 
 
@@ -388,20 +400,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     echo "Row: " . $row . "<br>";
 }
 if ($action == "update"){
-	if ($selectedOption == "Y") {
- 	   $pdo = new PDO('sqlite:stock.db');
+	if ($selectedOption == "setto") {
+ 	   $pdo = new PDO('sqlite:new.db');
  	   $statement = $pdo->query("
 			UPDATE Item
 			SET Quantity = '$userAmount'
-			WHERE Item_ID = '$itemID'");
+			WHERE Item_ID = '$itemID';");
 	}
 
-	if ($selectedOption == "N") {
-	    $pdo = new PDO('sqlite:stock.db');
+	if ($selectedOption == "remove") {
+	    $pdo = new PDO('sqlite:new.db');
 	    $statement = $pdo->query("
 			UPDATE Item
 			SET Quantity = Quantity - '$userAmount'
-			WHERE Item_ID = '$itemID'");
+			WHERE Item_ID = '$itemID';");
 	}
 
 }elseif($action =="filter"){
@@ -411,12 +423,13 @@ if ($action == "update"){
 }else{
 }
 ?>
-    <?php
+<?php
     $pdo = new PDO('sqlite:new.db');
     $statement = $pdo->query("SELECT
     L.Shelf,
     L.Row,
     B.BrandName,
+    I.Item_ID,
     I.ItemName,
     I.Quantity
 FROM
@@ -425,12 +438,14 @@ JOIN
     Item I ON L.Location_ID = I.Location_ID
 JOIN
     Brand B ON I.Item_ID = B.Item_ID;
+
 ");
 
     foreach ($statement as $rows) {
         print "<td>" . $rows['Shelf'] . "</td>";
         print "<td>" . $rows['Row'] . "</td>";
 	print "<td>" . $rows['ItemName'] . "</td>";
+	print "<td>" . $rows['Item_ID'] . "</td>";
         print "<td>" . $rows['BrandName'] . "</td>";
         print "<td>" . $rows['Quantity'] . "</td><tr>";
     }
