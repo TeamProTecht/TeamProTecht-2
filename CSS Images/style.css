@@ -42,7 +42,6 @@ h1{
   
   .row::after {
     content: "";
-    clear: both;
     display: table;
   }
 
