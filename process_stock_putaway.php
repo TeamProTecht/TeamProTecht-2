@@ -1,11 +1,8 @@
 <?php
-$servername = "localhost";
-$username = "U";
-$password = "P";
-$dbname = "Stock";
+
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn=mysqli_connect('localhost','root','','cs2tp');
 
 // Check connection
 if ($conn->connect_error) {
