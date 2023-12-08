@@ -13,175 +13,95 @@
         <link rel="stylesheet" href="CSS Images\style.css" />
         <script defer src="JavaScript/script.js"></script>
         <!-- Add icon library -->
-        <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> -->
-        
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
     <body>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
         <!--Creating the navigation bar-->
         <nav>
             <ul>         
                 <!--3 different tabs with links to each page-->
                 <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
-                <li><a href="Teamprotecht - HomePage.html">Home</a></li>
+                <li><a href="HomePage.html">Home</a></li>
                 <li><a href="browse.html">Browse</a></li>
-                <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
-                <li style="float:right"><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
-                        
+                <li><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
+                <li><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
             </ul>
         </nav>
 
         <main>
+            <h2>Your Basket</h2>
             <section id="basket">
-                <!-- Create a product gallery for shopping cart -->
+                <!-- Create a Basket with a button to checkout -->
                 <?php
                 try{
                     include "connectdb.php";
-                    $title = "SELECT * FROM item";
-                    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                    //if(isset($_POST["submitted"])){
+                        //$user = $_SESSION["username"];
 
-                    $rows = $db->query($title);
-                    foreach($rows as $row){
-                        $iteid = $row['Item_ID'];
-                        $iteName = $row['ItemName'];
-                        $iteQuan = $row['Quantity'];
-                        $itePrice = $row['Price']*$iteQuan;
+                        $basket = "SELECT * FROM `basket` WHERE User_ID = `2`";
 
-                        echo "<br><br><table><tr>";
-                        echo "<th>Basket number</th>";
-                        echo "<th>Item name</th>";
-                        echo "<th>Quantity</th>";
-                        echo "<th>Price</th>";
-                        echo "<th>Delete Item</th></tr>";
-                        echo "<tr>";
-                        echo "<td>".$iteid."</td>";
-                        echo "<td>".$iteName."</td>";
-                        echo "<td>".$iteQuan."</td>";
-                        echo "<td>".$itePrice."</td>";
-                        echo "<td><button onclick='deleteItem()'>Delete</button><p id='delete".$iteid."'></td>";
-                        echo "</tr></table>";
+                        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                        echo "<script>function deleteItem(){";
-                        echo   "var txt;";
-                        echo    "if(confirm('Are you sure you want to delete item?')){";
-                        echo        "txt = 'Successful deletion';";
-                        echo    "} else{";
-                        echo        "txt = 'Cancelled deletion';";
-                        echo    "}";
-                        echo    "document.getElementById('delete".$iteid."').innerHTML=txt;";
-                        echo "}</script>";
+                        $basketItems = $db->query($basket);
+                        foreach($basketItems as $basketItem){
+                            $basketID = $basketItem['Basket_ID'];
+                            $primarykey = $basketID;
+                            $basketUserID = $basketItem['User_ID'];
+                            $itemID = $basketItem['Item_ID'];
+                            $itemQuan = $basketItem['Quantity'];
 
-                        }
-                    } catch(PDOException $er){
-                        echo "Display failed: " . $er->getMessage();
-                }
-                
+                            $itemList = "SELECT * FROM `item` WHERE Item_ID= $itemID";
+                            $item = $db->query($itemList);
 
+                            echo "<table><tr>";
+                            echo "<th>Basket number</th>";
+                            echo "<th>Item name</th>";
+                            echo "<th>Quantity</th>";
+                            echo "<th>Price</th>";
+                            echo "<th>Delete Item</th></tr>";
+                            foreach($item as $itemInfo){
+                                $itemName = $itemInfo['ItemName'];
+                                $itemPrice = $itemInfo['Price']*$itemQuan;
+                            
+                                echo "<tr>";
+                                echo "<td>".$itemID."</td>";
+                                echo "<td>".$itemName."</td>";
+                                echo "<td>".$itemQuan."</td>";
+                                echo "<td>".$itemPrice."</td>";
+                                echo "<td><button onclick='deleteItem()'>Delete</button><p id='delete".$itemID."'></td></tr>";
 
-
-                    $product_array = $db->query("SELECT * FROM item ORDER BY Item_ID ASC");
-                    if (!empty($product_array)){
-                        foreach($product_array as $key=>$value){
-                ?>
-                <div class="product-item">
-                    <form method="post" action="index.php?action=add&code=<?php echo $product_array[$key]["code"]; ?>">
-		                <div class="product-image"><img src="<?php echo $product_array[$key]["image"]; ?>"></div>
-		                <div class="product-tile-footer">
-		                <div class="product-title"><?php echo $product_array[$key]["name"]; ?></div>
-		                <div class="product-price"><?php echo "$".$product_array[$key]["price"]; ?></div>
-		                <div class="cart-action"><input type="text" class="product-quantity" name="quantity" value="1" size="2" /><input type="submit" value="Add to Cart" class="btnAddAction" /></div>
-		                </div>
-		            </form>
-	            </div>
-                <?php
-                        }
-                    }
-                    ?>
-                    <!-- List cart items from the PHP session -->
-
-            <div id="shopping-cart"> 
-                <div class="txt-heading">Shopping Cart</div>
-
-                <a id="btnEmpty" href="index.php?action=empty">Empty Cart</a>
-                <?php
-                    if(isset($_SESSION["cart_item"])){
-                    $total_quantity = 0;
-                    $total_price = 0;
-                ?>	
-                <table class="tbl-cart" cellpadding="10" cellspacing="1">
-                    <tbody>
-                        <tr>
-                            <th style="text-align:left;">Name</th>
-                            <th style="text-align:left;">Code</th>
-                            <th style="text-align:right;" width="5%">Quantity</th>
-                            <th style="text-align:right;" width="10%">Unit Price</th>
-                            <th style="text-align:right;" width="10%">Price</th>
-                            <th style="text-align:center;" width="5%">Remove</th>
-                        </tr>	
-                    <?php		
-                        foreach ($_SESSION["cart_item"] as $item){
-                        $item_price = $item["quantity"]*$item["price"];
-		            ?>
-				        <tr>
-				            <td><img src="<?php echo $item["image"]; ?>" class="cart-item-image" /><?php echo $item["name"]; ?></td>
-				            <td><?php echo $item["code"]; ?></td>
-				            <td style="text-align:right;"><?php echo $item["quantity"]; ?></td>
-				            <td style="text-align:right;"><?php echo "$ ".$item["price"]; ?></td>
-				            <td style="text-align:right;"><?php echo "$ ". number_format($item_price,2); ?></td>
-				            <td style="text-align:center;"><a href="index.php?action=remove&code=<?php echo $item["code"]; ?>" class="btnRemoveAction"><img src="icon-delete.png" alt="Remove Item" /></a></td>
-				        </tr>
-				    <?php
-				        $total_quantity += $item["quantity"];
-				        $total_price += ($item["price"]*$item["quantity"]);
-		                }
-		            ?>
-
-                        <tr>
-                            <td colspan="2" align="right">Total:</td>
-                            <td align="right"><?php echo $total_quantity; ?></td>
-                            <td align="right" colspan="2"><strong><?php echo "$ ".number_format($total_price, 2); ?></strong></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>		
-                <?php
-                    } else {
-                ?>
-                <div class="no-records">Your Cart is Empty</div>
-                <?php 
-                    }
-                ?>
-                </div>
-                </section>
-
-                <section id="remove_empty">
-                    <?php
-                    switch ($variable) {
-                        case "remove":
-                            if(!empty($_SESSION["cart_item"])) {
-                                foreach($_SESSION["cart_item"] as $k => $v) {
-                                    if($_GET["code"] == $k)
-                                    unset($_SESSION["cart_item"][$k]);				
-                                    if(empty($_SESSION["cart_item"]))
-                                        unset($_SESSION["cart_item"]);
-                                }
+                                echo "<script>function deleteItem(){";
+                                echo   "var txt;";
+                                echo    "if(confirm('Are you sure you want to delete item?')){";
+                                echo        "txt = 'Successful deletion';";
+                                echo    "} else{";
+                                echo        "txt = 'Cancelled deletion';";
+                                echo    "}";
+                                echo    "document.getElementById('delete".$itemID."').innerHTML=txt;";
+                                echo "}</script>";
                             }
-                            break;
-                        case "empty":
-                            unset($_SESSION["cart_item"]);
-                                break;
-                        }
-                    ?>
-                </section>
-                <!-- Database product table for shopping cart -->
-                <section id="databaseproducttable">
-                    
-                </section>
-            <section id="checkout">
+                            echo "</table>";
 
-            </section>
+                            //When button "checkout" is clicked, send basket and single user to order table
+                            echo "<button id='checkout' action='checkout.php' onclick='checkout()>Checkout</button>";
+                            echo "<script>function checkout(){";
+                                    ?><?php $sendOrder = 'INSERT INTO orders (`Basket_ID`, `User_ID`);
+                                    VALUES (:basket, :basketuserID)'; //Display failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '2' in 'where clause'
+                                    $statement = $db->prepare($sendOrder);
+                                    $statement->bindParam(':basket', $basketID, PDO::PARAM_INT);
+                                    $statement->bindParam(':basketuserID', $basketUserID, PDO::PARAM_INT); 
+                                    $statement->execute(); ?><?php
+                            echo "}</script>";
+                        }
+                    //} //else{
+                        //echo "Not logged in";
+                        //header("Location: HomePage.html");
+                    //}
+                } catch(PDOException $er){
+                    echo "Display failed: " . $er->getMessage();
+                }
+                ?>
         </main>
     </body>
 </html>
