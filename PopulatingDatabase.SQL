@@ -87,3 +87,23 @@ INSERT INTO Users (Username, Password, Fore_name, Second_Name, Last_Name, Addres
 ('lisa_moore', 'password105', 'Lisa', 'Renee', 'Moore', '105 Spruce St'),
 ('robert_taylor', 'password106', 'Robert', 'James', 'Taylor', '106 Ash St'),
 ('laura_martin', 'password107', 'Laura', 'Michelle', 'Martin', '107 Cherry St');
+
+INSERT INTO Basket (User_ID) VALUES
+(1),
+(2),
+(3),
+(4);
+
+INSERT INTO Orders (Basket_ID, User_ID, Address_Order, Order_Status) VALUES
+(1, 1, '123 Main St', 'Pending'),
+(2, 1, '123 Main St', 'Pending'),
+(3, 2, '456 Elm St', 'Pending');
+
+INSERT INTO BasketItem (Basket_ID, Item_ID, Quantity) VALUES
+(1, 1, 3),
+(1, 2, 3),
+(1, 5, 2),
+(2, 1, 3),
+(2, 3, 4),
+(2, 2, 5),
+(3, 1, 10);
