@@ -1,178 +1,3 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Phone Selling Stock System</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-image: url('backgroundimage.jpg.png');
-            /* Replace 'your-background-image.jpg' with the actual path to your image file */
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-        }
-
-        .navbar {
-            background-color: rgb(73, 7, 73);
-            overflow: hidden;
-        }
-
-        .navbar ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar ul li {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        .navbar ul li a {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        .navbar li.logout-link {
-            float: right;
-            /* Move the logout link to the right */
-        }
-
-        .logout-link {
-            text-decoration: none;
-            color: #f44336;
-            padding: 14px 16px;
-            display: block;
-        }
-
-        .logout-link:hover {
-            background-color: #f44336;
-            color: white;
-        }
-
-        .header {
-            display: flex;
-            align-items: center;
-            background-color: #f2f2f2;
-            padding: 20px;
-        }
-
-        .navbar img:first-of-type {
-            float: left;
-            width: 100px;
-            height: auto;
-            margin-right: 20px;
-        }
-
-        h1 {
-            text-align: center;
-            color: purple;
-        }
-
-        .header img:first-of-type {
-            width: 50px;
-            height: auto;
-            margin-right: auto;
-        }
-
-        .login-signup {
-            float: left;
-        }
-
-        .login-signup a {
-            margin-left: 10px;
-            text-decoration: none;
-            color: purple;
-        }
-
-        .main-content {
-            margin: 20px;
-        }
-
-        form {
-            max-width: 300px;
-            margin: auto;
-        }
-
-        form label {
-            font-weight: bold;
-        }
-
-        form input[type="text"] {
-            width: 100%;
-            padding: 12px 20px;
-            margin: 8px 0;
-            box-sizing: border-box;
-        }
-
-        form input[type="submit"] {
-            background-color: purple;
-            color: white;
-            padding: 14px 20px;
-            margin: 8px 0;
-            border: none;
-            cursor: pointer;
-            width: 100%;
-        }
-
-        form input[type="submit"]:hover {
-            background-color: #a19c9c;
-        }
-        .select-buttons {
-            display: flex;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
-        .select-buttons button {
-               margin: 0;
-    color: white;
-	    background-color: rgb(73, 7, 73);
-
-        }
-
-        .filtering {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-h4 {
-    text-align: center;
-    text-transform: uppercase;
-}
-
-.filtering label, .filtering input, .filtering select {
-    margin: 0 10px;
-}
-    </style>
-</head>
-
-    <body>
-    <div class="navbar">
-        <!-- Menu Bar -->
-        <ul>
-          <div class="logo-container1">
-            <img src="teamprotech.png.png" alt="Logo 1">
-          </div>
-            <li><a href="http://localhost/Year%202%20Team%20Project/confirmorders.html">Confirm Orders</a></li>
-            <li><a href="http://localhost/Year%202%20Team%20Project/pendingorders.html">Pending Orders</a></li>
-            <li><a href="http://localhost/Year%202%20Team%20Project/fulfilledorders.html">Fulfilled Orders</a></li>
-            <li><a href="file:///C:/xampp/htdocs/Year%202%20Team%20Project/stocksystem.html">Stock Put Away</a></li>
-            <li class="logout-link"><a href="http://localhost/Year%202%20Team%20Project/login.html" onclick="logout()">Logout</a></li>
-        </ul>
-    </div>
-
-
 
 
 
@@ -188,6 +13,12 @@ h4 {
     <option value="shipped">Shipped</option>
     <option value="received">Received</option>
 </select>
+<label for="oderSelect">Select oeder:</label>
+<select id="oderSelect" name="status">
+    <option value="select">select</option>
+    <option value="accending">accending</option>
+    <option value="decending">decending</option>
+</select>
 <br>
     <input type="submit" value="Submit">
 </form>
@@ -197,54 +28,92 @@ h4 {
 
 
 
-
-
-
 <table border="1">
     <tr>
-        <th>vlues</th>
-        <th>vlues</th>
-	<th>vlues</th>
-        <th>vlues</th>
-        <th>vlues</th>
+        <th>oder id</th>
+        <th>adress</th>
+	<th>iteam id</th>
+        <th>item name</th>
+        <th>oder status</th>
+	<th>updated at</th>
+	<th>row</th>
+	<th>shelf</th>
+	<th>quanity</th>
     </tr>
 <?php
 
 
 
-$userAmount = $selectedOption = $itemID = "";
-$Amount = $amountFilter = $shelf = $row = "";
+$status="";
+$oder= "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
     $status = $_POST["statusSelect"];
+    $oder = $_POST["oderSelect"];
 
     echo " staus: " . $statusSelect . "<br>";
 
 }
 
 if ($status == "pending" || $status == "paid" || $status == "pending" || $status == "shipped" || $status == "received") {
-    $pdo = new PDO('sqlite:stock.db');
-    $statement = $pdo->query("
-		UPDATE Item
-		SET Quantity = '$userAmount'
-		WHERE Item_ID = '$itemID'");
 
+	if($oder == "decending"){
+
+	}elseif($oder == "accending"){
+	}else{
+
+    		$pdo = new PDO('sqlite:new.db');
+    		$statement = $pdo->query("SELECT
+   		 Orders.Order_ID,
+    		Orders.Address_Order AS Order_Address,
+    		Item.Item_ID,
+    		Item.ItemName,
+    		Orders.Order_Status,
+    		Orders.Updated_at AS Order_Updated_at,
+    		Location.Row,
+    		Location.Shelf,
+    		BasketItem.Quantity AS Basket_Quantity
+		FROM Orders
+		JOIN Basket ON Orders.Basket_ID = Basket.Basket_ID
+		JOIN BasketItem ON Orders.Basket_ID = BasketItem.Basket_ID
+		JOIN Item ON BasketItem.Item_ID = Item.Item_ID
+		JOIN Location ON Item.Location_ID = Location.Location_ID;
+		");
+	}
+}
 ?>
     <?php
-    $pdo = new PDO('sqlite:stock.db');
-    $statement = $pdo->query("SELECT Location.Shelf, Location.RowNum, Brand.BrandName, Item.Quantity
-        FROM Item
-        JOIN SerialNumber ON Item.SerialNumber = SerialNumber.Serial_ID
-        JOIN Location ON SerialNumber.Location_ID = Location.Location_ID
-        JOIN Brand ON SerialNumber.Brand_ID = Brand.Brand_ID;");
+    $pdo = new PDO('sqlite:new.db');
+    $statement = $pdo->query("SELECT
+    Orders.Order_ID,
+    Orders.Address_Order AS Order_Address,
+    Item.Item_ID,
+    Item.ItemName,
+    Orders.Order_Status,
+    Orders.Updated_at AS Order_Updated_at,
+    Location.Row,
+    Location.Shelf,
+    BasketItem.Quantity AS Basket_Quantity
+FROM Orders
+JOIN Basket ON Orders.Basket_ID = Basket.Basket_ID
+JOIN BasketItem ON Orders.Basket_ID = BasketItem.Basket_ID
+JOIN Item ON BasketItem.Item_ID = Item.Item_ID
+JOIN Location ON Item.Location_ID = Location.Location_ID;");
 
+    
     foreach ($statement as $rows) {
-        print "<td>" . $rows['Shelf'] . "</td>";
-        print "<td>" . $rows['RowNum'] . "</td>";
+        print "<td>" . $rows['Order_ID'] . "</td>";
+        print "<td>" . $rows['Address_Order'] . "</td>";
+	print "<td>" . $rows['Item_ID'] . "</td>";
 	print "<td>" . $rows['ItemName'] . "</td>";
-        print "<td>" . $rows['BrandName'] . "</td>";
-        print "<td>" . $rows['Quantity'] . "</td><tr>";
+        print "<td>" . $rows['Order_Status'] . "</td>";
+        print "<td>" . $rows['Updated_at'] . "</td>";
+	print "<td>" . $rows['Basket_Quantity'] . "</td>";
+print "<td>" . $rows['Row'] . "</td>";
+print "<td>" . $rows['Shelf'] . "</td>";
+print "<td>" . $rows['Quantity'] . "</td><tr>";
+	
     }
     ?>
 </table>
