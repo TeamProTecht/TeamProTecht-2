@@ -1,81 +1,81 @@
-<!--Specifying that we using HTML-->
 <!DOCTYPE html>
-
-<!--Specifying that language is English-->
 <html lang="en">
 
-    <head>
-        <!--Specifying character set-->
-        <meta charset="UTF-8"/>
-        <!--Title of web page-->
-        <title>Teamprotecht</title>
-        <!--Attaching css file-->
-        <link rel="stylesheet" href="CSS Images\style.css" />
-        <script defer src="JavaScript/script.js"></script>
-        <!-- Add icon library -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<head>
+    <meta charset="UTF-8" />
+    <title>Teamprotecht</title>
+    <link rel="stylesheet" href="CSS Images\style.css" />
+    <script defer src="JavaScript/script.js"></script>
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-    </head>
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <nav>
+        <ul>
+            <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
+            <li><a href="HomePage.html">Home</a></li>
+            <li><a href="browse.html">Browse</a></li>
+            <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
+            <li style="float:right"><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
+        </ul>
+    </nav>
 
-    <body>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
-        <!--Creating the navigation bar-->
-                <nav>
-                    <ul>
-                            <!--3 different tabs with links to each page-->
-                            <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
-                            <li><a href="HomePage.html">Home</a></li>
-                            <li><a href="browse.html">Browse</a></li>
-                            <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
-                            <li style="float:right"><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
-                    </ul>
-                </nav>
+    <main>
+        <h2>Search products</h2>
+        <form action="browse.html">
+            <input type="text" id="searchbox" placeholder="Input search term/s">
+            <input type="submit" value="Submit" onsubmit="searchSQL()">
+        </form>
 
-                <main>
-                    <h2>Search products</h2>
-                    <form action ="browse.html">
-                        <input type ="text" id="searchbox" placeholder="Input search term/s">
-                        
-                        <input type="submit" value="Submit" onsubmit="searchSQL()">
-                    </form>
-                    <section id ="filter">
-                        <h3>Refine</h3>
+        <!--The filter section is responsible for users to filter
+            products by price, colour and brand, providing a more
+            interactive UI
+        -->
 
-                        <button onclick = "myPrices()" id="dropbtn" value="Prices" class="dropbtn">Prices</button>
-                        <div id="myPriceDropdown" class="dropdown-content">
-                            <input type="checkbox" id="price1" name="price1">
-                            <label for="price1">£0 to £100</label><br>
-                            <input type="checkbox" id="price2" name="price2">
-                            <label for="price2">£100 to £200</label><br>
-                            <input type="checkbox" id="price3" name="price3">
-                            <label for="price3">£200 to £300</label><br>
-                        </div><br>
-                        <button onclick = "myColours()" id="dropbtn" value="Colours" class="dropbtn">Colours</button>
-                        <div id="myColourDropdown" class="dropdown-content">
-                            <input type="checkbox" id="colour1" name="colour1">
-                            <label for="colour1">Blue</label><br>
-                            <input type="checkbox" id="colour2" name="colour2">
-                            <label for="colour2">Red</label><br>
-                            <input type="checkbox" id="colour3" name="colour3">
-                            <label for="colour3">Black</label><br>
-                            <input type="checkbox" id="colour4" name="colour4">
-                            <label for="colour4">White</label><br>
-                        </div><br>
-                        <button onclick = "myBrands()" id="dropbtn" value="Colours" class="dropbtn">Brands</button>
-                        <div id="myBrandDropdown" class="dropdown-content">
-                            <input type="checkbox" id="brand1" name="brand1">
-                            <label for="brand1">Samsung</label><br>
-                            <input type="checkbox" id="brand2" name="brand2">
-                            <label for="brand2">Apple</label><br>
-                            <input type="checkbox" id="brand3" name="brand3">
-                            <label for="brand3">Haewei</label><br>
-                            <input type="checkbox" id="brand4" name="brand4">
-                            <label for="brand4">Google</label><br>
-                            <input type="checkbox" id="brand5" name="brand5">
-                            <label for="brand5">Blackberry</label><br>
-                        </div><br>
-                    </section>
-                </main>
-    </body>
+        <section id="filter">
+            <h3>Refine</h3>
+            <button onclick="myPrices()" id="dropbtn" value="Prices" class="dropbtn">Prices</button>
+            <div id="myPriceDropdown" class="dropdown-content">
+                <input type="checkbox" id="price1" name="price1">
+                <label for="price1">£0 to £100</label><br>
+                <input type="checkbox" id="price2" name="price2">
+                <label for="price2">£100 to £200</label><br>
+                <input type="checkbox" id="price3" name="price3">
+                <label for="price3">£200 to £300</label><br>
+            </div><br>
+
+            <button onclick="myColours()" id="dropbtn" value="Colours" class="dropbtn">Colours</button>
+            <div id="myColourDropdown" class="dropdown-content">
+                <input type="checkbox" id="colour1" name="colour1">
+                <label for="colour1">Blue</label><br>
+                <input type="checkbox" id="colour2" name="colour2">
+                <label for="colour2">Red</label><br>
+                <input type="checkbox" id="colour3" name="colour3">
+                <label for="colour3">Black</label><br>
+                <input type="checkbox" id="colour4" name="colour4">
+                <label for="colour4">White</label><br>
+            </div><br>
+
+            <button onclick="myBrands()" id="dropbtn" value="Colours" class="dropbtn">Brands</button>
+            <div id="myBrandDropdown" class="dropdown-content">
+                <input type="checkbox" id="brand1" name="brand1">
+                <label for="brand1">Samsung</label><br>
+                <input type="checkbox" id="brand2" name="brand2">
+                <label for="brand2">Apple</label><br>
+                <input type="checkbox" id="brand3" name="brand3">
+                <label for="brand3">Haewei</label><br>
+                <input type="checkbox" id="brand4" name="brand4">
+                <label for="brand4">Google</label><br>
+                <input type="checkbox" id="brand5" name="brand5">
+                <label for="brand5">Blackberry</label><br>
+            </div><br>
+        </section>
+    </main>
+</body>
 </html>

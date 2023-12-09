@@ -23,3 +23,11 @@ window.onclick = function(event) {
         }
     }
 }
+
+// When the user clicks on the "Shop Now!"
+// button, it lands on the browse page
+// to browse for a product that suits 
+// their personal needs
+function shopNowBtn() {
+    location.replace("browse.html");
+}
