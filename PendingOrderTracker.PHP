@@ -189,7 +189,7 @@ h4 {
         <th>Order Status</th>
     </tr>
     <?php
-    $pdo = new PDO('mysql:host=localhost;dbname=stocktestbasket', 'root', '');
+    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $ordersQuery = "SELECT * FROM Orders WHERE Order_Status = 'Pending'";
     $ordersStatement = $pdo->query($ordersQuery);
 
