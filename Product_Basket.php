@@ -35,24 +35,22 @@
                 <!-- Create a Basket with a button to checkout -->
                 <?php
                 try{
-                    include "connectdb.php";
+                    $db = new PDO('mysql:host=localhost;dbname=stocktestbasket', 'root', '' );
                     //if(isset($_POST["submitted"])){
                         //$user = $_SESSION["username"];
 
-                        $basket = "SELECT * FROM `basket` WHERE User_ID = '2'";
+                        $sql1 = "SELECT * FROM `basket` WHERE User_ID = '2'";
 
                         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-                        $basketItems = $db->query($basket);
-                        foreach($basketItems as $basketItem){
-                            $basketID = $basketItem['Basket_ID'];
-                            $primarykey = $basketID;
-                            $basketUserID = $basketItem['User_ID'];
-                            $itemID = $basketItem['Item_ID'];
-                            $itemQuan = $basketItem['Quantity'];
+                        $usersBaskets = $db->query($sql1);
+                        foreach($usersBaskets as $usersBasket){
+                            $basketID = $usersBasket['Basket_ID'];
+                            $basketUserID = $usersBasket['User_ID'];
 
-                            $itemList = "SELECT * FROM `item` WHERE Item_ID= $itemID";
-                            $item = $db->query($itemList);
+                            $sql2 = "SELECT * FROM `basketitem` WHERE Basket_ID = $basketID";
+                            
+                            $basketItems = $db->query($sql2);
 
                             echo "<br><table><tr>";
                             echo "<th>Basket number</th>";
@@ -60,26 +58,37 @@
                             echo "<th>Quantity</th>";
                             echo "<th>Price</th>";
                             echo "<th>Delete Item</th></tr>";
-                            foreach($item as $itemInfo){
-                                $itemName = $itemInfo['ItemName'];
-                                $itemPrice = $itemInfo['Price']*$itemQuan;
-                            
-                                echo "<tr>";
-                                echo "<td>".$itemID."</td>";
-                                echo "<td>".$itemName."</td>";
-                                echo "<td>".$itemQuan."</td>";
-                                echo "<td>".$itemPrice."</td>";
-                                echo "<td><button onclick='deleteItem()'>Delete</button><p id='delete".$itemID."'></td></tr>";
+                            foreach($basketItems as $basketItem){
+                                $basketItemID = $basketItem['Item_ID'];
+                                $basketItemQuantity = $basketItem['Quantity'];
 
-                                echo "<script>function deleteItem(){";
-                                echo   "var txt;";
-                                echo    "if(confirm('Are you sure you want to delete item?')){";
-                                echo        "txt = 'Successful deletion';";
-                                echo    "} else{";
-                                echo        "txt = 'Cancelled deletion';";
-                                echo    "}";
-                                echo    "document.getElementById('delete".$itemID."').innerHTML=txt;";
-                                echo "}</script>";
+                                $sql3 = "SELECT * FROM `item` WHERE Item_ID = $basketItemID";
+
+                                $items = $db->query($sql3);
+
+                                foreach($items as $item){
+                                    $itemName = $item['ItemName'];
+                                    $itemTotalPrice = $item['Price']*$basketItemQuantity;
+                                    
+                                    
+                                    echo "<tr>";
+                                    echo "<td>".$basketItemID."</td>";
+                                    echo "<td>".$itemName."</td>";
+                                    echo "<td>".$basketItemQuantity."</td>";
+                                    echo "<td>".$itemTotalPrice."</td>";
+                                    echo "<td><button onclick='deleteItem()'>Delete</button><p id='delete".$basketItemID."'></td></tr>";
+    
+                                    echo "<script>function deleteItem(){";
+                                    echo   "var txt;";
+                                    echo    "if(confirm('Are you sure you want to delete item?')){";
+                                    echo        "txt = 'Successful deletion';";
+                                    echo    "} else{";
+                                    echo        "txt = 'Cancelled deletion';";
+                                    echo    "}";
+                                    echo    "document.getElementById('delete".$basketItemID."').innerHTML=txt;";
+                                    echo "}</script>";
+                                }
+                                
                             }
                             echo "</table>";
 
