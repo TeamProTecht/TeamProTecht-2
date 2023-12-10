@@ -312,7 +312,7 @@ if ($action == "update"){
 	
 }else{
 
-    $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     L.Shelf,
     L.Row,
