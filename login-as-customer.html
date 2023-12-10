@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <title>Customer Login Page</title>
+    <script defer src="script/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css"
@@ -27,14 +28,14 @@
                 <div class="card-body">
                     <h3 class="card-title">Customer Login</h3>
                     <p class="card-text">Use your personal email and your password to login</p>
-                    <form onsubmit="return validateForm()" method="post" required>
+                    <form onsubmit="return validateCustomerForm()" method="post" required>
                         <label for="emailAddress">Email Address</label>
-                        <input type="email" name="emailAddress" required />
+                        <input id="userEmail" type="email" name="emailAddress" required />
                         <br><br>
-                        <label for="userPassword">Password</label>
-                        <input type="password" name="userPassword" required />
+                        <label for="userPass">Password</label>
+                        <input id="userPassword" type="password" name="userPass" required />
                         <br><br>
-                        <button class="loginbtn" onclick="validateForm()">Login</button>
+                        <button class="loginbtn" onclick="validateCustomerForm()">Login</button>
                         <p>If you haven't created an account, click on the underlined link below.<br><a
                                 href="register-as-customer.html">Create a customer account</a></p>
                     </form>
