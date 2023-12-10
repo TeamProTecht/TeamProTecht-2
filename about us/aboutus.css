@@ -15,8 +15,16 @@ header {
     flex-direction: column;
 }
 
+.nav-bar{
+    position: fixed;
+    background: #fff;
+}
+
 .header-content {
+    position: fixed;
     display: flex;
+    width: max-content;
+    
     justify-content: space-between;
     align-items: center;
 }
@@ -471,3 +479,4 @@ footer {
     text-align: center;
     padding: 1em 0;
 }
+
