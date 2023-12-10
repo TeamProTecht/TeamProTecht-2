@@ -19,15 +19,19 @@
     <body>
         <!--Creating the navigation bar-->
         <nav>
-            <ul>         
-                <!--3 different tabs with links to each page-->
-                <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
-                <li><a href="HomePage.html">Home</a></li>
-                <li><a href="browse.html">Browse</a></li>
-                <li><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
-                <li><a href="customerLogin.html"><i class="fa fa-user"></i></a></li>
-            </ul>
-        </nav>
+                    <ul>
+                        
+                        <!--3 different tabs with links to each page-->
+                        <li><img src="CSS Images\logo.png" width="90px" height="65px"></li>
+                        <li><a href="">Browse</a></li>
+                        <li><a href="">iPhone</a> </li>
+                        <li><a href="">Android</a></li>
+                        <li style="float:right"><a href="#"><i class="fa fa-shopping-basket"></i></a></li>
+                        <li style="float:right"><a href="#"><i class="fa fa-user"></i></a></li>
+                        <li style="float:right"><a href="#"><i class="fa fa-search"></i></a></li>
+                        
+                    </ul>
+                </nav>
 
         <main>
             <h2>Your Basket</h2>
