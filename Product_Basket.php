@@ -35,7 +35,7 @@
                 <!-- Create a Basket with a button to checkout -->
                 <?php
                 try{
-                    $db = new PDO('mysql:host=localhost;dbname=stocktestbasket', 'root', '' );
+                    $db = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '' );
                     //if(isset($_POST["submitted"])){
                         //$user = $_SESSION["username"];
 
