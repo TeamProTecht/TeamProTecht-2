@@ -45,7 +45,11 @@ table{
 
 ul{
     list-style-type: none;
+    margin:0;
+    padding:0;
     overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
     top: 0%;
     width: 100%;
 }
@@ -122,3 +126,6 @@ li a:hover{
 .show {
     display: block;
 }
+
+
+
