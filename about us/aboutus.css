@@ -94,10 +94,10 @@ p {
 
 
 .shadow-box {
-    background-color: rgba(4, 0, 12, 0.322); /* Semi-transparent black background */
+    background-color: rgba(4, 0, 12, 0.322); 
     padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); /* Box shadow for a subtle effect */
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.8); 
 }
 
 nav {
@@ -105,7 +105,7 @@ nav {
     color: #fff;
     text-align: center;
     padding: 15px 0;
-    box-shadow: 0 2px 5px #fff(0, 0, 0, 0.2); /* Add shadow to the navigation bar */
+    box-shadow: 0 2px 5px #fff(0, 0, 0, 0.2); 
 }
 
 nav::after {
@@ -117,7 +117,7 @@ nav::after {
     position: absolute;
     bottom: 0;
     left: 15px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Add shadow to the navigation bar */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
 nav a {
@@ -125,33 +125,33 @@ nav a {
     text-decoration: none;
     margin: 0 15px;
     font-size: 1.2em;
-    box-shadow: 0 2px 5px rgba(45, 04, 39, 0.2); /* Add shadow to the navigation bar */
-    box-shadow: 0 2px 5px #450439; /* Replace #888 with your preferred shadow color */
+    box-shadow: 0 2px 5px rgba(45, 04, 39, 0.2); 
+    box-shadow: 0 2px 5px #450439; 
     display: inline-block;
     position: relative;
     padding: 10px 15px;
     background-color: #450439;
-    border: 2px solid #450439; /* Border color */
-    border-radius: 5px; /* Adjust border radius for rounded corners */
+    border: 2px solid #450439; 
+    border-radius: 5px; 
     transition: transform 0.3s ease;
 }
 
 nav a:hover {
-    color: #c6d7f4; /* Change to your preferred hover color */
+    color: #c6d7f4; 
     transform: scale(1.1);
-    background-color: #450439; /* Change background color on hover */
-    color: #fff; /* Change text color on hover */
+    background-color: #450439; 
+    color: #fff; 
 }
 
 .options-button {
     display: flex;
     flex-direction: column;
     cursor: pointer;
-    margin-right: 15px; /* Adjust the margin as needed */
+    margin-right: 15px; 
 }
 
 .options-button:hover .line {
-    background-color: #c6d7f4; /* Change to your preferred hover color */
+    background-color: #c6d7f4; 
 }
 
 .options-toggle {
@@ -196,11 +196,11 @@ nav a:hover {
     background-color: #450439; 
     border-radius: 20px;
     margin-right: auto;
-    transition: background-color 0.3s ease; /* Add a smooth transition for the background color change */
+    transition: background-color 0.3s ease; 
 }
 
 .shop-link:hover {
-    background-color: #450439; /* Change to your preferred hover color */
+    background-color: #450439; 
 }
 
 .options-menu {
@@ -212,7 +212,7 @@ nav a:hover {
     padding: 10px;
     display: none;
     flex-direction: column;
-    z-index: 3; /* Ensure a higher z-index */
+    z-index: 3; 
 }
 
 .options-menu a {
@@ -239,7 +239,7 @@ nav a:hover {
     display: block;
     width: calc(100% - 30px);
     height: 1px;
-    background: linear-gradient(to right, rgba(255, 0, 0, 0), #8da6ce, rgba(255, 0, 0, 0)); /* Change the color values here */
+    background: linear-gradient(to right, rgba(255, 0, 0, 0), #8da6ce, rgba(255, 0, 0, 0)); 
     position: absolute;
     bottom: 0;
     left: 15px;
@@ -255,9 +255,9 @@ nav a:hover {
 
 .line-header h2 {
     margin-bottom: 20px;
-    transform: skew(-15deg); /* Adjust the angle as needed */
-    display: inline-block; /* To prevent skewing affecting other elements */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 12.5em); /* Adjust the shadow values as needed */
+    transform: skew(-15deg); 
+    display: inline-block; 
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 12.5em); /
     color: white;
     font-size: larger;
 }
@@ -293,22 +293,22 @@ nav a:hover {
 }
 
 #who-we-are {
-    background-color: white; /* Set your desired background color */
-    padding: 20px; /* Add padding as needed for spacing */
+    background-color: white; 
+    padding: 20px; 
     text-align: center;
-    color: #450439; /* Set the text color */
+    color: #450439; 
 }
 
 #who-we-are h2 {
-    font-size: 2.5em; /* Set the heading font size */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 2.5em; 
+    margin-bottom: 20px; 
 }
 
 #who-we-are p {
-    font-size: 1.2em; /* Set the paragraph font size */
-    line-height: 1.6; /* Set the line height for better readability */
+    font-size: 1.2em; 
+    line-height: 1.6; 
 }
-/* Add more styles as needed for additional elements within the "Who Are We" section */
+
 
 #our-senior-staffs {
     background-color: #450439;
@@ -341,7 +341,7 @@ nav a:hover {
     margin-bottom: 10px;
 }
 
-/* Add more styles as needed */
+
 
 #our-work {
     background-color: white;
@@ -382,89 +382,88 @@ nav a:hover {
 }
 
 #patronizing-us h2 {
-    font-size: 2.5em; /* Set the heading font size */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 2.5em; 
+    margin-bottom: 20px; 
 }
 
 #patronizing-us p {
-    font-size: 1.2em; /* Set the paragraph font size */
-    line-height: 1.6; /* Set the line height for better readability */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 1.2em; 
+    line-height: 1.6; 
+    margin-bottom: 20px; 
 }
 
 #patronizing-us ul {
-    list-style-type: none; /* Remove bullet points from the list */
-    padding: 0; /* Remove default padding */
-    margin-bottom: 20px; /* Add margin as needed */
+    list-style-type: none;
+    padding: 0; 
+    margin-bottom: 20px; 
 }
 
 #patronizing-us li {
-    font-size: 1.2em; /* Set the list item font size */
-    margin-bottom: 10px; /* Add margin as needed between list items */
+    font-size: 1.2em; 
+    margin-bottom: 10px; 
 }
 
-/* Add more styles as needed for additional elements within the "Patronizing Us" section */
+
 
 #business-services {
-    background-color: white; /* Set your desired background color */
-    padding: 20px; /* Add padding as needed for spacing */
+    background-color: white; 
+    padding: 20px; 
     text-align: center;
-    color: #450439; /* Set the text color */
+    color: #450439; 
 }
 
 #business-services h2 {
-    font-size: 2.5em; /* Set the heading font size */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 2.5em; 
+    margin-bottom: 20px; 
 }
 
 #business-services p {
-    font-size: 1.2em; /* Set the paragraph font size */
-    line-height: 1.6; /* Set the line height for better readability */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 1.2em; 
+    line-height: 1.6; 
+    margin-bottom: 20px; 
 }
 
 #business-services ul {
-    list-style-type: none; /* Remove bullet points from the list */
-    padding: 0; /* Remove default padding */
-    margin-bottom: 20px; /* Add margin as needed */
+    list-style-type: none; 
+    padding: 0; 
+    margin-bottom: 20px; 
 }
 
 #business-services li {
-    font-size: 1.2em; /* Set the list item font size */
-    margin-bottom: 10px; /* Add margin as needed between list items */
+    font-size: 1.2em; 
+    margin-bottom: 10px; 
 }
 
-/* Add more styles as needed for additional elements within the "Business Services" section */
+
 
 #get-in-touch {
-    background-color: #450439; /* Set your desired background color */
-    padding: 20px; /* Add padding as needed for spacing */
+    background-color: #450439; 
+    padding: 20px; 
     text-align: center;
-    color: #fff; /* Set the text color */
+    color: #fff; 
 }
 
 #get-in-touch h2 {
-    font-size: 2.5em; /* Set the heading font size */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 2.5em; 
+    margin-bottom: 20px; 
 }
 
 #get-in-touch p {
-    font-size: 1.2em; /* Set the paragraph font size */
-    line-height: 1.6; /* Set the line height for better readability */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-size: 1.2em; 
+    line-height: 1.6; 
+    margin-bottom: 20px; 
 }
 
 #get-in-touch address {
-    font-style: normal; /* Set the font style for the address */
-    margin-bottom: 20px; /* Add margin as needed */
+    font-style: normal; 
+    margin-bottom: 20px;
 }
 
 #get-in-touch a {
-    color: white; /* Set the link color */
-    text-decoration: none; /* Remove underlines from links */
+    color: white; 
+    text-decoration: none; 
 }
 
-/* Add more styles as needed for additional elements within the "Get in Touch" section */
 
 footer {
     background-color: white;
