@@ -1,4 +1,4 @@
-//connect to db
+
 <?php
 
 $con=mysqli_connect('localhost','root','','cs2tp');
