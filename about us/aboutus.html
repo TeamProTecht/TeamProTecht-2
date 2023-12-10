@@ -21,7 +21,7 @@
 
                 var searchTerm = document.getElementById('search-input').value.toLowerCase();
 
-                // Define your section IDs here
+                
                 var sectionMappings = {
                     'who are we': '#who-we-are',
                     'our senior staffs': '#our-senior-staffs',
@@ -31,7 +31,7 @@
                     'get in touch': '#get-in-touch'
                 };
 
-                // Check if the search term matches any section
+            
                 if (sectionMappings.hasOwnProperty(searchTerm)) {
                     scrollToSection(sectionMappings[searchTerm]);
                 } else {
@@ -39,7 +39,7 @@
                 }
             });
 
-            // Function to display search messages on the page
+            // Function to display search messages on the pag
             function displaySearchMessage(message) {
                 var searchMessageContainer = document.getElementById('search-message');
                 searchMessageContainer.textContent = message;
@@ -137,7 +137,6 @@
     <section id="who-we-are">
         <h2>Who Are We</h2>
         <p>We are a dedicated team passionate about delivering high-quality products and services to our customers. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vehicula justo ac diam aliquet, vel cursus eros dignissim. Proin nec magna vel dolor fermentum aliquam.</p>
-        <!-- Add more content as needed -->
         <!-- Content for "Who Are We" section -->
     </section>
 
@@ -217,7 +216,6 @@
             </div>
         </div>
 
-        <!-- Add more staff members as needed -->
 
     </section>
 
@@ -240,8 +238,7 @@
                 <p></p>
             </div>
         </div>
-
-        <!-- Add more work items as needed -->
+        
 
     </section>
 
@@ -254,7 +251,6 @@
             <li>Competitive prices</li>
             <li>Exceptional customer service</li>
             <li>Fast and reliable shipping</li>
-            <!-- Add more reasons as needed -->
         </ul>
 
         <p>We value your trust and strive to provide the best shopping experience for you.</p>
@@ -269,7 +265,7 @@
             <li>Customized mobile solutions</li>
             <li>Enterprise-grade security solutions</li>
             <li>24/7 dedicated support for business clients</li>
-            <!-- Add more services as needed -->
+            
         </ul>
 
         <p>Contact our business services team to discuss how we can tailor our offerings to fit your organization's requirements.</p>
