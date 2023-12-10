@@ -302,7 +302,7 @@ if ($action == "update"){
     }
 
     if ($amountFilter != "" && $userAmount != "") {
-        $query .= " AND Item.Quantity $selectedOption '$userAmount'";
+        $query .= " AND Item.Quantity $amountFilter '$userAmount'";
     }
 
     $query .= ";";  // End the SQL query
