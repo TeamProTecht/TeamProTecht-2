@@ -68,6 +68,7 @@ if (isset($_POST['user_register'])){
     $user_email = $_POST['employee_email'];
     $user_pasword = $_POST['password'];
     $confirm_pass = $_POST['confirm_pass'];
+    $hash_password=password_hash($user_pasword,PASSWORD_DEFAULT);
 
     //select query for user
     $check_user= "select * from `employees` where employee_email='$user_email'";
@@ -82,7 +83,7 @@ if (isset($_POST['user_register'])){
     else{
     //put into the db
     $insert_query = "INSERT INTO `employees` (LastName, FirstName, employee_email, password) VALUES
-    ('$user_lastname', '$user_firstname', '$user_email', '$user_pasword')";
+    ('$user_lastname', '$user_firstname', '$user_email', '$hash_password')";
     
     $sql_execute = mysqli_query($con, $insert_query);
     
