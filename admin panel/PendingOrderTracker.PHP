@@ -162,7 +162,7 @@ h4 {
         <!-- Menu Bar -->
         <ul>
           <div class="logo-container1">
-            <img src="teamprotech.png.png" alt="Logo 1">
+            <img src="" alt="Logo 1">
           </div>
             <li><a href="http://localhost/Year%202%20Team%20Project/confirmorders.html">Confirm Orders</a></li>
             <li><a href="http://localhost/Year%202%20Team%20Project/pendingorders.html">Pending Orders</a></li>
