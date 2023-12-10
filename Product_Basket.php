@@ -39,7 +39,7 @@
                     //if(isset($_POST["submitted"])){
                         //$user = $_SESSION["username"];
 
-                        $basket = "SELECT * FROM `basket` WHERE User_ID = `2`";
+                        $basket = "SELECT * FROM `basket` WHERE User_ID = '2'";
 
                         $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -54,7 +54,7 @@
                             $itemList = "SELECT * FROM `item` WHERE Item_ID= $itemID";
                             $item = $db->query($itemList);
 
-                            echo "<table><tr>";
+                            echo "<br><table><tr>";
                             echo "<th>Basket number</th>";
                             echo "<th>Item name</th>";
                             echo "<th>Quantity</th>";
@@ -84,10 +84,10 @@
                             echo "</table>";
 
                             //When button "checkout" is clicked, send basket and single user to order table
-                            echo "<button id='checkout' action='checkout.php' onclick='checkout()>Checkout</button>";
+                            echo "<button id='checkout' action='checkout.php' onclick='checkout()'>Checkout</button>";
                             echo "<script>function checkout(){";
                                     ?><?php $sendOrder = 'INSERT INTO orders (`Basket_ID`, `User_ID`);
-                                    VALUES (:basket, :basketuserID)'; //Display failed: SQLSTATE[42S22]: Column not found: 1054 Unknown column '2' in 'where clause'
+                                    VALUES (:basket, :basketuserID)';
                                     $statement = $db->prepare($sendOrder);
                                     $statement->bindParam(':basket', $basketID, PDO::PARAM_INT);
                                     $statement->bindParam(':basketuserID', $basketUserID, PDO::PARAM_INT); 
