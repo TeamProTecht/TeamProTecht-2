@@ -54,7 +54,7 @@
 	   <input type="number" id="iteam_shelf" name="iteam_shelf" style="display:none;"  min="0" step="1"></textarea>
 
 	   <label for="iteam_row" id="iteam_row_label" style="display:none;">row:</label>
-	   <input type="number" id="iteam_row" name="iteam_row" style="display:none;"  min="0" step="1"></textarea>
+	   <input type="text" id="iteam_row" name="iteam_row" style="display:none;"></textarea>
 
 	  <br>
 
@@ -183,7 +183,7 @@
 <table border="1">
     <tr>
         <th>Shelf</th>
-        <th>RowNum</th>
+        <th>Row</th>
 	<th>product name</th>
 	<th>item id</th>
         <th>BrandName</th>
