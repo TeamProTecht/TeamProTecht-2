@@ -1,4 +1,8 @@
 <?php
+
+// Connect to DB 
+require_once("connectdb.php");
+
 ?>
 
 <!DOCTYPE html>
@@ -9,7 +13,7 @@
         <!--Title of web page-->
         <title>Admin Panel</title>
         <!--Attaching css file-->
-        <link rel="stylesheet" href="CSS Images\style.css" />
+        <link rel="stylesheet" href="stocksystem.css"/>
         <!-- Add icon library -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
@@ -32,19 +36,19 @@
         </ul>
     </div>
 
-<div class="main-content">
-    <div class="wrapper">
+<div class="main-content container">
+    <div class="container-fluid">
         <br>
         <br>
         <h1 class="text-center">Manage Admin</h1>
 
         <br> <br>
 
-        <a href="add-admin.php" class="p-3 mb-2 bg-success text-white">Add Admin</a>
+        <a href="add-admin.php" class="btn btn-success">Add Admin</a>
 
         <br> <br> <br>
-
-        <table>
+<div class="bg-dark-subtle align-content-between">
+ <table>
             <tr>
                 <th>Admin ID</th>
                 <th>Full Name</th>
@@ -55,9 +59,13 @@
             <td>John Smith</td>
             <td>JohnSmith1</td>
             <td>
-                <button><a href="#" class="btn-secondary">Update Admin</a></button>
+                       <a href="#" class="btn btn-info">Change Password</a>
+                <a href="#" class="btn btn-secondary">Update Admin</a>
+            <a href="#" class="btn btn-danger">Delete Admin</a>             
             </td>
-        </table>
+        </table>   
+</div>
+        
     </div>
 </div>
     
