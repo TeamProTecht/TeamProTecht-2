@@ -37,20 +37,22 @@
 
         <br> <br>
 
-        <a href="add-admin.php" class="btn btn-success">Add Admin</a>
+        <a href="addAdmin.php" class="btn btn-success">Add Admin</a>
 
         <br> <br> <br>
 <div class="bg-dark-subtle align-content-between">
  <table>
             <tr>
                 <th>Employee ID</th>
-                <th>Full Name</th>
-                <th>Username</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Email</th>
                 <th>Actions</th>
             </tr>
             <td>1.</td>
-            <td>John Smith</td>
-            <td>JohnSmith1</td>
+            <td>John</td>
+            <td>Smith</td>
+            <td>JohnSmith1@aol.com</td>
             <td>
                        <a href="#" class="btn btn-info">Change Password</a>
                 <a href="#" class="btn btn-secondary">Update Admin</a>
