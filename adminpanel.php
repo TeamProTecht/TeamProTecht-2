@@ -1,10 +1,3 @@
-<?php
-
-// Connect to DB 
-require_once("connectdb.php");
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -50,7 +43,7 @@ require_once("connectdb.php");
 <div class="bg-dark-subtle align-content-between">
  <table>
             <tr>
-                <th>Admin ID</th>
+                <th>Employee ID</th>
                 <th>Full Name</th>
                 <th>Username</th>
                 <th>Actions</th>
@@ -71,3 +64,10 @@ require_once("connectdb.php");
     
 </body>
 </html>
+
+<?php
+
+// Connect to DB 
+require_once("connectdb.php");
+
+?>
