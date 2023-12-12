@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon" />
     <title>Employee Login Page</title>
+    <script defer src="script/main.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <link rel="stylesheet" type="text/css"
@@ -36,7 +37,7 @@
                         <input id="inPassword" type="password" name="employeePassword"
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" required />
                         <br><br>
-                        <button class="loginbtn" onclick="validateForm()">Login</button>
+                        <button class="loginbtn" onclick="validateEmployeeForm()">Login</button>
                         <p>If you haven't created an account, click on the underlined link below.<br><a
                                 href="register-as-employee.html">Create an employee account</a></p>
                     </form>
@@ -44,17 +45,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function validateForm() {
-            const email = document.getElementById("emailAddress");
-            const password = document.getElementById("password");
-            if (!email.checkValidity() && !password.checkValidity() || !email.checkValidity() || !password.checkValidity()) {
-                document.getElementById("emailAddress").innerHTML = email.validationMessage;
-                document.getElementById("inPassword").innerHTML = password.validationMessage;
-            } else {
-                location.replace("stock-page.html");
-            }
-        }
-    </script>
 </body>
 </html>
