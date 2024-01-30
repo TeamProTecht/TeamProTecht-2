@@ -44,7 +44,7 @@
                 if(isset($_POST["searchitem"])){
                 session_start();
 
-                $db = new PDO('mysql:host=localhost;dbname=teamprotecht', 'root', '' );
+                $db = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '' );
                 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
                     
                 $searchitem = $_POST['searchitem'];
