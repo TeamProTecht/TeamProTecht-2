@@ -212,6 +212,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $shelf = $_POST["iteam_shelf"];
     $row = $_POST["iteam_row"];
 
+
+        if ($action == "update" && ($userAmount == "" || $itemID == "" || $selectedOption == "")) {
+        echo "Please fill all required fields for updating.";
+        exit; // Stop further execution
+    }
+
+
+
+    if ($action == "filter" && ($userAmount != "" || $amountFilter != "") && ($userAmount == "" || $amountFilter == "")) {
+        echo "Please fill both amount and amount filter fields when one is used for filtering.";
+        exit; // Stop further execution
+    }
+
+
     echo " userAmount: " . $action . "<br>";
     echo "Selected Option: " . $selectedOption . "<br>";
     echo "Item ID: " . $itemID . "<br>";
@@ -304,15 +318,16 @@ if ($action == "update"){
     if ($amountFilter != "" && $userAmount != "") {
         $query .= " AND Item.Quantity $amountFilter '$userAmount'";
     }
+    
 
     $query .= ";";  // End the SQL query
 
     $statement = $pdo->query($query);
-    
+    echo $query;
 	
 }else{
 
-    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
+    $pdo = new PDO('sqlite:new.db');
     $statement = $pdo->query("SELECT
     L.Shelf,
     L.Row,
