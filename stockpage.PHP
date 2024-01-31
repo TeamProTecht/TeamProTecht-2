@@ -6,12 +6,26 @@
     // The page is reloaded, redirect to a different website
     window.location.href = 'http://localhost/demo/stockpage.PHP';
   }
+  
+  function handleSubmit() {
+            // Disable submit button to prevent multiple submissions
+            document.getElementById("submitBtn").disabled = true;
+            // Submit the form
+            document.getElementById("stockForm").submit();
+            // Reset the form fields after submission
+            document.getElementById("stockForm").reset();
+            // Optional: You can also display a message to indicate successful submission
+            alert("Form submitted successfully!");
+        }
+  
+  
+  
 </script>
 
 </head>
 
 
-<form method="post" action=""><br>
+<form id="stockForm" method="post" action="" onsubmit="handleSubmit(); return false;"><br>
         <select name="action" id="action-select">
             <option value="null">null</option>
             <option value="update">update</option>
@@ -58,7 +72,7 @@
 
 	  <br>
 
-        <input type="submit" name="submit" value="Submit">
+        <input type="submit" id="submitBtn" name="submit" value="Submit">
     </form>
 
     <script>
