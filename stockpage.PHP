@@ -17,7 +17,10 @@
             // Optional: You can also display a message to indicate successful submission
             alert("Form submitted successfully!");
         }
-  
+    document.getElementById('reset-table').addEventListener('click', function() {
+        // Redirect to the same page to reset the table
+        window.location.href = 'http://localhost/demo/stockpage.PHP';
+    });
   
   
 </script>
@@ -73,6 +76,7 @@
 	  <br>
 
         <input type="submit" id="submitBtn" name="submit" value="Submit">
+        <button type="button" id="reset-table">Reset Table</button>
     </form>
 
     <script>
