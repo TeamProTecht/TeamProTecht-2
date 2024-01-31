@@ -161,3 +161,8 @@ td{
 tr:hover {
   background-color:rgb(244, 226, 244);
 }
+
+img{
+  width: 250px;
+  height: 100px;
+}
