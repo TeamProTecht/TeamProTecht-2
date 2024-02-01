@@ -162,7 +162,7 @@ tr:hover {
   background-color:rgb(244, 226, 244);
 }
 
-img{
+div[id^="product"] img {
   width: 250px;
   height: 100px;
 }
