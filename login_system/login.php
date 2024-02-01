@@ -1,4 +1,5 @@
 <?php include('../connectdb.php');?>
+//change reference to connectdb
 
 <!DOCTYPE html>
 <html>
