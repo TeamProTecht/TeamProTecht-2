@@ -78,7 +78,7 @@
         <br>
 
          <div id="productlist">
-           <?php
+<?php
 // PHP code for fetching and displaying products
 session_start();
 
@@ -123,20 +123,22 @@ if (isset($_POST['minprice']) && isset($_POST['maxprice'])) {
 }
 
 // Handle brand filtering
-if (!empty($_POST['brands'])) {
+if (isset($_POST['brands']) && !empty($_POST['brands'])) {
     $brands = $_POST['brands'];
-    $placeholders = implode(',', array_fill(0, count($brands), '?'));
-    $whereClauses[] = "Brand.BrandName IN ($placeholders)";
+    $placeholders = array_fill(0, count($brands), '?');
+    $whereClauses[] = "Brand.BrandName IN (" . implode(',', $placeholders) . ")";
     $bindings = array_merge($bindings, $brands);
 }
 
 // Combine all where clauses
 if (!empty($whereClauses)) {
-    $query .= " WHERE " . implode(" AND ", $whereClauses);
+    $filteredQuery = $query . " WHERE " . implode(" AND ", $whereClauses);
+} else {
+    $filteredQuery = $query;
 }
 
-// Prepare and execute the query
-$statement = $pdo->prepare($query);
+// Execute the filtered query
+$statement = $pdo->prepare($filteredQuery);
 $statement->execute($bindings);
 
 // Display all products fetched from the database
@@ -152,6 +154,9 @@ foreach ($statement as $row) {
     echo "</div>";
 }
 ?>
+
+
+
 
         </div>
     </div>
