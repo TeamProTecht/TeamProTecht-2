@@ -1,73 +1,20 @@
-<script>
-    // Function to filter products based on price range
-    function filterByPrice() {
-        var minPrice = document.getElementById("minprice").value;
-        var maxPrice = document.getElementById("maxprice").value;
-        var products = document.getElementsByClassName("product-item");
-
-        for (var i = 0; i < products.length; i++) {
-            var productPrice = parseInt(products[i].querySelector(".product-price").innerText.slice(1));
-            if ((minPrice === "" || productPrice >= minPrice) && (maxPrice === "" || productPrice <= maxPrice)) {
-                products[i].style.display = "block";
-            } else {
-                products[i].style.display = "none";
-            }
-        }
-    }
-
-    // Function to filter products based on selected brands
-    function filterByBrand(brand) {
-        var products = document.getElementsByClassName("product-item");
-        for (var i = 0; i < products.length; i++) {
-            var productName = products[i].querySelector(".product-name").innerText;
-            if (productName.includes(brand) || brand === "All") {
-                products[i].style.display = "block";
-            } else {
-                products[i].style.display = "none";
-            }
-        }
-    }
-</script>
-
-
 <?php
 session_start();
 
-// Establish database connection
-$servername = "localhost";
-$username = "root";
-$password = "";
-$database = "stockpage";
+// Check if the form has been submitted
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Check if the "Add to basket" button was clicked
+    if (isset($_POST['add_to_basket'])) {
+        // Get the product ID from the form
+        $product_id = $_POST['product_id'];
 
-try {
-    $pdo = new PDO("mysql:host=$servername;dbname=$database", $username, $password);
-    // Set PDO to throw exceptions on error
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // Check if search form is submitted
-    if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
-        $search_term = $_POST['searchitem'];
-        // Fetch products based on search term
-        $sql_search_products = "SELECT Item.*, Brand.BrandName
-                                FROM Item
-                                LEFT JOIN Brand ON Item.Item_ID = Brand.Item_ID
-                                WHERE Item.ItemName LIKE :search_term";
-        $stmt_search_products = $pdo->prepare($sql_search_products);
-        $stmt_search_products->execute(array(':search_term' => '%' . $search_term . '%'));
-        $all_products = $stmt_search_products->fetchAll(PDO::FETCH_ASSOC);
-    } else {
-        // Fetch all products when the page first loads
-        $sql_all_products = "SELECT Item.*, Brand.BrandName
-                            FROM Item
-                            LEFT JOIN Brand ON Item.Item_ID = Brand.Item_ID";
-        $stmt_all_products = $pdo->query($sql_all_products);
-        $all_products = $stmt_all_products->fetchAll(PDO::FETCH_ASSOC);
+        // Check if the product ID is valid (you would typically validate this against a database)
+        if (is_numeric($product_id) && $product_id > 0) {
+            // Add the product to the basket (you would typically store this in a session or database)
+            $_SESSION['basket'][] = $product_id;
+        }
     }
-} catch (PDOException $e) {
-    die("Connection failed: " . $e->getMessage());
 }
-
-$pdo = null;
 ?>
 
 <!DOCTYPE html>
@@ -118,16 +65,17 @@ $pdo = null;
     </form>
     <br>
     <div id="searchresult">
-<div id="filter">
-    <br>
-    <h2>Filters</h2>
-    <h3>Prices</h3>
-    <div id="myPrices">
-        <input type="number" placeholder="Minimum" id="minprice" min="0" max="9999" oninput="filterByPrice()">
-        <input type="number" placeholder="Maximum" id="maxprice" min="1" max="10000" oninput="filterByPrice()">
-    </div><br>
-    <h3>Brands</h3>
-    <div id="myBrandDropdown">
+        <div id="filter">
+            <br>
+            <h2>Filters</h2>
+            <h3>Prices</h3>
+            <div id="myPrices">
+                <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999">
+                <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000">
+                <button type="submit">Update</button>
+            </div><br>
+            <h3>Brands</h3>
+            <div id="myBrandDropdown">
                 <input type="checkbox" id="brand1" name="brand1">
                 <label for="brand1">Apple</label><br>
                 <input type="checkbox" id="brand2" name="brand2">
@@ -143,10 +91,38 @@ $pdo = null;
             </div><br>
         </div>
         <br>
-        <div id="productlist">
+
+<?php
+
+// Connect to the database
+$pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
+
+// Query to select all products
+$query = "SELECT
+            Location.Shelf,
+            Location.Row,
+            Item.ItemName,
+            Item.Item_ID,
+            Brand.BrandName,
+            Item.Quantity,
+            Item.Price, 
+            Item.Img
+          FROM
+            Item
+          JOIN
+            Location ON Item.Location_ID = Location.Location_ID
+          LEFT JOIN
+            Brand ON Item.Item_ID = Brand.Item_ID;";
+// Execute the query
+$statement = $pdo->query($query);
+
+?>
+
+
+         <div id="productlist">
             <?php
             // Display all products fetched from the database
-            foreach ($all_products as $row) {
+            foreach ($statement as $row) {
                 echo "<div class='product-item'>";
                 echo "<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong><br>";
                 echo "<strong>£" . $row['Price'] . "</strong><br>";
@@ -159,7 +135,6 @@ $pdo = null;
             }
             ?>
         </div>
-<button type="button" onclick="submitFilters()">Apply Filters</button>
     </div>
 </body>
 </html>
