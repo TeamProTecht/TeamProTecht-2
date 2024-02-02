@@ -6,19 +6,13 @@
     <title>Stock Page</title>
     <script>
         if (performance.navigation.type === 1) {
-            // The page is reloaded, redirect to a different website
             window.location.href = 'http://localhost/demo/stockpage.PHP';
         }
 
         function handleSubmit() {
-            // Disable submit button to prevent multiple submissions
             document.getElementById("submitBtn").disabled = true;
-            // Submit the form
             document.getElementById("stockForm").submit();
-            // Reset the form fields after submission
             document.getElementById("stockForm").reset();
-            // Optional: You can also display a message to indicate successful submission
-            alert("Form submitted successfully!");
         }
 
 
@@ -300,13 +294,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
 
-    echo " userAmount: " . $action . "<br>";
-    echo "Selected Option: " . $selectedOption . "<br>";
-    echo "Item ID: " . $itemID . "<br>";
-    echo "product: " . $product . "<br>";
-    echo "Selected Option: " . $amountFilter . "<br>";
-    echo "Shelf: " . $shelf . "<br>";
-    echo "Row: " . $row . "<br>";
+
 }
 if ($action == "update"){
 	if ($selectedOption == "setto") {
@@ -360,7 +348,6 @@ if ($action == "update"){
 	}
 
 }else if ($action == "filter") {
-	echo "Debugging - Action is 'filter'.<br>";
     $pdo = new PDO('sqlite:new.db');
     $query = "SELECT
         Location.Shelf,
@@ -375,7 +362,7 @@ if ($action == "update"){
         Location ON Item.Location_ID = Location.Location_ID
     LEFT JOIN
         Brand ON Item.Item_ID = Brand.Item_ID
-    WHERE 1";  // Start the WHERE clause
+    WHERE 1";
 
     if ($shelf != "") {
         $query .= " AND Location.Shelf = '$shelf'";
@@ -394,10 +381,10 @@ if ($action == "update"){
     }
     
 
-    $query .= ";";  // End the SQL query
+    $query .= ";";
 
     $statement = $pdo->query($query);
-    echo $query;
+    
 	
 }else{
 
