@@ -298,7 +298,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 }
 if ($action == "update"){
 	if ($selectedOption == "setto") {
- 	   $pdo = new PDO('sqlite:new.db');
+ 	   $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
  	   $statement = $pdo->query("
 			UPDATE Item
 			SET Quantity = '$userAmount'
@@ -306,7 +306,7 @@ if ($action == "update"){
 
 
 
-    			$pdo = new PDO('sqlite:new.db');
+    			$pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
    			$statement = $pdo->query("SELECT
    			L.Shelf,
     			L.Row,
@@ -323,7 +323,7 @@ if ($action == "update"){
 
 			");
 	}else if($selectedOption == "remove") {
-	    $pdo = new PDO('sqlite:new.db');
+	   $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
 	    $statement = $pdo->query("
 			UPDATE Item
 			SET Quantity = Quantity - '$userAmount'
@@ -348,7 +348,7 @@ if ($action == "update"){
 	}
 
 }else if ($action == "filter") {
-    $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
     $query = "SELECT
         Location.Shelf,
         Location.Row,
@@ -388,7 +388,7 @@ if ($action == "update"){
 	
 }else{
 
-    $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
     $statement = $pdo->query("SELECT
     L.Shelf,
     L.Row,
