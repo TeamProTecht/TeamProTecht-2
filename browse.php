@@ -1,22 +1,3 @@
-<?php
-session_start();
-
-// Check if the form has been submitted
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Check if the "Add to basket" button was clicked
-    if (isset($_POST['add_to_basket'])) {
-        // Get the product ID from the form
-        $product_id = $_POST['product_id'];
-
-        // Check if the product ID is valid (you would typically validate this against a database)
-        if (is_numeric($product_id) && $product_id > 0) {
-            // Add the product to the basket (you would typically store this in a session or database)
-            $_SESSION['basket'][] = $product_id;
-        }
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -69,35 +50,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br>
             <h2>Filters</h2>
             <h3>Prices</h3>
-            <div id="myPrices">
-                <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999">
-                <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000">
-                <button type="submit">Update</button>
-            </div><br>
-            <h3>Brands</h3>
-            <div id="myBrandDropdown">
-                <input type="checkbox" id="brand1" name="brand1">
-                <label for="brand1">Apple</label><br>
-                <input type="checkbox" id="brand2" name="brand2">
-                <label for="brand2">Samsung</label><br>
-                <input type="checkbox" id="brand3" name="brand3">
-                <label for="brand3">Huawei</label><br>
-                <input type="checkbox" id="brand4" name="brand4">
-                <label for="brand4">Google</label><br>
-                <input type="checkbox" id="brand5" name="brand5">
-                <label for="brand5">Blackberry</label><br>
-                <input type="checkbox" id="brand6" name="brand6">
-                <label for="brand6">Other</label><br>
-            </div><br>
+            <form method="post" action="browse.php">
+    <div id="filter">
+        <br>
+        <h2>Filters</h2>
+        <h3>Prices</h3>
+        <div id="myPrices">
+            <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999">
+            <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000">
+        </div>
+        <br>
+        <h3>Brands</h3>
+        <div id="myBrandDropdown">
+            <!-- Add checkboxes for brands -->
+            <!-- You can modify these to match your actual brands -->
+            <input type="checkbox" id="brand1" name="brands[]" value="Apple">
+            <label for="brand1">Apple</label><br>
+            <input type="checkbox" id="brand2" name="brands[]" value="Samsung">
+            <label for="brand2">Samsung</label><br>
+            <!-- Add more checkboxes for other brands -->
+        </div>
+        <button type="submit">Update</button>
+    </div>
+</form>
+            </div>
         </div>
         <br>
 
-<?php
+         <div id="productlist">
+           <?php
+// PHP code for fetching and displaying products
+session_start();
 
 // Connect to the database
 $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
 
-// Query to select all products
+// Construct the base query
 $query = "SELECT
             Location.Shelf,
             Location.Row,
@@ -112,28 +100,59 @@ $query = "SELECT
           JOIN
             Location ON Item.Location_ID = Location.Location_ID
           LEFT JOIN
-            Brand ON Item.Item_ID = Brand.Item_ID;";
-// Execute the query
-$statement = $pdo->query($query);
+            Brand ON Item.Item_ID = Brand.Item_ID";
 
+// Add conditions for individual filters
+$whereClauses = [];
+$bindings = [];
+
+// Handle search query
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['searchitem'])) {
+    $search_query = $_POST['searchitem'];
+    $whereClauses[] = "Item.ItemName LIKE ?";
+    $bindings[] = "%$search_query%";
+}
+
+// Handle price filtering
+if (isset($_POST['minprice']) && isset($_POST['maxprice'])) {
+    $min_price = $_POST['minprice'];
+    $max_price = $_POST['maxprice'];
+    $whereClauses[] = "Item.Price BETWEEN ? AND ?";
+    $bindings[] = $min_price;
+    $bindings[] = $max_price;
+}
+
+// Handle brand filtering
+if (!empty($_POST['brands'])) {
+    $brands = $_POST['brands'];
+    $placeholders = implode(',', array_fill(0, count($brands), '?'));
+    $whereClauses[] = "Brand.BrandName IN ($placeholders)";
+    $bindings = array_merge($bindings, $brands);
+}
+
+// Combine all where clauses
+if (!empty($whereClauses)) {
+    $query .= " WHERE " . implode(" AND ", $whereClauses);
+}
+
+// Prepare and execute the query
+$statement = $pdo->prepare($query);
+$statement->execute($bindings);
+
+// Display all products fetched from the database
+foreach ($statement as $row) {
+    echo "<div class='product-item'>";
+    echo "<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong><br>";
+    echo "<strong>£" . $row['Price'] . "</strong><br>";
+    echo "<img src='" . $row['Img'] . "'><br>";
+    echo "<form method='post' action=''>"; // Assuming you want to use separate forms for each product
+    echo "<input type='hidden' name='product_id' value='" . $row['Item_ID'] . "'>";
+    echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
+    echo "</form>";
+    echo "</div>";
+}
 ?>
 
-
-         <div id="productlist">
-            <?php
-            // Display all products fetched from the database
-            foreach ($statement as $row) {
-                echo "<div class='product-item'>";
-                echo "<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong><br>";
-                echo "<strong>£" . $row['Price'] . "</strong><br>";
-                echo "<img src='" . $row['Img'] . "'><br>";
-                echo "<form method='post' action=''>"; // Assuming you want to use separate forms for each product
-                echo "<input type='hidden' name='product_id' value='" . $row['Item_ID'] . "'>";
-                echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
-                echo "</form>";
-                echo "</div>";
-            }
-            ?>
         </div>
     </div>
 </body>
