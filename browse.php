@@ -66,6 +66,17 @@
             <!-- Add more options for other brands as needed -->
         </select>
     </div>
+<h3>Warranty</h3>
+<form method="post" action="browse.php">
+    <div id="myWarrantyDropdown">
+        <select name="selected_warranty">
+            <option value="">Select Warranty</option>
+            <option value="12">1 Year</option>
+            <option value="24">2 Years</option>
+            <option value="36">3 Years</option>
+            <!-- Add more options for other warranty durations as needed -->
+        </select>
+    </div>
 
                 <button type="submit">Update</button>
             </form>
@@ -94,8 +105,9 @@ $query = "SELECT
           JOIN
             Location ON Item.Location_ID = Location.Location_ID
           LEFT JOIN
-            Brand ON Item.Item_ID = Brand.Item_ID";
-
+            Brand ON Item.Item_ID = Brand.Item_ID
+          LEFT JOIN
+            Warranty ON Item.Item_ID = Warranty.Item_ID";
 // Initialize an array to hold conditions
 $conditions = [];
 
@@ -121,13 +133,24 @@ if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
     $conditions[] = "Item.Price BETWEEN $minprice AND $maxprice";
 }
 
+// Check if warranty duration has been selected
+if(isset($_POST['selected_warranty']) && !empty($_POST['selected_warranty'])) {
+    $warranty = $_POST['selected_warranty'];
+    // Add condition to the array
+    $conditions[] = "Warranty.WarrantyDetails >= ?";
+    // Add warranty duration to the parameters array
+    $parameters[] = $warranty . " Months"; // Assuming the warranty details are stored as 'X Months'
+}
+
+
 // If conditions exist, add WHERE clause to the query
 if(!empty($conditions)) {
     $query .= " WHERE " . implode(" AND ", $conditions);
 }
 
 // Prepare and execute the query
-$statement = $pdo->query($query);
+$statement = $pdo->prepare($query);
+$statement->execute($parameters);
 
 // Display all products fetched from the database
 foreach ($statement as $row) {
