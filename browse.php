@@ -28,6 +28,11 @@
     </style>
 </head>
 <body>
+<script>
+    function resetFilters() {
+        window.location.href = 'browse.php?reset=true';
+    }
+</script>
     <nav>
         <ul> 
             <li><img src="CSS HP/images/logo.png" width="90px" height="65px"></li>
@@ -76,6 +81,7 @@
                     </select>
                 </div>
                 <button type="submit">Update</button>
+<button type="button" id="resetButton" onclick="resetFilters()">Reset</button>
             </form>
         </div>
     </div>
@@ -83,6 +89,16 @@
     <div id="productlist">
 <?php
 session_start();
+
+if(isset($_GET['reset']) && $_GET['reset'] === 'true') {
+    // Unset all session variables
+    session_unset();
+    // Destroy the session
+    session_destroy();
+    // Redirect back to the same page to clear any stored parameters in the URL
+    header("Location: browse.php");
+    exit(); // Ensure script execution stops here to prevent further processing
+}
 
 // Connect to the database
 $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
