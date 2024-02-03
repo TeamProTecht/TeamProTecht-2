@@ -110,6 +110,19 @@ if(isset($_GET['reset']) && $_GET['reset'] === 'true') {
     exit(); // Ensure script execution stops here to prevent further processing
 }
 
+// Check if a search query has been submitted
+if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
+    $_SESSION['searched_word'] = $_POST['searchitem'];
+    // Unset other filter session variables
+    unset($_SESSION['selected_brand']);
+    unset($_SESSION['selected_warranty']);
+    unset($_SESSION['minprice']);
+    unset($_SESSION['maxprice']);
+} elseif(isset($_SESSION['searched_word'])) {
+    // If the search word is already stored in session, use it
+    $_POST['searchitem'] = $_SESSION['searched_word'];
+}
+
 // Connect to the database
 $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
 
@@ -137,14 +150,6 @@ $conditions = [];
 // Initialize parameters array
 $parameters = [];
 
-// Check if a search query has been submitted
-if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
-    $_SESSION['searched_word'] = $_POST['searchitem'];
-} elseif(isset($_SESSION['searched_word'])) {
-    // If the search word is already stored in session, use it
-    $_POST['searchitem'] = $_SESSION['searched_word'];
-}
-
 // Check if a search query exists
 if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
     $search = $_POST['searchitem'];
@@ -159,6 +164,11 @@ if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
     $conditions[] = "Brand.BrandName = ?";
     // Add brand to the parameters array
     $parameters[] = $brand;
+    // Store selected brand in session
+    $_SESSION['selected_brand'] = $brand;
+} elseif(isset($_SESSION['selected_brand'])) {
+    // If the brand is already stored in session, use it
+    $_POST['selected_brand'] = $_SESSION['selected_brand'];
 }
 
 // If other filters are applied, add them to the conditions array
@@ -170,6 +180,13 @@ if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
     // Add price range to the parameters array
     $parameters[] = $minprice;
     $parameters[] = $maxprice;
+    // Store price range in session
+    $_SESSION['minprice'] = $minprice;
+    $_SESSION['maxprice'] = $maxprice;
+} elseif(isset($_SESSION['minprice']) && isset($_SESSION['maxprice'])) {
+    // If price range is already stored in session, use it
+    $_POST['minprice'] = $_SESSION['minprice'];
+    $_POST['maxprice'] = $_SESSION['maxprice'];
 }
 
 // Check if warranty duration has been selected
@@ -179,12 +196,18 @@ if(isset($_POST['selected_warranty']) && !empty($_POST['selected_warranty'])) {
     $conditions[] = "Warranty.WarrantyDetails >= ?";
     // Add warranty duration to the parameters array
     $parameters[] = $warranty . " Months"; // Assuming the warranty details are stored as 'X Months'
+    // Store selected warranty duration in session
+    $_SESSION['selected_warranty'] = $warranty;
+} elseif(isset($_SESSION['selected_warranty'])) {
+    // If warranty duration is already stored in session, use it
+    $_POST['selected_warranty'] = $_SESSION['selected_warranty'];
 }
 
 // If conditions exist, add WHERE clause to the query
 if(!empty($conditions)) {
     $query .= " WHERE " . implode(" AND ", $conditions);
 }
+
 // Add sorting condition based on user selection
 if(isset($_POST['sort_order']) && ($_POST['sort_order'] === 'ASC' || $_POST['sort_order'] === 'DESC')) {
     $sort_order = $_POST['sort_order'];
@@ -209,6 +232,7 @@ foreach ($statement as $row) {
     echo "</div>";
 }
 ?>
+
 
     </div>
 </body>
