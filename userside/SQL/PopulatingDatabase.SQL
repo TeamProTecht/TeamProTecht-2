@@ -53,20 +53,10 @@ INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID) VALUES
 ('Pixel 8', 146, 'The new Pixel 8 by google', 699.99, 'Pixel8.jpg', 5);
 
 INSERT INTO Warranty (WarrantyDetails, Item_ID) VALUES
-('12 Months', 1),
-('24 Months', 1),
 ('36 Months', 1),
 ('12 Months', 2),
-('24 Months', 2),
-('36 Months', 2),
-('12 Months', 3),
 ('24 Months', 3),
-('36 Months', 3),
 ('12 Months', 4),
-('24 Months', 4),
-('36 Months', 4),
-('12 Months', 5),
-('24 Months', 5),
 ('36 Months', 5);
 
 INSERT INTO Brand (BrandName, Item_ID) VALUES
