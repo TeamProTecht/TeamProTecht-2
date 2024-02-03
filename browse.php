@@ -99,6 +99,13 @@ $query = "SELECT
 // Initialize an array to hold conditions
 $conditions = [];
 
+// Check if a search query has been submitted
+if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
+    $search = $_POST['searchitem'];
+    // Add condition to the array
+    $conditions[] = "(Item.ItemName LIKE '%$search%' OR Brand.BrandName LIKE '%$search%')";
+}
+
 // Check if brand has been selected
 if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
     $brand = $_POST['selected_brand'];
@@ -135,6 +142,7 @@ foreach ($statement as $row) {
     echo "</div>";
 }
 ?>
+
 
 
 
