@@ -51,35 +51,29 @@
             <h2>Filters</h2>
             <h3>Prices</h3>
             <form method="post" action="browse.php">
-    <div id="filter">
-        <br>
-        <h2>Filters</h2>
-        <h3>Prices</h3>
-        <div id="myPrices">
-            <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999">
-            <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000">
-        </div>
-        <br>
-        <h3>Brands</h3>
-        <div id="myBrandDropdown">
-            <!-- Add checkboxes for brands -->
-            <!-- You can modify these to match your actual brands -->
-            <input type="checkbox" id="brand1" name="brands[]" value="Apple">
-            <label for="brand1">Apple</label><br>
-            <input type="checkbox" id="brand2" name="brands[]" value="Samsung">
-            <label for="brand2">Samsung</label><br>
-            <!-- Add more checkboxes for other brands -->
-        </div>
-        <button type="submit">Update</button>
+                <div id="myPrices">
+                    <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999" value="1">
+                    <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="10000">
+                </div>
+                <br>
+                <h3>Brands</h3>
+<form method="post" action="browse.php">
+    <div id="myBrandDropdown">
+        <select name="selected_brand">
+            <option value="">Select Brand</option>
+            <option value="Apple">Apple</option>
+            <option value="Samsung">Samsung</option>
+            <!-- Add more options for other brands as needed -->
+        </select>
     </div>
-</form>
-            </div>
-        </div>
-        <br>
 
-         <div id="productlist">
+                <button type="submit">Update</button>
+            </form>
+        </div>
+    </div>
+    <br>
+    <div id="productlist">
 <?php
-// PHP code for fetching and displaying products
 session_start();
 
 // Connect to the database
@@ -102,44 +96,31 @@ $query = "SELECT
           LEFT JOIN
             Brand ON Item.Item_ID = Brand.Item_ID";
 
-// Add conditions for individual filters
-$whereClauses = [];
-$bindings = [];
+// Initialize an array to hold conditions
+$conditions = [];
 
-// Handle search query
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['searchitem'])) {
-    $search_query = $_POST['searchitem'];
-    $whereClauses[] = "Item.ItemName LIKE ?";
-    $bindings[] = "%$search_query%";
+// Check if brand has been selected
+if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
+    $brand = $_POST['selected_brand'];
+    // Add condition to the array
+    $conditions[] = "Brand.BrandName = '$brand'";
 }
 
-// Handle price filtering
-if (isset($_POST['minprice']) && isset($_POST['maxprice'])) {
-    $min_price = $_POST['minprice'];
-    $max_price = $_POST['maxprice'];
-    $whereClauses[] = "Item.Price BETWEEN ? AND ?";
-    $bindings[] = $min_price;
-    $bindings[] = $max_price;
+// If other filters are applied, add them to the conditions array
+if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
+    $minprice = $_POST['minprice'];
+    $maxprice = $_POST['maxprice'];
+    // Add condition to the array
+    $conditions[] = "Item.Price BETWEEN $minprice AND $maxprice";
 }
 
-// Handle brand filtering
-if (isset($_POST['brands']) && !empty($_POST['brands'])) {
-    $brands = $_POST['brands'];
-    $placeholders = array_fill(0, count($brands), '?');
-    $whereClauses[] = "Brand.BrandName IN (" . implode(',', $placeholders) . ")";
-    $bindings = array_merge($bindings, $brands);
+// If conditions exist, add WHERE clause to the query
+if(!empty($conditions)) {
+    $query .= " WHERE " . implode(" AND ", $conditions);
 }
 
-// Combine all where clauses
-if (!empty($whereClauses)) {
-    $filteredQuery = $query . " WHERE " . implode(" AND ", $whereClauses);
-} else {
-    $filteredQuery = $query;
-}
-
-// Execute the filtered query
-$statement = $pdo->prepare($filteredQuery);
-$statement->execute($bindings);
+// Prepare and execute the query
+$statement = $pdo->query($query);
 
 // Display all products fetched from the database
 foreach ($statement as $row) {
@@ -157,8 +138,6 @@ foreach ($statement as $row) {
 
 
 
-
-        </div>
     </div>
 </body>
 </html>
