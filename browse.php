@@ -46,7 +46,7 @@
     <br><br>
     <h1>Search Products</h1>
     <form class="searchbox" method="post" action="browse.php">
-        <input type="text" placeholder="Search" name="searchitem">
+        <input type="text" placeholder="Search" name="searchitem" value="<?php echo isset($_POST['searchitem']) ? $_POST['searchitem'] : ''; ?>">
         <button type="submit"><i class="fa fa-search"></i></button>
     </form>
     <br>
@@ -57,30 +57,40 @@
             <form method="post" action="browse.php">
                 <h3>Prices</h3>
                 <div id="myPrices">
-                    <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999" value="1">
-                    <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="10000">
+<input type="number" placeholder="Minimum" name="minprice" min="0" max="9999" value="<?php echo isset($_POST['minprice']) ? $_POST['minprice'] : '1'; ?>">
+<input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="<?php echo isset($_POST['maxprice']) ? $_POST['maxprice'] : '10000'; ?>">
+
                 </div>
                 <br>
                 <h3>Brands</h3>
                 <div id="myBrandDropdown">
-                    <select name="selected_brand">
-                        <option value="">Select Brand</option>
-                        <option value="Apple">Apple</option>
-                        <option value="Samsung">Samsung</option>
-                        <!-- Add more options for other brands as needed -->
-                    </select>
+     <select name="selected_brand">
+    <option value="">Select Brand</option>
+    <option value="Apple"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Apple') echo ' selected'; ?>>Apple</option>
+    <option value="Samsung"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Samsung') echo ' selected'; ?>>Samsung</option>
+    <!-- Add more options for other brands as needed -->
+</select>
+
                 </div>
                 <h3>Warranty</h3>
                 <div id="myWarrantyDropdown">
-                    <select name="selected_warranty">
-                        <option value="">Select Warranty</option>
-                        <option value="12">1 Year</option>
-                        <option value="24">2 Years</option>
-                        <option value="36">3 Years</option>
-                        <!-- Add more options for other warranty durations as needed -->
-                    </select>
+ <select name="selected_warranty">
+    <option value="">Select Warranty</option>
+    <option value="12"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '12') echo ' selected'; ?>>1 Year</option>
+    <option value="24"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '24') echo ' selected'; ?>>2 Years</option>
+    <option value="36"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '36') echo ' selected'; ?>>3 Years</option>
+    <!-- Add more options for other warranty durations as needed -->
+</select>
+
                 </div>
-                <button type="submit">Update</button>
+<h3>Warranty</h3>
+	<!-- Add sort options inside the form -->
+<select name="sort_order">
+    <option value="ASC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'ASC') echo ' selected'; ?>>Price Low to High</option>
+    <option value="DESC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'DESC') echo ' selected'; ?>>Price High to Low</option>
+</select>
+<br><br>
+                <button type="submit">Update</button><br><br>
 <button type="button" id="resetButton" onclick="resetFilters()">Reset</button>
             </form>
         </div>
@@ -174,6 +184,12 @@ if(isset($_POST['selected_warranty']) && !empty($_POST['selected_warranty'])) {
 // If conditions exist, add WHERE clause to the query
 if(!empty($conditions)) {
     $query .= " WHERE " . implode(" AND ", $conditions);
+}
+// Add sorting condition based on user selection
+if(isset($_POST['sort_order']) && ($_POST['sort_order'] === 'ASC' || $_POST['sort_order'] === 'DESC')) {
+    $sort_order = $_POST['sort_order'];
+    // Add sorting order to the query
+    $query .= " ORDER BY Item.Price $sort_order";
 }
 
 // Prepare and execute the query
