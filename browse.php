@@ -49,35 +49,32 @@
         <div id="filter">
             <br>
             <h2>Filters</h2>
-            <h3>Prices</h3>
             <form method="post" action="browse.php">
+                <h3>Prices</h3>
                 <div id="myPrices">
                     <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999" value="1">
                     <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="10000">
                 </div>
                 <br>
                 <h3>Brands</h3>
-<form method="post" action="browse.php">
-    <div id="myBrandDropdown">
-        <select name="selected_brand">
-            <option value="">Select Brand</option>
-            <option value="Apple">Apple</option>
-            <option value="Samsung">Samsung</option>
-            <!-- Add more options for other brands as needed -->
-        </select>
-    </div>
-<h3>Warranty</h3>
-<form method="post" action="browse.php">
-    <div id="myWarrantyDropdown">
-        <select name="selected_warranty">
-            <option value="">Select Warranty</option>
-            <option value="12">1 Year</option>
-            <option value="24">2 Years</option>
-            <option value="36">3 Years</option>
-            <!-- Add more options for other warranty durations as needed -->
-        </select>
-    </div>
-
+                <div id="myBrandDropdown">
+                    <select name="selected_brand">
+                        <option value="">Select Brand</option>
+                        <option value="Apple">Apple</option>
+                        <option value="Samsung">Samsung</option>
+                        <!-- Add more options for other brands as needed -->
+                    </select>
+                </div>
+                <h3>Warranty</h3>
+                <div id="myWarrantyDropdown">
+                    <select name="selected_warranty">
+                        <option value="">Select Warranty</option>
+                        <option value="12">1 Year</option>
+                        <option value="24">2 Years</option>
+                        <option value="36">3 Years</option>
+                        <!-- Add more options for other warranty durations as needed -->
+                    </select>
+                </div>
                 <button type="submit">Update</button>
             </form>
         </div>
@@ -92,26 +89,37 @@ $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
 
 // Construct the base query
 $query = "SELECT
-            Location.Shelf,
-            Location.Row,
-            Item.ItemName,
-            Item.Item_ID,
-            Brand.BrandName,
-            Item.Quantity,
-            Item.Price, 
-            Item.Img
-          FROM
-            Item
-          JOIN
-            Location ON Item.Location_ID = Location.Location_ID
-          LEFT JOIN
-            Brand ON Item.Item_ID = Brand.Item_ID
-          LEFT JOIN
-            Warranty ON Item.Item_ID = Warranty.Item_ID";
+    Location.Shelf,
+    Location.Row,
+    Item.ItemName,
+    Item.Item_ID,
+    Brand.BrandName,
+    Item.Quantity,
+    Item.Price, 
+    Item.Img
+  FROM
+    Item
+  JOIN
+    Location ON Item.Location_ID = Location.Location_ID
+  LEFT JOIN
+    Brand ON Item.Item_ID = Brand.Item_ID
+  LEFT JOIN
+    Warranty ON Item.Item_ID = Warranty.Item_ID";
+
 // Initialize an array to hold conditions
 $conditions = [];
+// Initialize parameters array
+$parameters = [];
 
 // Check if a search query has been submitted
+if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
+    $_SESSION['searched_word'] = $_POST['searchitem'];
+} elseif(isset($_SESSION['searched_word'])) {
+    // If the search word is already stored in session, use it
+    $_POST['searchitem'] = $_SESSION['searched_word'];
+}
+
+// Check if a search query exists
 if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
     $search = $_POST['searchitem'];
     // Add condition to the array
@@ -122,7 +130,9 @@ if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
 if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
     $brand = $_POST['selected_brand'];
     // Add condition to the array
-    $conditions[] = "Brand.BrandName = '$brand'";
+    $conditions[] = "Brand.BrandName = ?";
+    // Add brand to the parameters array
+    $parameters[] = $brand;
 }
 
 // If other filters are applied, add them to the conditions array
@@ -130,7 +140,10 @@ if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
     $minprice = $_POST['minprice'];
     $maxprice = $_POST['maxprice'];
     // Add condition to the array
-    $conditions[] = "Item.Price BETWEEN $minprice AND $maxprice";
+    $conditions[] = "Item.Price BETWEEN ? AND ?";
+    // Add price range to the parameters array
+    $parameters[] = $minprice;
+    $parameters[] = $maxprice;
 }
 
 // Check if warranty duration has been selected
@@ -141,7 +154,6 @@ if(isset($_POST['selected_warranty']) && !empty($_POST['selected_warranty'])) {
     // Add warranty duration to the parameters array
     $parameters[] = $warranty . " Months"; // Assuming the warranty details are stored as 'X Months'
 }
-
 
 // If conditions exist, add WHERE clause to the query
 if(!empty($conditions)) {
@@ -165,9 +177,6 @@ foreach ($statement as $row) {
     echo "</div>";
 }
 ?>
-
-
-
 
     </div>
 </body>
