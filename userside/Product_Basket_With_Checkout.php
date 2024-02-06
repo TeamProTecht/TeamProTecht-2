@@ -25,7 +25,7 @@
         <section id="basket">
             <?php
             try {
-                $db = new PDO('mysql:host=localhost;dbname=teamprotecht', 'root', '');
+                $db = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
 
                 // Fetching user's basket details
                 $sql1 = "SELECT * FROM `basket` WHERE User_ID = '2'";
