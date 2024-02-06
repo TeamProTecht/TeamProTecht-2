@@ -10,7 +10,8 @@
         <!--Title of web page-->
         <title>Teamprotecht</title>
         <!--Attaching css file-->
-        <link rel="stylesheet" href="CSS Images\style.css" />
+        <link rel="stylesheet" href="CSS Images HP\style.css" />
+        <link rel="stylesheet" href="CSS Images HP\dancss.css" />
         <script defer src="JavaScript/script.js"></script>
         <!-- Add icon library -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -39,7 +40,7 @@
                 <!-- Create a Basket with a button to checkout -->
                 <?php
                 try{
-                    $db = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '' );
+                    $db = new PDO('mysql:host=localhost;dbname=teamprotecht', 'root', '' );
                     //if(isset($_POST["submitted"])){
                         //$user = $_SESSION["username"];
 
