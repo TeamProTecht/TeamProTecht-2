@@ -34,17 +34,24 @@ h1{
   font-size: 35px;
 }
 
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  clear: both;
+}
+
 .column {
   float: left;
   width: 24%;
   padding: 5px;
   }
   
-.row::after {
-  content: "";
-  clear: both;
-  display: table;
-}
 
 /* Style the search field */
 
