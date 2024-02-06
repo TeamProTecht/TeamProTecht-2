@@ -34,8 +34,6 @@ h1{
     font-size: 35px;
 }
 
-
-
 .row::after {
     content: "";
     display: table;
