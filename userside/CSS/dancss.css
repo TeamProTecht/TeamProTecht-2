@@ -1,20 +1,24 @@
 html{
     background-color: rgb(255, 238, 254);
 }
+
 h1{
     color: rgb(152, 82, 150);
     font-family: Arial, Helvetica, sans-serif;
     padding: 22px 18px;
 }
+
 nav>ul{
     background-color: rgb(255, 231, 254);
 }
+
 #filter {
     background-color: rgb(255, 195, 253);
     width: 10%;
     border-style: solid;
     border-color: rgb(255, 149, 251);
 }
+
 #filter>h3{
     color: rgb(152, 82, 150);
     font-family: Arial, Helvetica, sans-serif;
@@ -23,11 +27,13 @@ nav>ul{
 #filter>div{
     width: 100%;
 }
+
 ul{
     list-style-type: none;
     margin:0;
     background-color: rgb(227, 224, 227);
 }
+
 h1{
     color: rgb(152, 82, 150);
     font-family: Arial, Helvetica, sans-serif;
@@ -47,6 +53,7 @@ h1{
     display: table;
   }
 }
+
 #filter > button {
     background-color: rgb(255, 195, 253);
     border-style: solid;
