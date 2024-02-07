@@ -32,6 +32,10 @@
     function resetFilters() {
         window.location.href = 'browse.php?reset=true';
     }
+
+
+
+
 </script>
     <nav>
         <ul> 
@@ -172,17 +176,25 @@ if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
 }
 
 // If other filters are applied, add them to the conditions array
+// Check if minimum price is less than maximum price
 if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
     $minprice = $_POST['minprice'];
     $maxprice = $_POST['maxprice'];
-    // Add condition to the array
-    $conditions[] = "Item.Price BETWEEN ? AND ?";
-    // Add price range to the parameters array
-    $parameters[] = $minprice;
-    $parameters[] = $maxprice;
-    // Store price range in session
-    $_SESSION['minprice'] = $minprice;
-    $_SESSION['maxprice'] = $maxprice;
+    
+    // Validate the prices
+    if($minprice >= $maxprice) {
+        // Display error message
+        echo "<p style='color: red;'>Error: Minimum price must be less than maximum price.</p>";
+    } else {
+        // Add condition to the array
+        $conditions[] = "Item.Price BETWEEN ? AND ?";
+        // Add price range to the parameters array
+        $parameters[] = $minprice;
+        $parameters[] = $maxprice;
+        // Store price range in session
+        $_SESSION['minprice'] = $minprice;
+        $_SESSION['maxprice'] = $maxprice;
+    }
 } elseif(isset($_SESSION['minprice']) && isset($_SESSION['maxprice'])) {
     // If price range is already stored in session, use it
     $_POST['minprice'] = $_SESSION['minprice'];
