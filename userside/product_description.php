@@ -62,7 +62,7 @@
                         foreach ($products as $product) {
                             $itemName = $product['ItemName'];
                             $itemPrice = $product['Price'];
-
+                            
                             echo "<tr>";
                             echo "<td>".$itemID."</td>";
                             echo "<td".$itemName."</td>";
