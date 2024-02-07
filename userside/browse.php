@@ -5,8 +5,38 @@
     <title>Teamprotecht</title>
     <link rel="stylesheet" href="CSS/browse.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        /* Add styles for filters */
+        #filter {
+            float: left;
+            width: 30%;
+            margin-right: 20px;
+        }
+        #myPrices input, #myPrices button {
+            margin-bottom: 10px;
+        }
+        #myBrandDropdown label {
+            display: block;
+        }
+        #productlist {
+            float: left;
+            width: 65%;
+        }
+        .product-item {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
+<script>
+    function resetFilters() {
+        window.location.href = 'browse.php?reset=true';
+    }
+
+
+
+
+</script>
     <nav>
         <ul> 
             <li><img src="CSS HP/images/logo.png" width="90px" height="65px"></li>
@@ -57,7 +87,7 @@
 </select>
 
                 </div>
-<h3>Sort</h3>
+<h3>Warranty</h3>
 	<!-- Add sort options inside the form -->
 <select name="sort_order">
     <option value="ASC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'ASC') echo ' selected'; ?>>Price Low to High</option>
@@ -68,6 +98,7 @@
 <button type="button" id="resetButton" onclick="resetFilters()">Reset</button>
             </form>
         </div>
+    </div>
     <br>
     <div id="productlist">
 <?php
@@ -97,7 +128,7 @@ if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
 }
 
 // Connect to the database
-$pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
 
 // Construct the base query
 $query = "SELECT
@@ -145,17 +176,25 @@ if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
 }
 
 // If other filters are applied, add them to the conditions array
+// Check if minimum price is less than maximum price
 if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
     $minprice = $_POST['minprice'];
     $maxprice = $_POST['maxprice'];
-    // Add condition to the array
-    $conditions[] = "Item.Price BETWEEN ? AND ?";
-    // Add price range to the parameters array
-    $parameters[] = $minprice;
-    $parameters[] = $maxprice;
-    // Store price range in session
-    $_SESSION['minprice'] = $minprice;
-    $_SESSION['maxprice'] = $maxprice;
+    
+    // Validate the prices
+    if($minprice >= $maxprice) {
+        // Display error message
+        echo "<p style='color: red;'>Error: Minimum price must be less than maximum price.</p>";
+    } else {
+        // Add condition to the array
+        $conditions[] = "Item.Price BETWEEN ? AND ?";
+        // Add price range to the parameters array
+        $parameters[] = $minprice;
+        $parameters[] = $maxprice;
+        // Store price range in session
+        $_SESSION['minprice'] = $minprice;
+        $_SESSION['maxprice'] = $maxprice;
+    }
 } elseif(isset($_SESSION['minprice']) && isset($_SESSION['maxprice'])) {
     // If price range is already stored in session, use it
     $_POST['minprice'] = $_SESSION['minprice'];
@@ -195,33 +234,18 @@ $statement->execute($parameters);
 // Display all products fetched from the database
 foreach ($statement as $row) {
     echo "<div class='product-item'>";
-    echo "<a href = 'productdescription.php/".$row['Item_ID']."/".$row['BrandName']."_".$row['ItemName']."'<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong></a><br>";
+    echo "<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong><br>";
     echo "<strong>£" . $row['Price'] . "</strong><br>";
-    echo "<img src='CSS/images/" . $row['Img'] . "'><br>";
-    echo "<form method='post'>";
+    echo "<img src='" . $row['Img'] . "'><br>";
+    echo "<form method='post' action=''>"; // Assuming you want to use separate forms for each product
     echo "<input type='hidden' name='product_id' value='" . $row['Item_ID'] . "'>";
     echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
     echo "</form>";
     echo "</div>";
-
-    if(isset($_POST['add_to_basket']) && isset($_POST['User_ID'])){
-        $itemID = $_POST['Item_ID'];
-        $userID = $_POST['User_ID'];
-
-        $newbasket = "INSERT INTO basket (User_ID) VALUES('$userID')";
-        $addSQL = "INSERT INTO basketitem (Basket_ID, Item_ID, Quantity) VALUES ('$newbasket', '$itemID', 1)";
-
-
-    } elseif(!isset($_POST['User_ID']) && isset($_POST['email'])) {
-        $email = $_POST(['email']);
-        $guest = "INSERT INTO session (Item_ID, email) VALUES ('$itemID', '$email')";
-        echo "<script>notLoggedIn()</script>";
-    }
-
-
 }
 ?>
-    </div>
+
+
     </div>
 </body>
 </html>
