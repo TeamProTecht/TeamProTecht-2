@@ -29,7 +29,7 @@
             <!-- Creating a page to display description of all products-->
             <?php 
             try {
-                $db = new PDO('mysql:host=localhost;dbname=teamprotecht', 'root', '');
+                $db = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
                 // select everything from the item table - statement 1
                 $s1 = "SELECT * FROM 'item'";
 
