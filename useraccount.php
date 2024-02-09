@@ -1,12 +1,155 @@
+<?php
+// Start the session to access session variables
+session_start();
+
+// Set the login credentials
+$login_username = "john_doe";
+$login_password = "password123";
+
+// Simulate login
+$_SESSION['user_id'] = 1; // Assuming user ID 1 corresponds to "john_doe"
+
+// Establish database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "stockpage";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Fetch user details based on user ID from the session
+$user_id = $_SESSION['user_id'] ?? null;
+if ($user_id !== null) {
+    $sql = "SELECT * FROM Users WHERE User_ID = '$user_id'";
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        // Fetch user details
+        $row = $result->fetch_assoc();
+    } else {
+        echo "No user found with this ID.";
+    }
+} else {
+    echo "User ID not found in session.";
+}
+
+// Fetch previous orders by the user
+$order_sql = "SELECT Orders.Order_ID, Item.ItemName, BasketItem.Quantity, (Item.Price * BasketItem.Quantity) AS Total_Price
+              FROM Orders
+              INNER JOIN BasketItem ON Orders.Basket_ID = BasketItem.Basket_ID
+              INNER JOIN Item ON BasketItem.Item_ID = Item.Item_ID
+              WHERE Orders.User_ID = '$user_id'";
+$order_result = $conn->query($order_sql);
+
+// Close database connection
+$conn->close();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User Details</title>
+    <style>
+        /* Style for the full popup menu */
+        .popup-menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+
+        .popup-menu {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 1001;
+        }
+    </style>
 </head>
 <body>
     <h2>Edit User Details</h2>
+    <!-- Button to open the full popup menu -->
+    <button onclick="openPopupMenu()">Open Menu</button>
+
+    <!-- Full popup menu -->
+    <div class="popup-menu-overlay" onclick="closePopupMenu()"></div>
+    <div class="popup-menu">
+        <h3>Previous Orders</h3>
+        <?php
+        $combined_orders = array();
+        $current_order_id = null;
+        $total_price = 0;
+
+        if ($order_result && $order_result->num_rows > 0) {
+            while ($order_row = $order_result->fetch_assoc()) {
+                $order_id = $order_row['Order_ID'];
+                if ($current_order_id !== $order_id) {
+                    // New order ID, display the previous order if available
+                    if ($current_order_id !== null) {
+                        echo "<p>Order ID: $current_order_id</p>";
+                        echo "<ul>";
+                        foreach ($combined_orders[$current_order_id] as $item_name => $item_details) {
+                            echo "<li>$item_name - Quantity: $item_details[Quantity], Total Price: $item_details[Total_Price]</li>";
+                        }
+                        echo "</ul>";
+                        echo "<p>Total Price: $total_price</p>";
+                        $total_price = 0;
+                    }
+                    $current_order_id = $order_id;
+                    $combined_orders[$order_id] = array();
+                }
+
+                $item_name = $order_row['ItemName'];
+                if (!isset($combined_orders[$order_id][$item_name])) {
+                    // Initialize item details if not present
+                    $combined_orders[$order_id][$item_name] = array(
+                        'Quantity' => $order_row['Quantity'],
+                        'Total_Price' => $order_row['Total_Price']
+                    );
+                } else {
+                    // Update quantities and total prices for items with the same name
+                    $combined_orders[$order_id][$item_name]['Quantity'] += $order_row['Quantity'];
+                    $combined_orders[$order_id][$item_name]['Total_Price'] += $order_row['Total_Price'];
+                }
+
+                // Calculate total price for the order
+                $total_price += $order_row['Total_Price'];
+            }
+
+            // Display the last order
+            if ($current_order_id !== null) {
+                echo "<p>Order ID: $current_order_id</p>";
+                echo "<ul>";
+                foreach ($combined_orders[$current_order_id] as $item_name => $item_details) {
+                    echo "<li>$item_name - Quantity: $item_details[Quantity], Total Price: $item_details[Total_Price]</li>";
+                }
+                echo "</ul>";
+                echo "<p>Total Price: $total_price</p>";
+            }
+        } else {
+            echo "<p>No previous orders found.</p>";
+        }
+        ?>
+    </div>
+    
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
         Username: <input type="text" name="username" value="<?php echo $row['Username'] ?? ''; ?>"><br><br>
         Password: <input type="password" name="password" value="<?php echo $row['Password'] ?? ''; ?>"><br><br>
@@ -17,32 +160,17 @@
         <input type="submit" value="Update">
     </form>
 
-    <!-- Button to view previous orders -->
-    <button onclick="openPreviousOrders()">View Previous Orders</button>
-
-    <!-- Modal for previous orders -->
-    <div id="previousOrdersModal" style="display: none;">
-        <div id="modalContent"></div>
-    </div>
-
     <script>
-        function openPreviousOrders() {
-            var modal = document.getElementById("previousOrdersModal");
-            var modalContent = document.getElementById("modalContent");
+        // Function to open the full popup menu
+        function openPopupMenu() {
+            document.querySelector('.popup-menu-overlay').style.display = 'block';
+            document.querySelector('.popup-menu').style.display = 'block';
+        }
 
-            // You can adjust the URL according to your server setup
-            var url = 'get_previous_orders.php';
-
-            // Fetch previous orders via AJAX
-            var xhr = new XMLHttpRequest();
-            xhr.open('GET', url, true);
-            xhr.onreadystatechange = function() {
-                if (xhr.readyState == 4 && xhr.status == 200) {
-                    modal.style.display = "block";
-                    modalContent.innerHTML = xhr.responseText;
-                }
-            };
-            xhr.send();
+        // Function to close the full popup menu
+        function closePopupMenu() {
+            document.querySelector('.popup-menu-overlay').style.display = 'none';
+            document.querySelector('.popup-menu').style.display = 'none';
         }
     </script>
 </body>
