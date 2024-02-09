@@ -128,7 +128,7 @@ if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
 }
 
 // Connect to the database
-$pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
+$pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
 
 // Construct the base query
 $query = "SELECT

@@ -44,7 +44,7 @@
 
 
     <?php
-    $pdo = new PDO('sqlite:new.db');
+   $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
     Orders.Address_Order AS Order_Address,
@@ -74,7 +74,7 @@ echo " oder: " . $oder . "<br>";
 
 }
 if($oder!= "" && $status  !=""){
- $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
     Orders.Address_Order AS Order_Address,
@@ -96,7 +96,7 @@ ORDER BY Order_Updated_at $oder;");
 
 
 }elseif ($status !="") {
- $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
     Orders.Address_Order AS Order_Address,
@@ -115,7 +115,7 @@ JOIN Location ON Item.Location_ID = Location.Location_ID
 WHERE Orders.Order_Status = '$status';");
 
 }elseif($oder != ""){
-    $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
     Orders.Address_Order AS Order_Address,
@@ -135,7 +135,7 @@ ORDER BY Order_Updated_at $oder;");
 
 }else{
     
-    $pdo = new PDO('sqlite:new.db');
+    $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
     Orders.Address_Order AS Order_Address,
