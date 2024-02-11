@@ -96,7 +96,7 @@ if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
     $_POST['searchitem'] = $_SESSION['searched_word'];
 }
 // Connect to database
-include "connectdb.php";
+include "SQL/connectdb.php";
 
 // Construct the base query
 $query = "SELECT
@@ -188,7 +188,7 @@ if(isset($_POST['sort_order']) && ($_POST['sort_order'] === 'ASC' || $_POST['sor
 }
 
 // Prepare and execute the query
-$statement = $pdo->prepare($query);
+$statement = $con->prepare($query);
 $statement->execute($parameters);
 
 // Store all different products of result
