@@ -54,15 +54,35 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User Details</title>
     <link rel="stylesheet" type="text/css" href="CSS\styleforeditacctount.css">
+    <style>
+        /* CSS for the button inside buttonoders */
+        .buttonoders button {
+      width: 100%;
+    padding: 10px;
+    background: rgb(152, 82, 150);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+        }
+
+        .buttonoders button:hover {
+            background-color: #005f6b;
+        }
+    </style>
 </head>
 <body>
     <h2>Edit User Details</h2>
     <!-- Button to open the full popup menu -->
-    <button onclick="openPopupMenu()">Open Menu</button>
+    <div class="buttonoders">
+    <button onclick="openPopupMenu()">Previous Oders</button>
+    </div>
 
     <!-- Full popup menu -->
     <div class="popup-menu-overlay" onclick="closePopupMenu()"></div>
