@@ -17,7 +17,7 @@
           </a>
           <ul class="side-menu top">
             <li>
-                <a href="#">
+                <a href="stockview.php">
                     <i class='bx bxl-dropbox' ></i>
                     <span class="text">Stock View</span>
                 </a>
@@ -47,6 +47,7 @@
           </ul>
     </section>
     <section id="table">
+        <a href="additem.PHP">Add Item</a><br><br>
     <table>
         <tr>
             <th>Item ID</th>

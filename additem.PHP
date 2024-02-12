@@ -16,7 +16,7 @@
           </a>
           <ul class="side-menu top">
             <li>
-                <a href="#">
+                <a href="stockview.php">
                     <i class='bx bxl-dropbox' ></i>
                     <span class="text">Stock View</span>
                 </a>
@@ -93,9 +93,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $itemrow = $_POST["row"];
 
     try {
-        $pdo = new PDO('sqlite:new.db');
+        $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
         
-        $pdo->exec("INSERT INTO Location (Shelf, Row) VALUES ('$shelf', '$itemrow')");
+        $pdo->exec("INSERT INTO location (Shelf, Row) VALUES ('$shelf', '$itemrow')");
 
 
         $pdo->exec("INSERT INTO Brand (BrandName) VALUES ('$brandname')");
@@ -103,7 +103,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $pdo->exec("
             INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID) 
             VALUES ('$itemname', $quantity, '$itemdescription', '$quantity', '$photo', 
-            (SELECT Location_ID FROM Location WHERE Shelf = '$shelf' AND Row = '$itemrow'))
+            (SELECT Location_ID FROM location WHERE Shelf = '$shelf' AND Row = '$itemrow' LIMIT 1))
         ");
         
         echo "Form submitted successfully!";
