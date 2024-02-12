@@ -21,6 +21,16 @@ body{
     padding-left: 220px;
 }
 
+#mainsection{
+    position: fixed;
+    padding-left: 220px;
+}
+
+form {
+    padding-top: 30px;
+    
+}
+
 #sidebar .brand{
     color: white;
 }
@@ -50,6 +60,15 @@ body{
 
 
 
+
+#sidebar .side-menu li:hover .bx{
+    color: rgb(131, 66, 139);
+}
+
+#sidebar .side-menu li:hover .text{
+    color: rgb(131, 66, 139);
+}
+
 #sidebar .side-menu li{
     height: 48px;
     padding: 10px;
@@ -73,6 +92,10 @@ th {
 }
 tr:nth-child(even) {
     background-color: #f2f2f2;
+}
+
+#sidebar .side-menu a {
+    text-decoration: none;
 }
 
 
