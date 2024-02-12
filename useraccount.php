@@ -54,15 +54,74 @@ $conn->close();
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User Details</title>
     <link rel="stylesheet" type="text/css" href="CSS\styleforeditacctount.css">
+    <style>
+        /* CSS for the button inside buttonoders */
+        .buttonoders button {
+      width: 100%;
+    padding: 10px;
+    background: rgb(152, 82, 150);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+        }
+
+        .buttonoders button:hover {
+            background-color: #005f6b;
+        }
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: rgb(255, 255, 255);
+  position: fixed;
+  top: 0%;
+  width: 100%;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: rgb(152, 82, 150);
+  text-align: center;
+  padding: 22px 18px;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
+
+li a:hover {
+  background-color: rgb(227, 224, 227);
+}
+
+    </style>
 </head>
 <body>
+    <nav>
+        <ul> 
+            <li><img src="CSS HP/images/logo.png" width="90px" height="65px"></li>
+            <li><a href="Teamprotecht - HomePage.html">Home</a></li>
+            <li><a href="browse.php">Browse</a></li>
+            <li><a href="">About Us</a></li>
+            <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
+            <li style="float:right"><a href="#"><i class="fa fa-user"></i></a></li>
+        </ul>
+    </nav>
     <h2>Edit User Details</h2>
     <!-- Button to open the full popup menu -->
-    <button onclick="openPopupMenu()">Open Menu</button>
+    <div class="buttonoders">
+    <button onclick="openPopupMenu()">Previous Oders</button>
+    </div>
 
     <!-- Full popup menu -->
     <div class="popup-menu-overlay" onclick="closePopupMenu()"></div>
