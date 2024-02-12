@@ -26,7 +26,7 @@
                     <span class="text">Confirm Orders</span>
                 </a>
             </li>            <li>
-                <a href="#">
+                <a href="pending_orders.php">
                     <i class='bx bxs-hourglass' ></i>
                     <span class="text">Pending Orders</span>
                 </a>
