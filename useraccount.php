@@ -57,32 +57,7 @@ $conn->close();
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit User Details</title>
-    <style>
-        /* Style for the full popup menu */
-        .popup-menu-overlay {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: 1000;
-        }
-
-        .popup-menu {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-            z-index: 1001;
-        }
-    </style>
+    <link rel="stylesheet" type="text/css" href="CSS\styleforeditacctount.css">
 </head>
 <body>
     <h2>Edit User Details</h2>
@@ -93,7 +68,7 @@ $conn->close();
     <div class="popup-menu-overlay" onclick="closePopupMenu()"></div>
     <div class="popup-menu">
         <h3>Previous Orders</h3>
-        <?php
+         <?php
         $combined_orders = array();
         $current_order_id = null;
         $total_price = 0;
@@ -175,3 +150,4 @@ $conn->close();
     </script>
 </body>
 </html>
+
