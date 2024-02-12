@@ -1,5 +1,8 @@
 body{
     background: white;
+    display: flex;
+    flex-direction: row;
+    font-family:  Arial, Helvetica, sans-serif;
 }
 
 #sidebar{
@@ -11,6 +14,11 @@ body{
     background-color: black;
     z-index: 1000;
 
+}
+
+#table{
+    position: fixed;
+    padding-left: 220px;
 }
 
 #sidebar .brand{
@@ -50,3 +58,24 @@ body{
     margin-left: 0px;
     border-radius: 48px 0 0 48px;
 }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+
+
+
+

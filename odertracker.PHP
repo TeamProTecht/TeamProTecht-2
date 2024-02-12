@@ -1,9 +1,53 @@
 <html>
+    <head>
+            <!---box icons css-->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="employee.css">
+</head>
     
 
+<body>
+<section id="sidebar">
+          <a href="" class="brand">
+            <span class="icon">
+                <img src="logo.png" alt="teamprotect logo">
+            </span>
+          </a>
+          <ul class="side-menu top">
+            <li>
+                <a href="#">
+                    <i class='bx bxl-dropbox' ></i>
+                    <span class="text">Stock View</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-mail-send' ></i>
+                    <span class="text">Confirm Orders</span>
+                </a>
+            </li>            <li>
+                <a href="#">
+                    <i class='bx bxs-hourglass' ></i>
+                    <span class="text">Pending Orders</span>
+                </a>
+            </li>            <li>
+                <a href="#">
+                    <i class='bx bxs-package' ></i>
+                    <span class="text">Fulfilled Orders</span>
+                </a>
+            </li>
+        </li>            <li>
+            <a href="#">
+                <i class='bx bx-log-out'></i>
+                <span class="text">Logout</span>
+            </a>
+        </li>
+          </ul>
+    </section>
 
 <br>
 
+<section id="table">
 <form method="post" >
 
 <label for="statusSelect">Select Status:</label>
@@ -14,13 +58,13 @@
     <option value="Shipped">Shipped</option>
     <option value="Received">Received</option>
 </select>
-<label for="oderSelect">Select oeder:</label>
-<select id="oderSelect" name="oderSelect">
+<label for="orderSelect">Select order:</label>
+<select id="orderSelect" name="orderSelect">
     <option value="">select</option>
     <option value="ASC">accending</option>
     <option value="DESC">decending</option>
 </select>
-<br>
+
     <input type="submit" value="Submit">
 </form>
 
@@ -29,19 +73,18 @@
 
 
 
-<table border="1">
-    <tr>
-        <th>oder id</th>
-        <th>adress</th>
-	<th>iteam id</th>
-        <th>item name</th>
-        <th>oder status</th>
-	<th>updated at</th>
-	<th>row</th>
-	<th>shelf</th>
-<th>quanity</th>
-
-    </tr>
+<table>
+        <tr>
+            <th>Order ID</th>
+            <th>Address</th>
+            <th>Item ID</th>
+            <th>Item Name</th>
+            <th>Order Status</th>
+            <th>Updated At</th>
+            <th>Row</th>
+            <th>Shelf</th>
+            <th>Quantity Ordered?</th>
+        </tr>
 
 
     <?php
@@ -65,15 +108,9 @@ JOIN Location ON Item.Location_ID = Location.Location_ID;");
 $status="";
 $oder= "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    $status = $_POST["statusSelect"];
-    $oder = $_POST["oderSelect"];
 
-    echo " staus: " . $status . "<br>";
-echo " oder: " . $oder . "<br>";
 
-}
+
 if($oder!= "" && $status  !=""){
     $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
@@ -169,5 +206,6 @@ print "<td>" . $rows['Shelf'] . "</td><tr>";
     }
     ?>
 </table>
+</section>
 </body>
 </html>
