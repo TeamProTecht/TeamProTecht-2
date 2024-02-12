@@ -106,12 +106,12 @@ JOIN Item ON BasketItem.Item_ID = Item.Item_ID
 JOIN Location ON Item.Location_ID = Location.Location_ID;");
 
 $status="";
-$oder= "";
+$order= "";
 
 
 
 
-if($oder!= "" && $status  !=""){
+if($order!= "" && $status  !=""){
     $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
@@ -129,7 +129,7 @@ JOIN BasketItem ON Orders.Basket_ID = BasketItem.Basket_ID
 JOIN Item ON BasketItem.Item_ID = Item.Item_ID
 JOIN Location ON Item.Location_ID = Location.Location_ID
 WHERE Orders.Order_Status = '$status'
-ORDER BY Order_Updated_at $oder;");
+ORDER BY Order_Updated_at $order;");
 
 
 
@@ -152,7 +152,7 @@ JOIN Item ON BasketItem.Item_ID = Item.Item_ID
 JOIN Location ON Item.Location_ID = Location.Location_ID
 WHERE Orders.Order_Status = '$status';");
 
-}elseif($oder != ""){
+}elseif($order != ""){
     $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
     $statement = $pdo->query("SELECT
     Orders.Order_ID,
