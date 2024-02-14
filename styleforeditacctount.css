@@ -56,7 +56,7 @@ textarea {
     box-sizing: border-box;
 }
 
-input[type="submit"]{
+input[type="submit"] {
     width: 100%;
     padding: 10px;
     background: rgb(152, 82, 150);
@@ -67,20 +67,8 @@ input[type="submit"]{
     transition: background-color 0.3s ease;
 }
 
-input[type="submit"]:hover,
-.button-open-menu:hover {
+input[type="submit"]:hover {
     background-color: #005f6b;
-}
-
-.button-open-menu {
-    width: 100%;
-    padding: 10px;
-    background: rgb(152, 82, 150);
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
 .popup-menu h3 {
@@ -99,5 +87,68 @@ input[type="submit"]:hover,
 }
 
 .popup-menu ul li {
-    margin-bottom: 10px;
+    margin-bottom: 10px; /* Add your desired margin value here */
+}
+
+/* CSS for the button inside popup menu */
+.popup-menu button {
+    width: 100%;
+    padding: 10px;
+    background: rgb(152, 82, 150);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.popup-menu button:hover {
+    background-color: #005f6b;
+}
+
+/* Navbar styling */
+ul.navbar {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    position: fixed;
+    top: 0%;
+    width: 100%;
+}
+
+ul.navbar li {
+    float: left;
+}
+
+ul.navbar li a {
+    display: block;
+    color: rgb(152, 82, 150);
+    text-align: center;
+    padding: 22px 18px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+ul.navbar li a:hover {
+    background-color: rgb(227, 224, 227);
+}
+
+
+/* CSS for the previous orders button */
+.buttonoders button {
+    width: 100%;
+    padding: 10px;
+    background: rgb(152, 82, 150);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.buttonoders button:hover {
+    background-color: #005f6b;
 }
