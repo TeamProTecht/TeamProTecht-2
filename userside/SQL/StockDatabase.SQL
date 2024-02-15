@@ -94,3 +94,13 @@ CREATE TABLE Brand (
     FOREIGN KEY (Item_ID) REFERENCES Item(Item_ID),
     PRIMARY KEY (Brand_ID)
 );
+
+CREATE TABLE ContactUs (
+    ContactUs_ID INT AUTO_INCREMENT,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    Message TEXT,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ContactUs_ID)
+);
+
