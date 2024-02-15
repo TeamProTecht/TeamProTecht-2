@@ -34,24 +34,17 @@ h1{
   font-size: 35px;
 }
 
-.row::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-.row {
-  display: flex;
-  flex-wrap: wrap;
-  clear: both;
-}
-
 .column {
   float: left;
   width: 24%;
   padding: 5px;
   }
   
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
 
 /* Style the search field */
 
@@ -104,6 +97,7 @@ div#searchresult{
 
 div#filter{
   width: 20%;
+  height: 50%;
   float: left;
   margin: 5px;
   margin-right: 10px;
@@ -128,15 +122,15 @@ div#filter>div{
 
 div#productlist{
   display: flex;
-  width: 65%;
+  width: 75%;
   margin: 10px;
   font-size: large;
   flex-flow: row wrap;
 }
 
 .product-item {
-  margin-bottom: 20px;
-  width: 40%;
+  margin: 10px;
+  width: 30%;
   height: 20%;
 }
 
