@@ -1,5 +1,5 @@
-<?php include('../userside/SQL/connectdb.php');?>
-//change reference to connectdb
+<?php include('connectdb.php');?>
+
 
 <!DOCTYPE html>
 <html>
@@ -48,11 +48,11 @@
         if ($row_count > 0) {
             if (password_verify($employeePassword, $row_data['password'])) {
                 echo "<script>alert('Login successful')</script>";
-                //redirect the basket  
-                //create a session here!
+
             } else {
                 echo "<script>alert('Invalid user')</script>";
-                
+                header("Location: ../stockview.php");
+                exit;
             }
         } else {
             echo "<script>alert('Invalid user')</script>";

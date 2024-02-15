@@ -2,7 +2,7 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-image: url('backgroundimage.jpg.png'); /* Replace 'your-background-image.jpg' with the actual path to your image file */
+    background-image: url('backgroundimage.jpg.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -134,4 +134,8 @@ form input[type="submit"] {
 
 form input[type="submit"]:hover {
     background-color: #a19c9c;
+}
+
+.navbar logo-container1 img{
+    height: 100%;
 }
