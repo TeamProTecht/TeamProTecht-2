@@ -48,8 +48,11 @@
         if ($row_count > 0) {
             if (password_verify($employeePassword, $row_data['password'])) {
                 echo "<script>alert('Login successful')</script>";
+                //redirect the basket  
+                //create a session here!
             } else {
                 echo "<script>alert('Invalid user')</script>";
+                
             }
         } else {
             echo "<script>alert('Invalid user')</script>";
