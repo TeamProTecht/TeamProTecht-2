@@ -1,0 +1,38 @@
+
+body{
+    margin: 0px;
+}
+
+ul{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    list-style-type: none;
+    padding:0;
+    overflow: hidden;
+    background-color: rgb(255, 255, 255);
+    top: 0%;
+    margin-top: 0px;
+    height: 65px;
+    width: 100%;
+}
+
+li{
+    height: 65px;
+    max-height: 100%;
+}
+
+li a{
+    display: block;
+    color: rgb(152, 82, 150);
+    text-align: center;
+    padding: 22px 18px;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+li a:hover{
+    background-color: rgb(227, 224, 227);
+}
