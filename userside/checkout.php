@@ -58,7 +58,7 @@ try {
         $statement->execute();
 
         // Redirect to home.php
-        //header('Location: home.php');
+        header('Location: homepage.php');
         exit();
     }
 } catch (PDOException $e) {

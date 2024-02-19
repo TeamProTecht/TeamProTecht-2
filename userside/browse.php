@@ -3,20 +3,13 @@
 <head>
     <meta charset="UTF-8"/>
     <title>Teamprotecht</title>
-    <link rel="stylesheet" href="CSS/browse.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="CSS/browse.css">
+    <script defer src="JavaScript/script.js"></script>
 </head>
+<?php
+include "navbar.php";
+?>
 <body>
-    <nav>
-        <ul> 
-            <li><img src="CSS HP/images/logo.png" width="90px" height="65px"></li>
-            <li><a href="Teamprotecht - HomePage.html">Home</a></li>
-            <li><a href="browse.php">Browse</a></li>
-            <li><a href="">About Us</a></li>
-            <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
-            <li style="float:right"><a href="#"><i class="fa fa-user"></i></a></li>
-        </ul>
-    </nav>
     <br><br>
     <h1>Search Products</h1>
     <form class="searchbox" method="post" action="browse.php">
@@ -74,19 +67,15 @@
 session_start();
 
 if(isset($_GET['reset']) && $_GET['reset'] === 'true') {
-    // Unset all session variables
     session_unset();
-    // Destroy the session
     session_destroy();
-    // Redirect back to the same page to clear any stored parameters in the URL
     header("Location: browse.php");
-    exit(); // Ensure script execution stops here to prevent further processing
+    exit();
 }
 
 // Check if a search query has been submitted
 if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
     $_SESSION['searched_word'] = $_POST['searchitem'];
-    // Unset other filter session variables
     unset($_SESSION['selected_brand']);
     unset($_SESSION['selected_warranty']);
     unset($_SESSION['minprice']);
@@ -96,7 +85,7 @@ if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
     $_POST['searchitem'] = $_SESSION['searched_word'];
 }
 // Connect to database
-include "SQL/connectdb.php";
+include "connectdb.php";
 
 // Construct the base query
 $query = "SELECT
@@ -165,7 +154,7 @@ if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
 if(isset($_POST['selected_warranty']) && !empty($_POST['selected_warranty'])) {
     $warranty = $_POST['selected_warranty'];
     // Add condition to the array
-    $conditions[] = "Warranty.WarrantyDetails >= ?";
+    $conditions[] = "Warranty.WarrantyDetails = ?";
     // Add warranty duration to the parameters array
     $parameters[] = $warranty . " Months"; // Assuming the warranty details are stored as 'X Months'
     // Store selected warranty duration in session
@@ -188,7 +177,7 @@ if(isset($_POST['sort_order']) && ($_POST['sort_order'] === 'ASC' || $_POST['sor
 }
 
 // Prepare and execute the query
-$statement = $con->prepare($query);
+$statement = $pdo->prepare($query);
 $statement->execute($parameters);
 
 // Store all different products of result
