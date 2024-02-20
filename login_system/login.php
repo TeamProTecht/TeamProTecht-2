@@ -1,5 +1,4 @@
 <?php include('../userside/SQL/connectdb.php');?>
-//change reference to connectdb
 
 <!DOCTYPE html>
 <html>
