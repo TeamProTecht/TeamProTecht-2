@@ -1,36 +1,15 @@
-<!--Specifying that we using HTML-->
 <!DOCTYPE html>
-
-<!--Specifying that language is English-->
 <html lang="en">
-
     <head>
-        <!--Specifying character set-->
         <meta charset="UTF-8"/>
-        <!--Title of web page-->
         <title>Teamprotecht</title>
-        <!--Attaching css file-->
-        <link rel="stylesheet" href="aboutus.css" />
-        <!-- Add java script -->
+        <link rel="stylesheet" href="CSS/aboutus.css">
         <script defer src="JavaScript/script.js"></script>
-        <!-- Add icon library -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
-
     <body>
-        <!--Creating the navigation bar-->
-                <nav>
-                    <ul> 
-                        <!--3 different tabs with links to each page-->
-                        <li><img src="CSS HP/images/logo.png" width="90px" height="65px"></li>
-                        <li><a href="Teamprotecht - HomePage.html">Home</a></li>
-                        <li><a href="browse.php">Browse</a></li>
-                        <li><a href="">About Us</a></li>
-                        <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
-                        <li style="float:right"><a href="#"><i class="fa fa-user"></i></a></li>
-                        
-                    </ul>
-                </nav>
+<?php
+include "navbar.php";
+?>
             <br>
             <br>
                <!--Creating the initial header and breif of the company-->
@@ -42,7 +21,7 @@
                 <div class="container">
                     <!--Creating a container for an image for aesthetics-->
                     <div class="image">
-                        <img src="CSS Images\aboutus_image.jpeg" >
+                        <img src="CSS/images/aboutus_image.jpeg" >
                     </div>
                     <!--Creating a container for text description-->
                     <div class="text">
@@ -81,7 +60,7 @@
                 <div class="container">
                     <!--Creating a container for an image for aesthetics-->
                     <div class="image">
-                        <img src="CSS Images\aboutus_image_3.jpg" >
+                        <img src="CSS/images/aboutus_image_3.jpg" >
                     </div>
                     <!--Creating a container for text description-->
                     <div class="text">
