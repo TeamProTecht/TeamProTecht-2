@@ -48,6 +48,7 @@
     </section>
     <section id="table">
         <a href="additem.PHP">Add Item</a><br><br>
+        <a href="#">Change featured Items</a><br><br>
     <table>
         <tr>
             <th>Item ID</th>

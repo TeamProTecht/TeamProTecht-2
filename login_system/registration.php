@@ -89,6 +89,7 @@ if (isset($_POST['user_register'])){
     
     if ($sql_execute) {
         echo "<script>alert('Account created')</script>";
+        header("Location: ../login.php");
     } else {
         die(mysqli_error($con));
     }
