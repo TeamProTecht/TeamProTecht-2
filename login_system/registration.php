@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>Employee Registration</title>
+    <title>Customer Registration</title>
     <!-- Add your CSS link here -->
     <link rel="stylesheet" type="text/css" href="loginstyle.css">
 </head>
@@ -71,7 +71,7 @@ if (isset($_POST['user_register'])){
     $hash_password=password_hash($user_pasword,PASSWORD_DEFAULT);
 
     //select query for user
-    $check_user= "select * from `employees` where employee_email='$user_email'";
+    $check_user= "select * from `users` where Username='$user_email'";
     $result=mysqli_query($con, $check_user);
     $dup_users_result=mysqli_num_rows($result);
     if ($dup_users_result>0){
@@ -82,7 +82,7 @@ if (isset($_POST['user_register'])){
     }
     else{
     //put into the db
-    $insert_query = "INSERT INTO `employees` (LastName, FirstName, employee_email, password) VALUES
+    $insert_query = "INSERT INTO `users` (Second_Name, Fore_name, Username, Password) VALUES
     ('$user_lastname', '$user_firstname', '$user_email', '$hash_password')";
     
     $sql_execute = mysqli_query($con, $insert_query);
