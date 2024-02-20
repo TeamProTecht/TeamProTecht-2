@@ -166,3 +166,36 @@ div[id^="product"] img {
   width: 250px;
   height: 100px;
 }
+
+nav {
+  position: sticky;
+  top: 0;
+  padding-bottom: 70px;
+}
+
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 0px;
+}
+
+.column {
+  flex: 1;
+  padding: 5px;
+}
+
+
+.column img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.row h1{
+  color: blueviolet;
+}

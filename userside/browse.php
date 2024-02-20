@@ -11,6 +11,7 @@
         <title>Teamprotecht</title>
         <!--Attaching css file-->
         <link rel="stylesheet" href="CSS/browse.css" />
+        
         <!-- Add java script -->
         <script defer src="JavaScript/script.js"></script>
         <!-- Add icon library -->
@@ -23,7 +24,7 @@
                     <ul> 
                         <!--3 different tabs with links to each page-->
                         <li><img src="CSS HP/images/logo.png" width="90px" height="65px"></li>
-                        <li><a href="Teamprotecht - HomePage.html">Home</a></li>
+                        <li><a href="Teamprotecht - HomePage.php">Home</a></li>
                         <li><a href="browse.php">Browse</a></li>
                         <li><a href="">About Us</a></li>
                         <li style="float:right"><a href="Product_Basket.php"><i class="fa fa-shopping-basket"></i></a></li>
