@@ -20,9 +20,9 @@
     </div>
 
     <div class="main-content">
-        <h1>Employee Login</h1>
+        <h1>Customer Login</h1>
         <form action="" method="post">
-            <p>Use your organisation email and password to login.</p>
+            <p>Use your email address to login and password to login.</p>
             <label for="employeeEmail">Email Address</label>
             <input id="emailAddress" type="email" name="email" required />
             <br><br>
@@ -39,13 +39,13 @@
         $emailAddress = $_POST['email'];
         $employeePassword = $_POST['employeePassword'];
 
-        $select_query = "SELECT * FROM `employees` WHERE employee_email = '$emailAddress'";
+        $select_query = "SELECT * FROM `users` WHERE Username = '$emailAddress'";
         $result = mysqli_query($con, $select_query);
         $row_count = mysqli_num_rows($result);
         $row_data = mysqli_fetch_assoc($result);
         
         if ($row_count > 0) {
-            if (password_verify($employeePassword, $row_data['password'])) {
+            if (password_verify($employeePassword, $row_data['Password'])) {
                 echo "<script>alert('Login successful')</script>";
                 //redirect the basket  
                 //create a session here!
