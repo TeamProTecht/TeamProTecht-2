@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 10, 2023 at 01:52 PM
+-- Generation Time: Feb 20, 2024 at 07:28 PM
 -- Server version: 10.4.27-MariaDB
 -- PHP Version: 8.2.0
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `stocktestbasket`
+-- Database: `cs2tp`
 --
 
 -- --------------------------------------------------------
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `basket` (
   `Basket_ID` int(11) NOT NULL,
-  `User_ID` int(11) DEFAULT NULL,
+  `Customer_ID` int(11) DEFAULT NULL,
   `Updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
@@ -38,7 +38,7 @@ CREATE TABLE `basket` (
 -- Dumping data for table `basket`
 --
 
-INSERT INTO `basket` (`Basket_ID`, `User_ID`, `Updated_at`, `Created_at`) VALUES
+INSERT INTO `basket` (`Basket_ID`, `Customer_ID`, `Updated_at`, `Created_at`) VALUES
 (1, 1, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
 (2, 2, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
 (3, 3, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
@@ -99,6 +99,39 @@ INSERT INTO `brand` (`Brand_ID`, `BrandName`, `Item_ID`, `Updated_at`, `Created_
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `Customer_ID` int(11) NOT NULL,
+  `Customername` varchar(255) DEFAULT NULL,
+  `Password` varchar(255) DEFAULT NULL,
+  `Fore_name` varchar(255) DEFAULT NULL,
+  `Second_Name` varchar(255) DEFAULT NULL,
+  `Last_Name` varchar(255) DEFAULT NULL,
+  `Address_Customer` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`Customer_ID`, `Customername`, `Password`, `Fore_name`, `Second_Name`, `Last_Name`, `Address_Customer`) VALUES
+(1, 'john_doe', 'password123', 'John', 'Michael', 'Doe', '123 Main St'),
+(2, 'jane_smith', 'password456', 'Jane', 'Elizabeth', 'Smith', '456 Elm St'),
+(3, 'will_brown', 'password789', 'William', 'George', 'Brown', '789 Oak St'),
+(4, 'emily_white', 'password101', 'Emily', 'Anne', 'White', '101 Maple St'),
+(5, 'david_jones', 'password102', 'David', 'Lee', 'Jones', '102 Pine St'),
+(6, 'sarah_johnson', 'password103', 'Sarah', 'Marie', 'Johnson', '103 Birch St'),
+(7, 'michael_wilson', 'password104', 'Michael', 'Andrew', 'Wilson', '104 Cedar St'),
+(8, 'lisa_moore', 'password105', 'Lisa', 'Renee', 'Moore', '105 Spruce St'),
+(9, 'robert_taylor', 'password106', 'Robert', 'James', 'Taylor', '106 Ash St'),
+(10, 'laura_martin', 'password107', 'Laura', 'Michelle', 'Martin', '107 Cherry St');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `employees`
 --
 
@@ -117,7 +150,8 @@ CREATE TABLE `employees` (
 INSERT INTO `employees` (`employee_id`, `LastName`, `FirstName`, `password`, `employee_email`) VALUES
 (3, 'Dawood', 'Husein', 'Password123!', 'h.dawood1360@gmail.com'),
 (4, 'man', 'Husein', 'Password123!', 'h.dawood1360@gmail.net'),
-(5, 'test', 'iron', 'Password123!', 'h.dawood1360@gmail.biz');
+(5, 'test', 'iron', 'Password123!', 'h.dawood1360@gmail.biz'),
+(6, 'Carter', 'Louie', '$2y$10$dKUhGZUkx7z03sV/Pm7gmumHOq53DpuzykJIrOEF03rapnp65MnbK', 'louie-1997@live.co.uk');
 
 -- --------------------------------------------------------
 
@@ -222,7 +256,7 @@ INSERT INTO `location` (`Location_ID`, `Shelf`, `Row`, `Updated_at`, `Created_at
 CREATE TABLE `orders` (
   `Order_ID` int(11) NOT NULL,
   `Basket_ID` int(11) DEFAULT NULL,
-  `User_ID` int(11) DEFAULT NULL,
+  `Customer_ID` int(11) DEFAULT NULL,
   `Address_Order` varchar(255) DEFAULT NULL,
   `Order_Status` varchar(255) DEFAULT NULL,
   `Updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
@@ -233,42 +267,10 @@ CREATE TABLE `orders` (
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`Order_ID`, `Basket_ID`, `User_ID`, `Address_Order`, `Order_Status`, `Updated_at`, `Created_at`) VALUES
+INSERT INTO `orders` (`Order_ID`, `Basket_ID`, `Customer_ID`, `Address_Order`, `Order_Status`, `Updated_at`, `Created_at`) VALUES
 (1, 1, 1, '123 Main St', 'Shipped', '2023-12-08 18:08:09', '2023-12-08 17:46:58'),
 (2, 2, 1, '123 Main St', 'Pending', '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
 (3, 3, 2, '456 Elm St', 'Pending', '2023-12-08 17:46:58', '2023-12-08 17:46:58');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `users`
---
-
-CREATE TABLE `users` (
-  `User_ID` int(11) NOT NULL,
-  `Username` varchar(255) DEFAULT NULL,
-  `Password` varchar(255) DEFAULT NULL,
-  `Fore_name` varchar(255) DEFAULT NULL,
-  `Second_Name` varchar(255) DEFAULT NULL,
-  `Last_Name` varchar(255) DEFAULT NULL,
-  `Address_User` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`User_ID`, `Username`, `Password`, `Fore_name`, `Second_Name`, `Last_Name`, `Address_User`) VALUES
-(1, 'john_doe', 'password123', 'John', 'Michael', 'Doe', '123 Main St'),
-(2, 'jane_smith', 'password456', 'Jane', 'Elizabeth', 'Smith', '456 Elm St'),
-(3, 'will_brown', 'password789', 'William', 'George', 'Brown', '789 Oak St'),
-(4, 'emily_white', 'password101', 'Emily', 'Anne', 'White', '101 Maple St'),
-(5, 'david_jones', 'password102', 'David', 'Lee', 'Jones', '102 Pine St'),
-(6, 'sarah_johnson', 'password103', 'Sarah', 'Marie', 'Johnson', '103 Birch St'),
-(7, 'michael_wilson', 'password104', 'Michael', 'Andrew', 'Wilson', '104 Cedar St'),
-(8, 'lisa_moore', 'password105', 'Lisa', 'Renee', 'Moore', '105 Spruce St'),
-(9, 'robert_taylor', 'password106', 'Robert', 'James', 'Taylor', '106 Ash St'),
-(10, 'laura_martin', 'password107', 'Laura', 'Michelle', 'Martin', '107 Cherry St');
 
 -- --------------------------------------------------------
 
@@ -314,7 +316,7 @@ INSERT INTO `warranty` (`Warranty_ID`, `WarrantyDetails`, `Item_ID`, `Updated_at
 --
 ALTER TABLE `basket`
   ADD PRIMARY KEY (`Basket_ID`),
-  ADD KEY `User_ID` (`User_ID`);
+  ADD KEY `Customer_ID` (`Customer_ID`);
 
 --
 -- Indexes for table `basketitem`
@@ -330,6 +332,18 @@ ALTER TABLE `basketitem`
 ALTER TABLE `brand`
   ADD PRIMARY KEY (`Brand_ID`),
   ADD KEY `Item_ID` (`Item_ID`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`Customer_ID`);
+
+--
+-- Indexes for table `employees`
+--
+ALTER TABLE `employees`
+  ADD PRIMARY KEY (`employee_id`);
 
 --
 -- Indexes for table `item`
@@ -350,13 +364,7 @@ ALTER TABLE `location`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`Order_ID`),
   ADD KEY `Basket_ID` (`Basket_ID`),
-  ADD KEY `User_ID` (`User_ID`);
-
---
--- Indexes for table `users`
---
-ALTER TABLE `users`
-  ADD PRIMARY KEY (`User_ID`);
+  ADD KEY `Customer_ID` (`Customer_ID`);
 
 --
 -- Indexes for table `warranty`
@@ -387,8 +395,17 @@ ALTER TABLE `basketitem`
 ALTER TABLE `brand`
   MODIFY `Brand_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `Customer_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
+-- AUTO_INCREMENT for table `employees`
+--
 ALTER TABLE `employees`
-  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `employee_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `item`
@@ -409,12 +426,6 @@ ALTER TABLE `orders`
   MODIFY `Order_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
-
---
 -- AUTO_INCREMENT for table `warranty`
 --
 ALTER TABLE `warranty`
@@ -428,7 +439,7 @@ ALTER TABLE `warranty`
 -- Constraints for table `basket`
 --
 ALTER TABLE `basket`
-  ADD CONSTRAINT `basket_ibfk_1` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`);
+  ADD CONSTRAINT `basket_ibfk_1` FOREIGN KEY (`Customer_ID`) REFERENCES `customers` (`Customer_ID`);
 
 --
 -- Constraints for table `basketitem`
@@ -454,7 +465,7 @@ ALTER TABLE `item`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`Basket_ID`) REFERENCES `basket` (`Basket_ID`),
-  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`User_ID`) REFERENCES `users` (`User_ID`);
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`Customer_ID`) REFERENCES `customers` (`Customer_ID`);
 
 --
 -- Constraints for table `warranty`
