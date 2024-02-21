@@ -33,6 +33,11 @@
                     <span class="text">Pending Orders</span>
                 </a>
             </li>            <li>
+                <a href="viewcontact.php">
+                    <i class='bx bxs-hourglass' ></i>
+                    <span class="text">contact forms</span>
+                </a>
+            </li>            <li>
                 <a href="#">
                     <i class='bx bxs-package' ></i>
                     <span class="text">Fulfilled Orders</span>
