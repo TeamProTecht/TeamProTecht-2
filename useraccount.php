@@ -1,4 +1,69 @@
 <?php
+include "navbar.php";
+?>
+
+<?php
+// Start the session to access session variables
+session_start();
+
+// Establish database connection
+$servername = "localhost";
+$username = "root";
+$password = "";
+$dbname = "stockpage";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// Check if the user is logged in
+if (!isset($_SESSION['user_id'])) {
+    header("Location: login.php"); // Redirect to login page if not logged in
+    exit();
+}
+
+// Fetch user details based on user ID from the session
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM Users WHERE User_ID = '$user_id'";
+$result = $conn->query($sql);
+
+if ($result && $result->num_rows > 0) {
+    // Fetch user details
+    $row = $result->fetch_assoc();
+} else {
+    echo "No user found with this ID.";
+}
+
+// Fetch previous orders by the user
+$order_sql = "SELECT Orders.Order_ID, Item.ItemName, BasketItem.Quantity, (Item.Price * BasketItem.Quantity) AS Total_Price
+              FROM Orders
+              INNER JOIN BasketItem ON Orders.Basket_ID = BasketItem.Basket_ID
+              INNER JOIN Item ON BasketItem.Item_ID = Item.Item_ID
+              WHERE Orders.User_ID = '$user_id'";
+$order_result = $conn->query($order_sql);
+
+// Close database connection
+$conn->close();
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit User Details</title>
+    <link rel="stylesheet" type="text/css" href="CSS\styleforeditacctount.css">
+</head>
+<body>
+<!-- Your HTML content here -->
+
+</body>
+</html>
+<?php
 // Start the session to access session variables
 session_start();
 
