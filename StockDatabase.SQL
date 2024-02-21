@@ -74,3 +74,11 @@ CREATE TABLE Item (
     Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (SerialNumber) REFERENCES SerialNumber(Serial_ID)
 );
+CREATE TABLE ContactUs (
+    ContactUs_ID INT AUTO_INCREMENT,
+    Name VARCHAR(255),
+    Email VARCHAR(255),
+    Message TEXT,
+    Created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (ContactUs_ID)
+);
