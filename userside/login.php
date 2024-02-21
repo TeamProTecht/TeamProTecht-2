@@ -4,6 +4,7 @@ session_start();
 if(isset($_SESSION['username']) && isset($_SESSION['User_ID'])){
     header("Location: account.php");
 }else{
+    session_abort();
     //if user not logged in, continue to login.php
 ?>
 
@@ -37,6 +38,7 @@ include "navbar.php";
     </div>
 
     <?php
+    session_start();
     if (isset($_POST['loginbtn'])) {
         $usernameSubmit = $_POST['username'];
         $passwordSubmit = $_POST['password'];
@@ -78,16 +80,18 @@ include "navbar.php";
                         }
                     } else {
                         echo "<script>alert('Invalid password')</script>";
+                        session_abort();
                     }
                 } else{
                     echo "<script>alert('Invalid username')</script>";
+                    session_abort();
                 }
             }
         } else{
             echo "No account found";
+            session_abort();
         }
     }
-    session_abort();
 }
     ?>
 </body>
