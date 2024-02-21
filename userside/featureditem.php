@@ -1,14 +1,6 @@
 <?php
-// Connect to Database 
-include 'connectdb.php';
-
+include 'connectdb.php'
 ?>
-<?php
-//Homepage 
-include 'Teamprotecht - HomePage.html'
-
-?>
-
 <?php
 // SQL query to retrieve 4 items with the lowest quantity (greater than or equal to 1)
 $query = "SELECT * FROM item WHERE Quantity >= 1 ORDER BY Quantity ASC LIMIT 4";
@@ -17,7 +9,7 @@ $result = $conn->query($query);
 // Check if there are results
 if ($result->num_rows > 0) {
   
-  // Outer Container 
+  //Container 
   echo '<div style="display: flex; flex-wrap: wrap;">';
     // Output of each row 
     while ($row = $result->fetch_assoc()) {
