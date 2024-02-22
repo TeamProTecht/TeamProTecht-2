@@ -49,32 +49,58 @@
 <section id="mainsection">
     <form action="" method="post">
         <label for="brandname">Brand Name:</label><br>
-        <input type="text" name="brandname" required><br><br>
-
+        <input type="text" name="brandname" required  maxlength="50"><br><br>
 
         <label for="itemname">Item Name:</label><br>
-        <input type="text" name="itemname" required><br><br>
-
+        <input type="text" name="itemname" required maxlength="50"><br><br>
 
         <label for="quantity">Quantity:</label><br>
-        <input type="number" name="quantity" required><br><br>
-
+        <input type="number" name="quantity" required min="1"><br><br>
 
         <label for="itemdescription">Item Description:</label><br>
         <textarea name="itemdescription" rows="4" required></textarea><br><br>
 
-
         <label for="photoname">Photo Name:</label><br>
-        <input type="text" name="photoname" required required><br><br>
-
+        <input type="text" name="photoname" required maxlength="100"><br><br>
 
         <label for="shelf">Shelf:</label><br>
         <input type="text" name="shelf" required><br><br>
 
-
         <label for="row">Row:</label><br>
         <input type="text" name="row" required><br><br>
 
+        <label for="os">Operating System:</label><br>
+<select name="os" required>
+    <option value="Android">Android</option>
+    <option value="iOS">iOS</option>
+    <option value="windowsOS">HarmonyOS</option>
+
+</select><br><br>
+
+        <label for="displaySize">Display Size:</label><br>
+        <input type="text" name="displaySize" required maxlength="20"><br><br>
+
+        <label for="displayResolution">Display Resolution:</label><br>
+        <input type="text" name="displayResolution" required maxlength="20"><br><br>
+
+        <label for="batteryLife">Battery Life:</label><br>
+        <input type="text" name="batteryLife" required min="1"><br><br>
+
+        <label for="cameraMegapixels">Camera Megapixels:</label><br>
+        <input type="text" name="cameraMegapixels" required><br><br>
+
+        <label for="biometricAuthentication">Biometric Authentication:</label><br>
+<select name="biometricAuthentication" required>
+    <option value="Face ID">Face ID</option>
+    <option value="Fingerprint">Fingerprint</option>
+    <option value="Other">Other</option>
+</select><br><br>
+
+<label for="colors">Colors (separated by comma):</label><br>
+<input type="text" name="colors" required><br><br>
+
+<label for="sizes">storage (separated by comma):</label><br>
+<input type="text" name="sizes" required><br><br>
 
         <input type="submit" value="Submit">
     </form>
@@ -84,30 +110,59 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $brandname = $_POST["brandname"];
-    $itemname = $_POST["itemname"];
-    $quantity = $_POST["quantity"];
-    $itemdescription = $_POST["itemdescription"];
-    $photo = $_POST["photoname"];
-    $shelf = $_POST["shelf"];
-    $itemrow = $_POST["row"];
-
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
-        
-        $pdo->exec("INSERT INTO location (Shelf, Row) VALUES ('$shelf', '$itemrow')");
+        $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+        $brandname = $_POST["brandname"];
+        $itemname = $_POST["itemname"];
+        $quantity = $_POST["quantity"];
+        $itemdescription = $_POST["itemdescription"];
+        $photo = $_POST["photoname"];
+        $shelf = $_POST["shelf"];
+        $itemrow = $_POST["row"];
 
-        $pdo->exec("INSERT INTO Brand (BrandName) VALUES ('$brandname')");
+        // New fields
+        $os = $_POST["os"];
+        $displaySize = $_POST["displaySize"];
+        $displayResolution = $_POST["displayResolution"];
+        $batteryLife = $_POST["batteryLife"];
+        $cameraMegapixels = $_POST["cameraMegapixels"];
+        $biometricAuthentication = $_POST["biometricAuthentication"];
 
-        $pdo->exec("
-            INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID) 
-            VALUES ('$itemname', $quantity, '$itemdescription', '$quantity', '$photo', 
-            (SELECT Location_ID FROM location WHERE Shelf = '$shelf' AND Row = '$itemrow' LIMIT 1))
-        ");
+        // Colors and sizes
+        $colors = explode(',', $_POST["colors"]);
+        $sizes = explode(',', $_POST["sizes"]);
+
+        $pdo->beginTransaction();
+
+        $locationQuery = $pdo->prepare("INSERT INTO location (Shelf, Row) VALUES (?, ?)");
+        $locationQuery->execute([$shelf, $itemrow]);
+
+        $brandQuery = $pdo->prepare("INSERT INTO Brand (BrandName) VALUES (?)");
+        $brandQuery->execute([$brandname]);
+
+        $itemQuery = $pdo->prepare("INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID, OperatingSystem, DisplaySize, DisplayResolution, BatteryLife, CameraMegapixels, BiometricAuthentication) 
+                                    VALUES (?, ?, ?, ?, ?, (SELECT Location_ID FROM location WHERE Shelf = ? AND Row = ? LIMIT 1), ?, ?, ?, ?, ?, ?)");
+        $itemQuery->execute([$itemname, $quantity, $itemdescription, $quantity, $photo, $shelf, $itemrow, $os, $displaySize, $displayResolution, $batteryLife, $cameraMegapixels, $biometricAuthentication]);
+
+        // Insert colors
+        foreach ($colors as $color) {
+            $colorQuery = $pdo->prepare("INSERT INTO item_color (Item_ID, Color) VALUES ((SELECT MAX(Item_ID) FROM Item), ?)");
+            $colorQuery->execute([$color]);
+        }
+
+        // Insert sizes into item_storage table
+        foreach ($sizes as $size) {
+            $sizeQuery = $pdo->prepare("INSERT INTO item_storage (Item_ID, Storage) VALUES ((SELECT MAX(Item_ID) FROM Item), ?)");
+            $sizeQuery->execute([$size]);
+        }
+
+        $pdo->commit();
         
         echo "Form submitted successfully!";
     } catch (PDOException $e) {
+        $pdo->rollBack();
         echo "Error: " . $e->getMessage();
     }
 }
