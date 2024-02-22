@@ -139,27 +139,36 @@ INSERT INTO `employees` (`employee_id`, `LastName`, `FirstName`, `password`, `em
 CREATE TABLE `item` (
   `Item_ID` int(11) NOT NULL,
   `ItemName` varchar(255) NOT NULL,
-  `Quantity` int(11) DEFAULT NULL,
+  `Quantity` int(11) NOT NULL,
   `ItemDesc` text NOT NULL,
-  `Price` decimal(7,2) NOT NULL,
-  `Img` text NOT NULL,
-  `Location_ID` int(11) DEFAULT NULL,
-  `Updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `Created_at` timestamp NOT NULL DEFAULT current_timestamp()
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `Price` decimal(10,2) NOT NULL,
+  `Img` varchar(255) DEFAULT NULL,
+  `Location_ID` int(11) NOT NULL,
+  `Updated_at` datetime NOT NULL,
+  `Created_at` datetime NOT NULL,
+  `OperatingSystem` varchar(50) NOT NULL,
+  `DisplaySize` varchar(50) NOT NULL,
+  `DisplayResolution` varchar(50) NOT NULL,
+  `BatteryLife` varchar(50) NOT NULL,
+  `CameraMegapixels` varchar(50) NOT NULL,
+  `Storage` varchar(50) NOT NULL,
+  `BiometricAuthentication` varchar(50) NOT NULL,
+  PRIMARY KEY (`Item_ID`)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`Item_ID`, `ItemName`, `Quantity`, `ItemDesc`, `Price`, `Img`, `Location_ID`, `Updated_at`, `Created_at`) VALUES
-(1, 'iPhone 15', 146, 'The new iPhone 15 from Apple', 999.99, 'iPhone15.jpg', 1, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
-(2, 'iPhone 15+', 146, 'The new iPhone 15+ from Apple', 1199.99, 'iPhone15+.jpg', 2, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
-(3, 'iPhone 15 Pro', 146, 'The new iPhone 15 Pro from Apple', 1199.99, 'iPhone15Pro.jpg', 3, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
-(4, 'iPhone 15 Pro Max', 146, 'The new iPhone 15 Pro Max from Apple', 1299.99, 'iPhone15ProMax.jpg', 4, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
-(5, 'Pixel 8', 146, 'The new Pixel 8 by google', 699.99, 'Pixel8.jpg', 5, '2023-12-08 17:46:58', '2023-12-08 17:46:58'),
-(6, 'Honor Pro 5', 12, 'this is a honor pro 5', 12.00, 'pro5.png', 25, '2024-02-12 21:37:02', '2024-02-12 21:37:02'),
-(7, 'pixel 7', 100, 'this is the new google pixel ', 100.00, 'pixel7.png', 16, '2024-02-15 16:04:24', '2024-02-15 16:04:24');
+INSERT INTO `item` (`Item_ID`, `ItemName`, `Quantity`, `ItemDesc`, `Price`, `Img`, `Location_ID`, `Updated_at`, `Created_at`, `OperatingSystem`, `DisplaySize`, `DisplayResolution`, `BatteryLife`, `CameraMegapixels`, `Storage`, `BiometricAuthentication`) 
+VALUES 
+(1, 'iPhone 15', 146, 'The new iPhone 15 from Apple', 999.99, 'iPhone15.jpg', 1, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Full HD', 'Up to 12 hours', '12 MP', '128 GB', 'Face ID'),
+(2, 'iPhone 15+', 146, 'The new iPhone 15+ from Apple', 1199.99, 'iPhone15+.jpg', 2, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Quad HD', 'Up to 14 hours', '12 MP', '256 GB', 'Face ID'),
+(3, 'iPhone 15 Pro', 146, 'The new iPhone 15 Pro from Apple', 1199.99, 'iPhone15Pro.jpg', 3, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.1 inches', 'Quad HD', 'Up to 14 hours', '12 MP', '256 GB', 'Face ID'),
+(4, 'iPhone 15 Pro Max', 146, 'The new iPhone 15 Pro Max from Apple', 1299.99, 'iPhone15ProMax.jpg', 4, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Quad HD', 'Up to 16 hours', '12 MP', '512 GB', 'Face ID'),
+(5, 'Pixel 8', 146, 'The new Pixel 8 by Google', 699.99, 'Pixel8.jpg', 5, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'Android', '6.0 inches', 'Full HD', 'Up to 12 hours', '16 MP', '128 GB', 'Fingerprint'),
+(6, 'Honor Pro 5', 12, 'This is a Honor Pro 5', 12.00, 'pro5.png', 25, '2024-02-12 21:37:02', '2024-02-12 21:37:02', 'Android', '5.5 inches', 'HD', 'Up to 10 hours', '8 MP', '64 GB', 'Fingerprint'),
+(7, 'Pixel 7', 100, 'This is the new Google Pixel', 100.00, 'pixel7.png', 16, '2024-02-15 16:04:24', '2024-02-15 16:04:24', 'Android', '5.8 inches', 'Full HD', 'Up to 14 hours', '12 MP', '64 GB', 'Fingerprint');
 
 -- --------------------------------------------------------
 
