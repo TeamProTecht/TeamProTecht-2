@@ -151,24 +151,63 @@ CREATE TABLE `item` (
   `DisplayResolution` varchar(50) NOT NULL,
   `BatteryLife` varchar(50) NOT NULL,
   `CameraMegapixels` varchar(50) NOT NULL,
-  `Storage` varchar(50) NOT NULL,
   `BiometricAuthentication` varchar(50) NOT NULL,
   PRIMARY KEY (`Item_ID`)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- Table for colors
+CREATE TABLE `item_color` (
+  `Color_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Item_ID` int(11) NOT NULL,
+  `Color` varchar(50) NOT NULL,
+  PRIMARY KEY (`Color_ID`),
+  FOREIGN KEY (`Item_ID`) REFERENCES `item`(`Item_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+
+-- Table for storage
+CREATE TABLE `item_storage` (
+  `Storage_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Item_ID` int(11) NOT NULL,
+  `Storage` varchar(50) NOT NULL,
+  PRIMARY KEY (`Storage_ID`),
+  FOREIGN KEY (`Item_ID`) REFERENCES `item`(`Item_ID`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
 
 --
 -- Dumping data for table `item`
 --
 
-INSERT INTO `item` (`Item_ID`, `ItemName`, `Quantity`, `ItemDesc`, `Price`, `Img`, `Location_ID`, `Updated_at`, `Created_at`, `OperatingSystem`, `DisplaySize`, `DisplayResolution`, `BatteryLife`, `CameraMegapixels`, `Storage`, `BiometricAuthentication`) 
+INSERT INTO `item` (`Item_ID`, `ItemName`, `Quantity`, `ItemDesc`, `Price`, `Img`, `Location_ID`, `Updated_at`, `Created_at`, `OperatingSystem`, `DisplaySize`, `DisplayResolution`, `BatteryLife`, `CameraMegapixels`, `BiometricAuthentication`) 
 VALUES 
-(1, 'iPhone 15', 146, 'The new iPhone 15 from Apple', 999.99, 'iPhone15.jpg', 1, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Full HD', 'Up to 12 hours', '12 MP', '128 GB', 'Face ID'),
-(2, 'iPhone 15+', 146, 'The new iPhone 15+ from Apple', 1199.99, 'iPhone15+.jpg', 2, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Quad HD', 'Up to 14 hours', '12 MP', '256 GB', 'Face ID'),
-(3, 'iPhone 15 Pro', 146, 'The new iPhone 15 Pro from Apple', 1199.99, 'iPhone15Pro.jpg', 3, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.1 inches', 'Quad HD', 'Up to 14 hours', '12 MP', '256 GB', 'Face ID'),
-(4, 'iPhone 15 Pro Max', 146, 'The new iPhone 15 Pro Max from Apple', 1299.99, 'iPhone15ProMax.jpg', 4, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Quad HD', 'Up to 16 hours', '12 MP', '512 GB', 'Face ID'),
-(5, 'Pixel 8', 146, 'The new Pixel 8 by Google', 699.99, 'Pixel8.jpg', 5, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'Android', '6.0 inches', 'Full HD', 'Up to 12 hours', '16 MP', '128 GB', 'Fingerprint'),
-(6, 'Honor Pro 5', 12, 'This is a Honor Pro 5', 12.00, 'pro5.png', 25, '2024-02-12 21:37:02', '2024-02-12 21:37:02', 'Android', '5.5 inches', 'HD', 'Up to 10 hours', '8 MP', '64 GB', 'Fingerprint'),
-(7, 'Pixel 7', 100, 'This is the new Google Pixel', 100.00, 'pixel7.png', 16, '2024-02-15 16:04:24', '2024-02-15 16:04:24', 'Android', '5.8 inches', 'Full HD', 'Up to 14 hours', '12 MP', '64 GB', 'Fingerprint');
+(1, 'iPhone 15', 146, 'The new iPhone 15 from Apple', 999.99, 'iPhone15.jpg', 1, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Full HD', 'Up to 12 hours', '12 MP', 'Face ID'),
+(2, 'iPhone 15+', 146, 'The new iPhone 15+ from Apple', 1199.99, 'iPhone15+.jpg', 2, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Quad HD', 'Up to 14 hours', '12 MP', 'Face ID'),
+(3, 'iPhone 15 Pro', 146, 'The new iPhone 15 Pro from Apple', 1199.99, 'iPhone15Pro.jpg', 3, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.1 inches', 'Quad HD', 'Up to 14 hours', '12 MP', 'Face ID'),
+(4, 'iPhone 15 Pro Max', 146, 'The new iPhone 15 Pro Max from Apple', 1299.99, 'iPhone15ProMax.jpg', 4, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'iOS', '6.7 inches', 'Quad HD', 'Up to 16 hours', '12 MP', 'Face ID'),
+(5, 'Pixel 8', 146, 'The new Pixel 8 by Google', 699.99, 'Pixel8.jpg', 5, '2023-12-08 17:46:58', '2023-12-08 17:46:58', 'Android', '6.0 inches', 'Full HD', 'Up to 12 hours', '16 MP', 'Fingerprint'),
+(6, 'Honor Pro 5', 12, 'This is a Honor Pro 5', 12.00, 'pro5.png', 25, '2024-02-12 21:37:02', '2024-02-12 21:37:02', 'Android', '5.5 inches', 'HD', 'Up to 10 hours', '8 MP', 'Fingerprint'),
+(7, 'Pixel 7', 100, 'This is the new Google Pixel', 100.00, 'pixel7.png', 16, '2024-02-15 16:04:24', '2024-02-15 16:04:24', 'Android', '5.8 inches', 'Full HD', 'Up to 14 hours', '12 MP', 'Fingerprint');
+
+-- Inserting data into item_color table
+INSERT INTO `item_color` (`Item_ID`, `Color`)
+VALUES 
+(1, 'Black'),
+(2, 'White'),
+(3, 'Blue'),
+(4, 'Gold'),
+(5, 'Black'),
+(6, 'Blue'),
+(7, 'White');
+
+-- Inserting data into item_storage table
+INSERT INTO `item_storage` (`Item_ID`, `Storage`)
+VALUES 
+(1, '128 GB'),
+(2, '256 GB'),
+(3, '256 GB'),
+(4, '512 GB'),
+(5, '128 GB'),
+(6, '64 GB'),
+(7, '64 GB');
 
 -- --------------------------------------------------------
 
