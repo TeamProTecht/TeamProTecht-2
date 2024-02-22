@@ -24,198 +24,329 @@ include "navbar.php";
             <form method="post" action="browse.php">
                 <h3>Prices</h3>
                 <div id="myPrices">
-<input type="number" placeholder="Minimum" name="minprice" min="0" max="9999" value="<?php echo isset($_POST['minprice']) ? $_POST['minprice'] : '1'; ?>">
-<input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="<?php echo isset($_POST['maxprice']) ? $_POST['maxprice'] : '10000'; ?>">
-
+                    <input type="number" placeholder="Minimum" name="minprice" min="0" max="9999" value="<?php echo isset($_POST['minprice']) ? $_POST['minprice'] : '1'; ?>">
+                    <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="<?php echo isset($_POST['maxprice']) ? $_POST['maxprice'] : '10000'; ?>">
                 </div>
                 <br>
                 <h3>Brands</h3>
                 <div id="myBrandDropdown">
-     <select name="selected_brand">
-    <option value="">Select Brand</option>
-    <option value="Apple"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Apple') echo ' selected'; ?>>Apple</option>
-    <option value="Samsung"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Samsung') echo ' selected'; ?>>Samsung</option>
-    <!-- Add more options for other brands as needed -->
-</select>
-
+                    <select name="selected_brand">
+                        <option value="">Select Brand</option>
+                        <option value="Apple"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Apple') echo ' selected'; ?>>Apple</option>
+                        <option value="Samsung"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Samsung') echo ' selected'; ?>>Samsung</option>
+                        <!-- Add more options for other brands as needed -->
+                    </select>
                 </div>
                 <h3>Warranty</h3>
                 <div id="myWarrantyDropdown">
- <select name="selected_warranty">
-    <option value="">Select Warranty</option>
-    <option value="12"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '12') echo ' selected'; ?>>1 Year</option>
-    <option value="24"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '24') echo ' selected'; ?>>2 Years</option>
-    <option value="36"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '36') echo ' selected'; ?>>3 Years</option>
-    <!-- Add more options for other warranty durations as needed -->
+                    <select name="selected_warranty">
+                        <option value="">Select Warranty</option>
+                        <option value="12"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '12') echo ' selected'; ?>>1 Year</option>
+                        <option value="24"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '24') echo ' selected'; ?>>2 Years</option>
+                        <option value="36"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '36') echo ' selected'; ?>>3 Years</option>
+                        <!-- Add more options for other warranty durations as needed -->
+                    </select>
+                </div>
+                <h3>Operating System</h3>
+                <select name="operating_system">
+                    <option value="">Select OS</option>
+                    <option value="iOS"<?php if(isset($_POST['operating_system']) && $_POST['operating_system'] === 'iOS') echo ' selected'; ?>>iOS</option>
+                    <option value="Android"<?php if(isset($_POST['operating_system']) && $_POST['operating_system'] === 'Android') echo ' selected'; ?>>Android</option>
+                    <!-- Add more options for other operating systems as needed -->
+                </select>
+<h3>Battery Size</h3>
+<select name="battery_size">
+    <option value="">Select Battery Size</option>
+    <option value="0-12 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '0-12') echo ' selected'; ?>>Up to 12 hours</option>
+    <option value="13-24 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '13-24') echo ' selected'; ?>>13 - 24 hours</option>
+    <option value="25-36 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '25-36') echo ' selected'; ?>>25 - 36 hours</option>
+    <option value="37-48 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '37-48') echo ' selected'; ?>>37 - 48 hours</option>
+    <option value="49+ hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '49-99999') echo ' selected'; ?>>49+ hours</option>
+    <!-- Add more options for other battery size ranges as needed -->
+</select>
+                <h3>Biometrics</h3>
+                <select name="biometrics">
+                    <option value="">Select Biometrics</option>
+                    <option value="Face ID"<?php if(isset($_POST['biometrics']) && $_POST['biometrics'] === 'Face ID') echo ' selected'; ?>>Face ID</option>
+                    <option value="Fingerprint"<?php if(isset($_POST['biometrics']) && $_POST['biometrics'] === 'Fingerprint') echo ' selected'; ?>>Fingerprint</option>
+                    <option value="Other"<?php if(isset($_POST['biometrics']) && $_POST['biometrics'] === 'Other') echo ' selected'; ?>>Other</option>
+                </select>
+                <h3>Color</h3>
+                <select name="color">
+                    <option value="">Select Color</option>
+                    <option value="Black"<?php if(isset($_POST['color']) && $_POST['color'] === 'Black') echo ' selected'; ?>>Black</option>
+                    <option value="White"<?php if(isset($_POST['color']) && $_POST['color'] === 'White') echo ' selected'; ?>>White</option>
+                    <!-- Add more options for other colors as needed -->
+                </select>
+                <h3>Storage Size</h3>
+                <select name="storage_size">
+                    <option value="">Select Storage Size</option>
+                    <option value="64 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '64 ') echo ' selected'; ?>>64 GB</option>
+                    <option value="128 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '128 ') echo ' selected'; ?>>128 GB</option>
+                    <option value="256 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '256 ') echo ' selected'; ?>>256 GB</option>
+                    <option value="512 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '512 ') echo ' selected'; ?>>512 GB</option>
+                     
+                 </select>
+<h3>Display Size Range</h3>
+<select name="display_size_range">
+    <option value="">Select Display Size Range</option>
+    <option value="0_5"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '0_5') echo ' selected'; ?>>Less than 5 inches</option>
+    <option value="5_6"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '5_6') echo ' selected'; ?>>5 to 6 inches</option>
+    <option value="6_7"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '6_7') echo ' selected'; ?>>6 to 7 inches</option>
+    <option value="7_8"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '7_8') echo ' selected'; ?>>7 to 8 inches</option>
+    <!-- Add more options for other ranges as needed -->
 </select>
 
-                </div>
                 <h3>Sort</h3>
-	<!-- Add sort options inside the form -->
-<select name="sort_order">
-    <option value="ASC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'ASC') echo ' selected'; ?>>Price Low to High</option>
-    <option value="DESC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'DESC') echo ' selected'; ?>>Price High to Low</option>
-</select>
-<br><br>
+                <!-- Add sort options inside the form -->
+                <select name="sort_order">
+                    <option value="ASC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'ASC') echo ' selected'; ?>>Price Low to High</option>
+                    <option value="DESC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'DESC') echo ' selected'; ?>>Price High to Low</option>
+                </select>
+                <br><br>
                 <button type="submit">Update</button><br><br>
-<button type="button" id="resetButton" onclick="resetFilters()">Reset</button>
+                <button type="button" id="resetButton" onclick="resetFilters()">Reset</button>
             </form>
         </div>
-    <br>
-    <div id="productlist">
-<?php
-session_start();
+        <br>
+        <div id="productlist">
+            <?php
+            session_start();
 
-if(isset($_GET['reset']) && $_GET['reset'] === 'true') {
-    session_unset();
-    session_destroy();
-    header("Location: browse.php");
-    exit();
-}
+            if(isset($_GET['reset']) && $_GET['reset'] === 'true') {
+                session_unset();
+                session_destroy();
+                header("Location: browse.php");
+                exit();
+            }
 
-// Check if a search query has been submitted
-if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
-    $_SESSION['searched_word'] = $_POST['searchitem'];
-    unset($_SESSION['selected_brand']);
-    unset($_SESSION['selected_warranty']);
-    unset($_SESSION['minprice']);
-    unset($_SESSION['maxprice']);
-} elseif(isset($_SESSION['searched_word'])) {
-    // If the search word is already stored in session, use it
-    $_POST['searchitem'] = $_SESSION['searched_word'];
-}
-// Connect to database
-include "connectdb.php";
+            // Check if a search query has been submitted
+            if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
+                $_SESSION['searched_word'] = $_POST['searchitem'];
+                unset($_SESSION['selected_brand']);
+                unset($_SESSION['selected_warranty']);
+                unset($_SESSION['minprice']);
+                unset($_SESSION['maxprice']);
+            } elseif(isset($_SESSION['searched_word'])) {
+                // If the search word is already stored in session, use it
+                $_POST['searchitem'] = $_SESSION['searched_word'];
+            }
+            // Connect to database
+            include "connectdb.php";
 
-// Construct the base query
-$query = "SELECT
-    Location.Shelf,
-    Location.Row,
-    Item.ItemName,
-    Item.Item_ID,
-    Brand.BrandName,
-    Item.Quantity,
-    Item.Price, 
-    Item.Img
-  FROM
-    Item
-  JOIN
-    Location ON Item.Location_ID = Location.Location_ID
-  LEFT JOIN
-    Brand ON Item.Item_ID = Brand.Item_ID
-  LEFT JOIN
-    Warranty ON Item.Item_ID = Warranty.Item_ID";
+            // Construct the base query
+            $query = "SELECT
+                Location.Shelf,
+                Location.Row,
+                Item.ItemName,
+                Item.Item_ID,
+                Brand.BrandName,
+                Item.Quantity,
+                Item.Price, 
+                Item.Img
+            FROM
+                Item
+            JOIN
+                Location ON Item.Location_ID = Location.Location_ID
+            LEFT JOIN
+                Brand ON Item.Item_ID = Brand.Item_ID
+            LEFT JOIN
+                Warranty ON Item.Item_ID = Warranty.Item_ID";
 
-// Initialize an array to hold conditions
-$conditions = [];
-// Initialize parameters array
-$parameters = [];
+            // Initialize an array to hold conditions
+            $conditions = [];
+            // Initialize parameters array
+            $parameters = [];
 
-// Check if a search query exists
-if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
-    $search = $_POST['searchitem'];
+            // Check if a search query exists
+            if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
+                $search = $_POST['searchitem'];
+                // Add condition to the array
+                $conditions[] = "(Item.ItemName LIKE '%$search%' OR Brand.BrandName LIKE '%$search%')";
+            }
+
+            // Check if brand has been selected
+            if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
+                $brand = $_POST['selected_brand'];
+                // Add condition to the array
+                $conditions[] = "Brand.BrandName = ?";
+                // Add brand to the parameters array
+                $parameters[] = $brand;
+                // Store selected brand in session
+                $_SESSION['selected_brand'] = $brand;
+            } elseif(isset($_SESSION['selected_brand'])) {
+                // If the brand is already stored in session, use it
+                $_POST['selected_brand'] = $_SESSION['selected_brand'];
+            }
+
+// Check if operating system filter has been applied
+if(isset($_POST['operating_system']) && !empty($_POST['operating_system'])) {
+    $os = $_POST['operating_system'];
     // Add condition to the array
-    $conditions[] = "(Item.ItemName LIKE '%$search%' OR Brand.BrandName LIKE '%$search%')";
+    $conditions[] = "Item.OperatingSystem = ?";
+    // Add operating system to the parameters array
+    $parameters[] = $os;
+    // Store operating system in session
+    $_SESSION['operating_system'] = $os;
+} elseif(isset($_SESSION['operating_system'])) {
+    // If operating system is already stored in session, use it
+    $_POST['operating_system'] = $_SESSION['operating_system'];
 }
 
-// Check if brand has been selected
-if(isset($_POST['selected_brand']) && !empty($_POST['selected_brand'])) {
-    $brand = $_POST['selected_brand'];
+// Check if battery size filter has been applied
+if(isset($_POST['battery_size']) && !empty($_POST['battery_size'])) {
+    $batterySize = $_POST['battery_size'];
+    // Split the range into minimum and maximum values
+    $batteryRange = explode('-', $batterySize);
     // Add condition to the array
-    $conditions[] = "Brand.BrandName = ?";
-    // Add brand to the parameters array
-    $parameters[] = $brand;
-    // Store selected brand in session
-    $_SESSION['selected_brand'] = $brand;
-} elseif(isset($_SESSION['selected_brand'])) {
-    // If the brand is already stored in session, use it
-    $_POST['selected_brand'] = $_SESSION['selected_brand'];
+    $conditions[] = "Item.BatteryLife >= ? AND Item.BatteryLife <= ?";
+    // Add minimum and maximum values to the parameters array
+    $parameters[] = $batteryRange[0]; // Minimum value
+    $parameters[] = $batteryRange[1]; // Maximum value
+    // Store battery size in session
+    $_SESSION['battery_size'] = $batterySize;
+} elseif(isset($_SESSION['battery_size'])) {
+    // If battery size is already stored in session, use it
+    $_POST['battery_size'] = $_SESSION['battery_size'];
 }
 
-// If other filters are applied, add them to the conditions array
-if(isset($_POST['minprice']) && isset($_POST['maxprice'])) {
-    $minprice = $_POST['minprice'];
-    $maxprice = $_POST['maxprice'];
+// Repeat similar steps for other filters (biometrics, color, storage_size, and display_size_range)
+
+// Check if biometrics filter has been applied
+if(isset($_POST['biometrics']) && !empty($_POST['biometrics'])) {
+    $biometrics = $_POST['biometrics'];
     // Add condition to the array
-    $conditions[] = "Item.Price BETWEEN ? AND ?";
-    // Add price range to the parameters array
-    $parameters[] = $minprice;
-    $parameters[] = $maxprice;
-    // Store price range in session
-    $_SESSION['minprice'] = $minprice;
-    $_SESSION['maxprice'] = $maxprice;
-} elseif(isset($_SESSION['minprice']) && isset($_SESSION['maxprice'])) {
-    // If price range is already stored in session, use it
-    $_POST['minprice'] = $_SESSION['minprice'];
-    $_POST['maxprice'] = $_SESSION['maxprice'];
+    $conditions[] = "Item.BiometricAuthentication = ?";
+    // Add biometrics to the parameters array
+    $parameters[] = $biometrics;
+    // Store biometrics in session
+    $_SESSION['biometrics'] = $biometrics;
+} elseif(isset($_SESSION['biometrics'])) {
+    // If biometrics is already stored in session, use it
+    $_POST['biometrics'] = $_SESSION['biometrics'];
 }
 
-// Check if warranty duration has been selected
-if(isset($_POST['selected_warranty']) && !empty($_POST['selected_warranty'])) {
-    $warranty = $_POST['selected_warranty'];
+// Repeat similar steps for other filters (color, storage_size, and display_size_range)
+
+// Check if color filter has been applied
+if(isset($_POST['color']) && !empty($_POST['color'])) {
+    $color = $_POST['color'];
     // Add condition to the array
-    $conditions[] = "Warranty.WarrantyDetails = ?";
-    // Add warranty duration to the parameters array
-    $parameters[] = $warranty . " Months"; // Assuming the warranty details are stored as 'X Months'
-    // Store selected warranty duration in session
-    $_SESSION['selected_warranty'] = $warranty;
-} elseif(isset($_SESSION['selected_warranty'])) {
-    // If warranty duration is already stored in session, use it
-    $_POST['selected_warranty'] = $_SESSION['selected_warranty'];
+    $conditions[] = "Item.Item_ID IN (SELECT Item_ID FROM item_color WHERE Color = ?)";
+    // Add color to the parameters array
+    $parameters[] = $color;
+    // Store color in session
+    $_SESSION['color'] = $color;
+} elseif(isset($_SESSION['color'])) {
+    // If color is already stored in session, use it
+    $_POST['color'] = $_SESSION['color'];
 }
 
-// If conditions exist, add WHERE clause to the query
-if(!empty($conditions)) {
-    $query .= " WHERE " . implode(" AND ", $conditions);
+// Check if storage size filter has been applied
+if(isset($_POST['storage_size']) && !empty($_POST['storage_size'])) {
+    $storageSize = $_POST['storage_size'];
+    // Add condition to the array
+    $conditions[] = "Item.Item_ID IN (SELECT Item_ID FROM item_storage WHERE Storage = ?)";
+    // Add storage size to the parameters array
+    $parameters[] = $storageSize;
+    // Store storage size in session
+    $_SESSION['storage_size'] = $storageSize;
+} elseif(isset($_SESSION['storage_size'])) {
+    // If storage size is already stored in session, use it
+    $_POST['storage_size'] = $_SESSION['storage_size'];
 }
 
-// Add sorting condition based on user selection
-if(isset($_POST['sort_order']) && ($_POST['sort_order'] === 'ASC' || $_POST['sort_order'] === 'DESC')) {
-    $sort_order = $_POST['sort_order'];
-    // Add sorting order to the query
-    $query .= " ORDER BY Item.Price $sort_order";
-}
-
-// Prepare and execute the query
-$statement = $pdo->prepare($query);
-$statement->execute($parameters);
-
-// Store all different products of result
-$rowset = array();
-
-// Display all products fetched from the database
-foreach ($statement as $row) {
-    //Verify no dupes
-    if(!in_array($row, $rowset)){
-
-    echo "<div class='product-item'>";
-    echo "<a href = 'productdescription.php/".$row['Item_ID']."/".$row['BrandName']."_".$row['ItemName']."'<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong></a><br>";
-    echo "<strong>£" . $row['Price'] . "</strong><br>";
-    echo "<img src='CSS/images/" . $row['Img'] . "'><br>";
-    echo "<form method='post'>";
-    echo "<input type='hidden' name='product_id' value='" . $row['Item_ID'] . "'>";
-    echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
-    echo "</form>";
-    echo "</div>";
-
-    if(isset($_POST['add_to_basket']) && isset($_POST['User_ID'])){
-        $itemID = $_POST['Item_ID'];
-        $userID = $_POST['User_ID'];
-
-        $newbasket = "INSERT INTO basket (User_ID) VALUES('$userID')";
-        $addSQL = "INSERT INTO basketitem (Basket_ID, Item_ID, Quantity) VALUES ('$newbasket', '$itemID', 1)";
-
-
-    } elseif(!isset($_POST['User_ID']) && isset($_POST['email'])) {
-        $email = $_POST(['email']);
-        $guest = "INSERT INTO session (Item_ID, email) VALUES ('$itemID', '$email')";
-        echo "<script>notLoggedIn()</script>";
+// Check if display size range filter has been applied
+if(isset($_POST['display_size_range']) && !empty($_POST['display_size_range'])) {
+    $displaySizeRange = $_POST['display_size_range'];
+    // Define min and max display sizes based on selected range
+    switch ($displaySizeRange) {
+        case '0_5':
+            $minDisplaySize = 0;
+            $maxDisplaySize = 5;
+            break;
+        case '5_6':
+            $minDisplaySize = 5;
+            $maxDisplaySize = 6;
+            break;
+        case '6_7':
+            $minDisplaySize = 6;
+            $maxDisplaySize = 7;
+            break;
+        case '7_8':
+            $minDisplaySize = 7;
+            $maxDisplaySize = 8;
+            break;
+        // Add more cases for other ranges as needed
+        default:
+            // Default case if no valid range is selected
+            $minDisplaySize = 0;
+            $maxDisplaySize = 10; // Maximum display size, adjust as needed
+            break;
     }
-    array_push($rowset, $row);
-    }
+    // Add condition to the array
+    $conditions[] = "Item.DisplaySize BETWEEN ? AND ?";
+    // Add min and max display sizes to the parameters array
+    $parameters[] = $minDisplaySize;
+    $parameters[] = $maxDisplaySize;
+    // Store display size range in session
+    $_SESSION['display_size_range'] = $displaySizeRange;
+} elseif(isset($_SESSION['display_size_range'])) {
+    // If display size range is already stored in session, use it
+    $_POST['display_size_range'] = $_SESSION['display_size_range'];
 }
-?>
-    </div>
+
+
+            // If conditions exist, add WHERE clause to the query
+            if(!empty($conditions)) {
+                $query .= " WHERE " . implode(" AND ", $conditions);
+            }
+
+            // Add sorting condition based on user selection
+            if(isset($_POST['sort_order']) && ($_POST['sort_order'] === 'ASC' || $_POST['sort_order'] === 'DESC')) {
+                $sort_order = $_POST['sort_order'];
+                // Add sorting order to the query
+                $query .= " ORDER BY Item.Price $sort_order";
+            }
+
+            // Prepare and execute the query
+            $statement = $pdo->prepare($query);
+            $statement->execute($parameters);
+
+            // Store all different products of result
+            $rowset = array();
+
+            // Display all products fetched from the database
+            foreach ($statement as $row) {
+                //Verify no dupes
+                if(!in_array($row, $rowset)){
+
+                echo "<div class='product-item'>";
+                echo "<a href = 'productdescription.php/".$row['Item_ID']."/".$row['BrandName']."_".$row['ItemName']."'<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong></a><br>";
+                echo "<strong>£" . $row['Price'] . "</strong><br>";
+                echo "<img src='CSS/images/" . $row['Img'] . "'><br>";
+                echo "<form method='post'>";
+                echo "<input type='hidden' name='product_id' value='" . $row['Item_ID'] . "'>";
+                echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
+                echo "</form>";
+                echo "</div>";
+
+                if(isset($_POST['add_to_basket']) && isset($_POST['User_ID'])){
+                    $itemID = $_POST['Item_ID'];
+                    $userID = $_POST['User_ID'];
+
+                    $newbasket = "INSERT INTO basket (User_ID) VALUES('$userID')";
+                    $addSQL = "INSERT INTO basketitem (Basket_ID, Item_ID, Quantity) VALUES ('$newbasket', '$itemID', 1)";
+                } elseif(!isset($_POST['User_ID']) && isset($_POST['email'])) {
+                    $email = $_POST(['email']);
+                    $guest = "INSERT INTO session (Item_ID, email) VALUES ('$itemID', '$email')";
+                    echo "<script>notLoggedIn()</script>";
+                }
+                array_push($rowset, $row);
+                }
+            }
+            ?>
+        </div>
     </div>
 </body>
 </html>
