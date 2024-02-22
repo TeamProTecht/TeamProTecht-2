@@ -137,7 +137,7 @@ INSERT INTO `employees` (`employee_id`, `LastName`, `FirstName`, `password`, `em
 --
 
 CREATE TABLE `item` (
-  `Item_ID` int(11) NOT NULL,
+  `Item_ID` int(11) NOT NULL AUTO_INCREMENT,
   `ItemName` varchar(255) NOT NULL,
   `Quantity` int(11) NOT NULL,
   `ItemDesc` text NOT NULL,
