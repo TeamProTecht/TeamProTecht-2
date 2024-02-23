@@ -57,12 +57,11 @@ include "navbar.php";
 <h3>Battery Size</h3>
 <select name="battery_size">
     <option value="">Select Battery Size</option>
-    <option value="0-12 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '0-12') echo ' selected'; ?>>Up to 12 hours</option>
-    <option value="13-24 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '13-24') echo ' selected'; ?>>13 - 24 hours</option>
-    <option value="25-36 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '25-36') echo ' selected'; ?>>25 - 36 hours</option>
-    <option value="37-48 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '37-48') echo ' selected'; ?>>37 - 48 hours</option>
-    <option value="49+ hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '49-99999') echo ' selected'; ?>>49+ hours</option>
-    <!-- Add more options for other battery size ranges as needed -->
+    <option value="0-12 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '0-12 hours') echo ' selected'; ?>>Up to 12 hours</option>
+    <option value="13-24 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '13-24 hours') echo ' selected'; ?>>13 - 24 hours</option>
+    <option value="25-36 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '25-36 hours') echo ' selected'; ?>>25 - 36 hours</option>
+    <option value="37-48 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '37-48 hours') echo ' selected'; ?>>37 - 48 hours</option>
+    <option value="49+ hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '49+ hours') echo ' selected'; ?>>49+ hours</option>
 </select>
                 <h3>Biometrics</h3>
                 <select name="biometrics">
@@ -79,14 +78,14 @@ include "navbar.php";
                     <!-- Add more options for other colors as needed -->
                 </select>
                 <h3>Storage Size</h3>
-                <select name="storage_size">
-                    <option value="">Select Storage Size</option>
-                    <option value="64 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '64 ') echo ' selected'; ?>>64 GB</option>
-                    <option value="128 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '128 ') echo ' selected'; ?>>128 GB</option>
-                    <option value="256 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '256 ') echo ' selected'; ?>>256 GB</option>
-                    <option value="512 GB"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '512 ') echo ' selected'; ?>>512 GB</option>
-                     
-                 </select>
+<select name="storage_size">
+    <option value="">Select Storage Size</option>
+    <option value="64"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '64') echo ' selected'; ?>>64 GB</option>
+    <option value="128"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '128') echo ' selected'; ?>>128 GB</option>
+    <option value="256"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '256') echo ' selected'; ?>>256 GB</option>
+    <option value="512"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '512') echo ' selected'; ?>>512 GB</option>
+</select>
+
 <h3>Display Size Range</h3>
 <select name="display_size_range">
     <option value="">Select Display Size Range</option>
@@ -94,6 +93,7 @@ include "navbar.php";
     <option value="5_6"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '5_6') echo ' selected'; ?>>5 to 6 inches</option>
     <option value="6_7"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '6_7') echo ' selected'; ?>>6 to 7 inches</option>
     <option value="7_8"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '7_8') echo ' selected'; ?>>7 to 8 inches</option>
+    <option value="8_99"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '8_99') echo ' selected'; ?>>8+ inches</option>
     <!-- Add more options for other ranges as needed -->
 </select>
 
@@ -255,6 +255,8 @@ if(isset($_POST['storage_size']) && !empty($_POST['storage_size'])) {
     // If storage size is already stored in session, use it
     $_POST['storage_size'] = $_SESSION['storage_size'];
 }
+
+
 
 // Check if display size range filter has been applied
 if(isset($_POST['display_size_range']) && !empty($_POST['display_size_range'])) {
