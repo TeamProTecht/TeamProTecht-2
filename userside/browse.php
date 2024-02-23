@@ -400,3 +400,4 @@ if(isset($_POST['display_size_range']) && !empty($_POST['display_size_range'])) 
     </div>
 </body>
 </html>
+ 
