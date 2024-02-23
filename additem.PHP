@@ -70,36 +70,31 @@
         <input type="text" name="row" required><br><br>
 
         <label for="os">Operating System:</label><br>
-<select name="os" required>
-    <option value="Android">Android</option>
-    <option value="iOS">iOS</option>
-    <option value="windowsOS">HarmonyOS</option>
-
-</select><br><br>
+<input type="text"name="os" required>
+<br><br>
+<label for="warranty">Warranty (in months):</label><br>
+<input type="number" name="warranty" required min="0"><br><br>
 
         <label for="displaySize">Display Size:</label><br>
-        <input type="text" name="displaySize" required maxlength="20"><br><br>
+        <input type="number" name="displaySize" required required min="0"><br><br>
 
         <label for="displayResolution">Display Resolution:</label><br>
         <input type="text" name="displayResolution" required maxlength="20"><br><br>
 
         <label for="batteryLife">Battery Life:</label><br>
-        <input type="text" name="batteryLife" required min="1"><br><br>
+        <input type="number" name="batteryLife" required min="0"><br><br>
 
         <label for="cameraMegapixels">Camera Megapixels:</label><br>
-        <input type="text" name="cameraMegapixels" required><br><br>
+        <input type="number" name="cameraMegapixels" required><br><br>
 
         <label for="biometricAuthentication">Biometric Authentication:</label><br>
-<select name="biometricAuthentication" required>
-    <option value="Face ID">Face ID</option>
-    <option value="Fingerprint">Fingerprint</option>
-    <option value="Other">Other</option>
-</select><br><br>
+<sinput type="text" name="biometricAuthentication" required>
+<br><br>
 
 <label for="colors">Colors (separated by comma):</label><br>
 <input type="text" name="colors" required><br><br>
 
-<label for="sizes">storage (separated by comma):</label><br>
+<label for="sizes">storage (separated by comma & in GB but dont include it):</label><br>
 <input type="text" name="sizes" required><br><br>
 
         <input type="submit" value="Submit">
@@ -151,6 +146,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $colorQuery = $pdo->prepare("INSERT INTO item_color (Item_ID, Color) VALUES ((SELECT MAX(Item_ID) FROM Item), ?)");
             $colorQuery->execute([$color]);
         }
+$warranty = $_POST["warranty"];
+// Insert warranty details into the database
+$warrantyQuery = $pdo->prepare("INSERT INTO warranty (WarrantyDetails, Item_ID) VALUES (?, (SELECT MAX(Item_ID) FROM Item))");
+$warrantyQuery->execute([$warranty]);
 
         // Insert sizes into item_storage table
         foreach ($sizes as $size) {
