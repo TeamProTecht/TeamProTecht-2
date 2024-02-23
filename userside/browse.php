@@ -28,32 +28,56 @@ include "navbar.php";
                     <input type="number" placeholder="Maximum" name="maxprice" min="1" max="10000" value="<?php echo isset($_POST['maxprice']) ? $_POST['maxprice'] : '10000'; ?>">
                 </div>
                 <br>
-                <h3>Brands</h3>
-                <div id="myBrandDropdown">
-                    <select name="selected_brand">
-                        <option value="">Select Brand</option>
-                        <option value="Apple"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Apple') echo ' selected'; ?>>Apple</option>
-                        <option value="Samsung"<?php if(isset($_POST['selected_brand']) && $_POST['selected_brand'] === 'Samsung') echo ' selected'; ?>>Samsung</option>
-                        <!-- Add more options for other brands as needed -->
-                    </select>
-                </div>
-                <h3>Warranty</h3>
-                <div id="myWarrantyDropdown">
-                    <select name="selected_warranty">
-                        <option value="">Select Warranty</option>
-                        <option value="12"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '12') echo ' selected'; ?>>1 Year</option>
-                        <option value="24"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '24') echo ' selected'; ?>>2 Years</option>
-                        <option value="36"<?php if(isset($_POST['selected_warranty']) && $_POST['selected_warranty'] === '36') echo ' selected'; ?>>3 Years</option>
-                        <!-- Add more options for other warranty durations as needed -->
-                    </select>
-                </div>
-                <h3>Operating System</h3>
-                <select name="operating_system">
-                    <option value="">Select OS</option>
-                    <option value="iOS"<?php if(isset($_POST['operating_system']) && $_POST['operating_system'] === 'iOS') echo ' selected'; ?>>iOS</option>
-                    <option value="Android"<?php if(isset($_POST['operating_system']) && $_POST['operating_system'] === 'Android') echo ' selected'; ?>>Android</option>
-                    <!-- Add more options for other operating systems as needed -->
-                </select>
+
+                <?php
+                // Database connection
+                include "connectdb.php";
+
+                // Fetch brands from the database
+                $brandQuery = "SELECT DISTINCT BrandName FROM Brand";
+                $brandStatement = $pdo->query($brandQuery);
+                $brands = $brandStatement->fetchAll(PDO::FETCH_ASSOC);
+
+                // Populate brands dynamically
+                echo "<h3>Brands</h3>";
+                echo "<select name='selected_brand'>";
+                echo "<option value=''>Select Brand</option>";
+                foreach ($brands as $brand) {
+                    $selected = (isset($_POST['selected_brand']) && $_POST['selected_brand'] == $brand['BrandName']) ? ' selected' : '';
+                    echo "<option value='" . $brand['BrandName'] . "'$selected>" . $brand['BrandName'] . "</option>";
+                }
+                echo "</select>";
+
+                // Fetch warranties from the database
+                $warrantyQuery = "SELECT DISTINCT WarrantyDetails FROM Warranty";
+                $warrantyStatement = $pdo->query($warrantyQuery);
+                $warranties = $warrantyStatement->fetchAll(PDO::FETCH_ASSOC);
+
+            // Populate warranties dynamically
+echo "<h3>Warranty</h3>";
+echo "<select name='selected_warranty'>";
+echo "<option value=''>Select Warranty</option>";
+foreach ($warranties as $warranty) {
+    $selected = (isset($_POST['selected_warranty']) && $_POST['selected_warranty'] == $warranty['WarrantyDetails']) ? ' selected' : '';
+    echo "<option value='" . $warranty['WarrantyDetails'] . "'$selected>" . $warranty['WarrantyDetails'] . " Months</option>";
+}
+echo "</select>";
+
+                // Fetch operating systems from the database
+                $osQuery = "SELECT DISTINCT OperatingSystem FROM Item";
+                $osStatement = $pdo->query($osQuery);
+                $operatingSystems = $osStatement->fetchAll(PDO::FETCH_ASSOC);
+
+                // Populate operating systems dynamically
+                echo "<h3>Operating System</h3>";
+                echo "<select name='operating_system'>";
+                echo "<option value=''>Select OS</option>";
+                foreach ($operatingSystems as $os) {
+                    $selected = (isset($_POST['operating_system']) && $_POST['operating_system'] == $os['OperatingSystem']) ? ' selected' : '';
+                    echo "<option value='" . $os['OperatingSystem'] . "'$selected>" . $os['OperatingSystem'] . "</option>";
+                }
+                echo "</select>";
+?>
 <h3>Battery Size</h3>
 <select name="battery_size">
     <option value="">Select Battery Size</option>
@@ -63,29 +87,52 @@ include "navbar.php";
     <option value="37-48 hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '37-48 hours') echo ' selected'; ?>>37 - 48 hours</option>
     <option value="49+ hours"<?php if(isset($_POST['battery_size']) && $_POST['battery_size'] === '49+ hours') echo ' selected'; ?>>49+ hours</option>
 </select>
-                <h3>Biometrics</h3>
-                <select name="biometrics">
-                    <option value="">Select Biometrics</option>
-                    <option value="Face ID"<?php if(isset($_POST['biometrics']) && $_POST['biometrics'] === 'Face ID') echo ' selected'; ?>>Face ID</option>
-                    <option value="Fingerprint"<?php if(isset($_POST['biometrics']) && $_POST['biometrics'] === 'Fingerprint') echo ' selected'; ?>>Fingerprint</option>
-                    <option value="Other"<?php if(isset($_POST['biometrics']) && $_POST['biometrics'] === 'Other') echo ' selected'; ?>>Other</option>
-                </select>
-                <h3>Color</h3>
-                <select name="color">
-                    <option value="">Select Color</option>
-                    <option value="Black"<?php if(isset($_POST['color']) && $_POST['color'] === 'Black') echo ' selected'; ?>>Black</option>
-                    <option value="White"<?php if(isset($_POST['color']) && $_POST['color'] === 'White') echo ' selected'; ?>>White</option>
-                    <!-- Add more options for other colors as needed -->
-                </select>
-                <h3>Storage Size</h3>
-<select name="storage_size">
-    <option value="">Select Storage Size</option>
-    <option value="64"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '64') echo ' selected'; ?>>64 GB</option>
-    <option value="128"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '128') echo ' selected'; ?>>128 GB</option>
-    <option value="256"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '256') echo ' selected'; ?>>256 GB</option>
-    <option value="512"<?php if(isset($_POST['storage_size']) && $_POST['storage_size'] === '512') echo ' selected'; ?>>512 GB</option>
-</select>
+<?php
+                // Fetch biometrics from the database
+                $biometricsQuery = "SELECT DISTINCT BiometricAuthentication FROM Item";
+                $biometricsStatement = $pdo->query($biometricsQuery);
+                $biometrics = $biometricsStatement->fetchAll(PDO::FETCH_ASSOC);
 
+                // Populate biometrics dynamically
+                echo "<h3>Biometrics</h3>";
+                echo "<select name='biometrics'>";
+                echo "<option value=''>Select Biometrics</option>";
+                foreach ($biometrics as $bio) {
+                    $selected = (isset($_POST['biometrics']) && $_POST['biometrics'] == $bio['BiometricAuthentication']) ? ' selected' : '';
+                    echo "<option value='" . $bio['BiometricAuthentication'] . "'$selected>" . $bio['BiometricAuthentication'] . "</option>";
+                }
+                echo "</select>";
+
+                // Fetch colors from the database
+                $colorQuery = "SELECT DISTINCT Color FROM item_color";
+                $colorStatement = $pdo->query($colorQuery);
+                $colors = $colorStatement->fetchAll(PDO::FETCH_ASSOC);
+
+                // Populate colors dynamically
+                echo "<h3>Color</h3>";
+                echo "<select name='color'>";
+                echo "<option value=''>Select Color</option>";
+                foreach ($colors as $color) {
+                    $selected = (isset($_POST['color']) && $_POST['color'] == $color['Color']) ? ' selected' : '';
+                    echo "<option value='" . $color['Color'] . "'$selected>" . $color['Color'] . "</option>";
+                }
+                echo "</select>";
+
+                // Fetch storage sizes from the database
+                $storageQuery = "SELECT DISTINCT Storage FROM item_storage";
+                $storageStatement = $pdo->query($storageQuery);
+                $storageSizes = $storageStatement->fetchAll(PDO::FETCH_ASSOC);
+
+                // Populate storage sizes dynamically
+                echo "<h3>Storage Size</h3>";
+                echo "<select name='storage_size'>";
+                echo "<option value=''>Select Storage Size</option>";
+                foreach ($storageSizes as $storage) {
+                    $selected = (isset($_POST['storage_size']) && $_POST['storage_size'] == $storage['Storage']) ? ' selected' : '';
+                    echo "<option value='" . $storage['Storage'] . "'$selected>" . $storage['Storage'] . " GB</option>";
+                }
+                echo "</select>";
+?>
 <h3>Display Size Range</h3>
 <select name="display_size_range">
     <option value="">Select Display Size Range</option>
@@ -96,9 +143,10 @@ include "navbar.php";
     <option value="8_99"<?php if(isset($_POST['display_size_range']) && $_POST['display_size_range'] === '8_99') echo ' selected'; ?>>8+ inches</option>
     <!-- Add more options for other ranges as needed -->
 </select>
+                
 
+                <!-- Sort option -->
                 <h3>Sort</h3>
-                <!-- Add sort options inside the form -->
                 <select name="sort_order">
                     <option value="ASC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'ASC') echo ' selected'; ?>>Price Low to High</option>
                     <option value="DESC"<?php if(isset($_POST['sort_order']) && $_POST['sort_order'] === 'DESC') echo ' selected'; ?>>Price High to Low</option>
