@@ -34,3 +34,13 @@ h1{
 .carousel{
     padding-top: 35px;
 }
+
+.footer{
+    background-color: blueviolet;
+    color: white;
+    text-align: center;
+    padding: lem;
+    margin-top: auto;
+    bottom: 0;
+    width: 100%;
+}
