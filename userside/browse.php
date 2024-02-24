@@ -399,5 +399,7 @@ if(isset($_POST['display_size_range']) && !empty($_POST['display_size_range'])) 
         </div>
     </div>
 </body>
+    <!-- Add footer -->
+<?php include "footer.php";?>
 </html>
  
