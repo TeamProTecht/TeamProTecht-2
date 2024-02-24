@@ -157,5 +157,7 @@ include "navbar.php";
         }
     </script>
 </body>
+    <!-- Add footer -->
+<?php include "footer.php";?>
 </html>
 
