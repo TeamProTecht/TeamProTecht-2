@@ -96,4 +96,6 @@ include "navbar.php";
                 ?>
         </main>
     </body>
+                <!-- Add footer -->
+<?php include "footer.php";?>
 </html>
