@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8"/>
     <title>Teamprotecht</title>
-    <link rel="stylesheet" href="hp.css" />
+    <link rel="stylesheet" href="CSS/hp.css" />
     <script defer src="JavaScript/script.js"></script>
   </head>
 <?php
