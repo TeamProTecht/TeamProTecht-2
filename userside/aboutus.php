@@ -73,5 +73,6 @@ include "navbar.php";
                     </div>
                 </div>
             </reviews>
-           
+           <!-- Add footer -->
+<?php include "footer.php";?>
                 <html>
