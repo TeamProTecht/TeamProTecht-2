@@ -71,18 +71,18 @@
            $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
            $statement = $pdo->query("SELECT Item_ID, ItemName, ItemDesc, Price, Img, Location_ID, Created_at, Updated_at  FROM item");
 
-foreach ($statement as $rows) {
-    print "<td>" . $rows['Item_ID'] . "</td>";
-    print "<td>" . $rows['ItemName'] . "</td>";
-print "<td>" . $rows['ItemDesc'] . "</td>";
-print "<td>" . $rows['Price'] . "</td>";
-    print "<td>" . $rows['Img'] . "</td>";
-    print "<td>" . $rows['Location_ID'] . "</td>";
-print "<td>" . $rows['Created_at'] . "</td>";
-print "<td>" . $rows['Updated_at'] . "</td><tr>";
-
-
-}
+           foreach ($statement as $rows) {
+            print "<td>" . $rows['Item_ID'] . "</td>";
+            print "<td>" . $rows['ItemName'] . "</td>";
+            print "<td>" . $rows['ItemDesc'] . "</td>";
+            print "<td>" . $rows['Price'] . "</td>";
+            $image_url = "img/" . $rows['Img'];
+            print "<td><img src='$image_url' alt='Product Image'></td>";
+            print "<td>" . $rows['Location_ID'] . "</td>";
+            print "<td>" . $rows['Created_at'] . "</td>";
+            print "<td>" . $rows['Updated_at'] . "</td></tr>";
+        }
+        
 ?>
     
 </body>

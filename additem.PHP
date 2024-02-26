@@ -47,7 +47,7 @@
     </section>
 
 <section id="mainsection">
-    <form action="" method="post">
+    <form action="" method="POST" enctype="multipart/form-data">
         <label for="brandname">Brand Name:</label><br>
         <input type="text" name="brandname" required><br><br>
 
@@ -59,13 +59,40 @@
         <label for="quantity">Quantity:</label><br>
         <input type="number" name="quantity" required><br><br>
 
+                
+        <label for="price">Price:</label><br>
+        <input type="number" name="price" required><br><br>
+
 
         <label for="itemdescription">Item Description:</label><br>
         <textarea name="itemdescription" rows="4" required></textarea><br><br>
 
 
-        <label for="photoname">Photo Name:</label><br>
-        <input type="text" name="photoname" required required><br><br>
+        <label for="image">Photo Name:</label><br>
+        <input type="file" name="image" required required><br><br>
+
+        
+        <label for="operatingsystem">Operating System:</label><br>
+        <input type="text" name="operatingsystem" required><br><br>
+
+        
+        <label for="screensize">Display Size:</label><br>
+        <input type="text" name="screensize" required><br><br>
+
+        <label for="disres">Display Resolution:</label><br>
+        <input type="text" name="disres" required><br><br>
+
+        
+        <label for="batterylife">Battery Life:</label><br>
+        <input type="number" name="batterylife" required><br><br>
+
+        
+        <label for="camera">Camera Resolution (MP):</label><br>
+        <input type="text" name="camera" required><br><br>
+
+        
+        <label for="biometrics">Biometrics:</label><br>
+        <input type="text" name="biometrics" required><br><br>
 
 
         <label for="shelf">Shelf:</label><br>
@@ -84,30 +111,45 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $file_name = $_FILES['image']['name'];
+    $tempname = $_FILES['image']['tmp_name'];
+    $folder =  'img/'.$file_name;
+
     $brandname = $_POST["brandname"];
     $itemname = $_POST["itemname"];
     $quantity = $_POST["quantity"];
     $itemdescription = $_POST["itemdescription"];
-    $photo = $_POST["photoname"];
+    $price = $_POST["price"]; 
+    $operatingsystem= $_POST["operatingsystem"];
+    $disres = $_POST["disres"];
+    $screensize = $_POST["screensize"];
+    $batterylife = $_POST["batterylife"];
+    $camera= $_POST["camera"];
+    $biometrics=  $_POST["biometrics"];
     $shelf = $_POST["shelf"];
     $itemrow = $_POST["row"];
 
     try {
         $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
         
-        $pdo->exec("INSERT INTO location (Shelf, Row) VALUES ('$shelf', '$itemrow')");
-
-
-        $pdo->exec("INSERT INTO Brand (BrandName) VALUES ('$brandname')");
-
-        $pdo->exec("
-            INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID) 
-            VALUES ('$itemname', $quantity, '$itemdescription', '$quantity', '$photo', 
-            (SELECT Location_ID FROM location WHERE Shelf = '$shelf' AND Row = '$itemrow' LIMIT 1))
-        ");
+        // Prepare the statements
+        $stmt_location = $pdo->prepare("INSERT INTO location (Shelf, Row) VALUES (?, ?)");
+        $stmt_brand = $pdo->prepare("INSERT INTO Brand (BrandName) VALUES (?)");
+        $stmt_item = $pdo->prepare("INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID, OperatingSystem, DisplaySize, DisplayResolution, BatteryLife, CameraMegapixels, BiometricAuthentication) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+    
+        // Bind parameters and execute
+        $stmt_location->execute([$shelf, $itemrow]);
+        $stmt_brand->execute([$brandname]);
+        $location_id = $pdo->lastInsertId();
         
-        echo "Form submitted successfully!";
-    } catch (PDOException $e) {
+        $stmt_item->execute([$itemname, $quantity, $itemdescription, $price, $file_name, $location_id, $operatingsystem, $screensize, $disres, $batterylife, $camera, $biometrics]);
+        
+        if(move_uploaded_file($tempname, $folder)){
+            echo "<alert>Product Uploaded Successfully</alert>";
+        } else {
+            echo "<alert>Product not added</alert>";
+        }
+    } catch(PDOException $e) {
         echo "Error: " . $e->getMessage();
     }
 }
