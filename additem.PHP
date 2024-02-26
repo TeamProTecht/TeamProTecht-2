@@ -49,24 +49,27 @@
 <section id="mainsection">
     <form action="" method="POST" enctype="multipart/form-data">
         <label for="brandname">Brand Name:</label><br>
-        <input type="text" name="brandname" required><br><br>
-
+        <input type="text" name="brandname" required  maxlength="50"><br><br>
 
         <label for="itemname">Item Name:</label><br>
-        <input type="text" name="itemname" required><br><br>
-
+        <input type="text" name="itemname" required maxlength="50"><br><br>
 
         <label for="quantity">Quantity:</label><br>
+<<<<<<< HEAD
         <input type="number" name="quantity" required><br><br>
 
                 
         <label for="price">Price:</label><br>
         <input type="number" name="price" required><br><br>
 
+=======
+        <input type="number" name="quantity" required min="1"><br><br>
+>>>>>>> c9e559b5bc105d96a2b277c9ff485795c788dd8f
 
         <label for="itemdescription">Item Description:</label><br>
         <textarea name="itemdescription" rows="4" required></textarea><br><br>
 
+<<<<<<< HEAD
 
         <label for="image">Photo Name:</label><br>
         <input type="file" name="image" required required><br><br>
@@ -94,14 +97,44 @@
         <label for="biometrics">Biometrics:</label><br>
         <input type="text" name="biometrics" required><br><br>
 
+=======
+        <label for="photoname">Photo Name:</label><br>
+        <input type="text" name="photoname" required maxlength="100"><br><br>
+>>>>>>> c9e559b5bc105d96a2b277c9ff485795c788dd8f
 
         <label for="shelf">Shelf:</label><br>
         <input type="text" name="shelf" required><br><br>
 
-
         <label for="row">Row:</label><br>
         <input type="text" name="row" required><br><br>
 
+        <label for="os">Operating System:</label><br>
+<input type="text"name="os" required>
+<br><br>
+<label for="warranty">Warranty (in months):</label><br>
+<input type="number" name="warranty" required min="0"><br><br>
+
+        <label for="displaySize">Display Size:</label><br>
+        <input type="number" name="displaySize" required required min="0"><br><br>
+
+        <label for="displayResolution">Display Resolution:</label><br>
+        <input type="text" name="displayResolution" required maxlength="20"><br><br>
+
+        <label for="batteryLife">Battery Life:</label><br>
+        <input type="number" name="batteryLife" required min="0"><br><br>
+
+        <label for="cameraMegapixels">Camera Megapixels:</label><br>
+        <input type="number" name="cameraMegapixels" required><br><br>
+
+        <label for="biometricAuthentication">Biometric Authentication:</label><br>
+<sinput type="text" name="biometricAuthentication" required>
+<br><br>
+
+<label for="colors">Colors (separated by comma):</label><br>
+<input type="text" name="colors" required><br><br>
+
+<label for="sizes">storage (separated by comma & in GB but dont include it):</label><br>
+<input type="text" name="sizes" required><br><br>
 
         <input type="submit" value="Submit">
     </form>
@@ -111,6 +144,7 @@
 
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+<<<<<<< HEAD
     $file_name = $_FILES['image']['name'];
     $tempname = $_FILES['image']['tmp_name'];
     $folder =  'img/'.$file_name;
@@ -150,6 +184,65 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<alert>Product not added</alert>";
         }
     } catch(PDOException $e) {
+=======
+    try {
+        $pdo = new PDO('mysql:host=localhost;dbname=stockpage', 'root', '');
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        $brandname = $_POST["brandname"];
+        $itemname = $_POST["itemname"];
+        $quantity = $_POST["quantity"];
+        $itemdescription = $_POST["itemdescription"];
+        $photo = $_POST["photoname"];
+        $shelf = $_POST["shelf"];
+        $itemrow = $_POST["row"];
+
+        // New fields
+        $os = $_POST["os"];
+        $displaySize = $_POST["displaySize"];
+        $displayResolution = $_POST["displayResolution"];
+        $batteryLife = $_POST["batteryLife"];
+        $cameraMegapixels = $_POST["cameraMegapixels"];
+        $biometricAuthentication = $_POST["biometricAuthentication"];
+
+        // Colors and sizes
+        $colors = explode(',', $_POST["colors"]);
+        $sizes = explode(',', $_POST["sizes"]);
+
+        $pdo->beginTransaction();
+
+        $locationQuery = $pdo->prepare("INSERT INTO location (Shelf, Row) VALUES (?, ?)");
+        $locationQuery->execute([$shelf, $itemrow]);
+
+        $brandQuery = $pdo->prepare("INSERT INTO Brand (BrandName) VALUES (?)");
+        $brandQuery->execute([$brandname]);
+
+        $itemQuery = $pdo->prepare("INSERT INTO Item (ItemName, Quantity, ItemDesc, Price, Img, Location_ID, OperatingSystem, DisplaySize, DisplayResolution, BatteryLife, CameraMegapixels, BiometricAuthentication) 
+                                    VALUES (?, ?, ?, ?, ?, (SELECT Location_ID FROM location WHERE Shelf = ? AND Row = ? LIMIT 1), ?, ?, ?, ?, ?, ?)");
+        $itemQuery->execute([$itemname, $quantity, $itemdescription, $quantity, $photo, $shelf, $itemrow, $os, $displaySize, $displayResolution, $batteryLife, $cameraMegapixels, $biometricAuthentication]);
+
+        // Insert colors
+        foreach ($colors as $color) {
+            $colorQuery = $pdo->prepare("INSERT INTO item_color (Item_ID, Color) VALUES ((SELECT MAX(Item_ID) FROM Item), ?)");
+            $colorQuery->execute([$color]);
+        }
+$warranty = $_POST["warranty"];
+// Insert warranty details into the database
+$warrantyQuery = $pdo->prepare("INSERT INTO warranty (WarrantyDetails, Item_ID) VALUES (?, (SELECT MAX(Item_ID) FROM Item))");
+$warrantyQuery->execute([$warranty]);
+
+        // Insert sizes into item_storage table
+        foreach ($sizes as $size) {
+            $sizeQuery = $pdo->prepare("INSERT INTO item_storage (Item_ID, Storage) VALUES ((SELECT MAX(Item_ID) FROM Item), ?)");
+            $sizeQuery->execute([$size]);
+        }
+
+        $pdo->commit();
+        
+        echo "Form submitted successfully!";
+    } catch (PDOException $e) {
+        $pdo->rollBack();
+>>>>>>> c9e559b5bc105d96a2b277c9ff485795c788dd8f
         echo "Error: " . $e->getMessage();
     }
 }
