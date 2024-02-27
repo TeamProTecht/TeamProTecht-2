@@ -77,7 +77,7 @@
             print "<td>" . $rows['ItemDesc'] . "</td>";
             print "<td>" . $rows['Price'] . "</td>";
             $image_url = "img/" . $rows['Img'];
-            print "<td><img src='$image_url' alt='Product Image'></td>";
+            print "<td><img src='$image_url' alt='Product Image' class= 'product-image' style></td>";
             print "<td>" . $rows['Location_ID'] . "</td>";
             print "<td>" . $rows['Created_at'] . "</td>";
             print "<td>" . $rows['Updated_at'] . "</td></tr>";
