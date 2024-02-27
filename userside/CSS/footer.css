@@ -1,34 +1,30 @@
-.footer-content {
+.footer_content {
     display: flex;
     justify-content: space-around;
     background-color:  rgb(152, 82, 150);
-    padding: 20px;
-}
-
-.footer-section {
     color: white;
+    padding: 20px;
+    width: 100%;
 }
-
-.social-icons {
+.social_icons {
     list-style-type: none;
     padding: 0;
     display: flex;
 }
 
-.social-icons li {
-    margin-right: 15px;
+.social_icons>ul{
+    width: 20%;
+    height: 10%;
+    background-color: rgb(152, 82, 150);
+}
+.social_icons li {
+    margin: 15px;
 }
 
-.social-icons img {
-    width: 20px;
-    height: 20px;
-}
 
 .copyright {
-    background-color: white;
     color: black;
     text-align: center;
     padding: 10px;
     margin-top: auto;
-    width: 100%;
 }
