@@ -32,6 +32,7 @@ include "navbar.php";
                 <?php
                 // Database connection
                 include "connectdb.php";
+                session_start();
 
                 // Fetch brands from the database
                 $brandQuery = "SELECT DISTINCT BrandName FROM Brand";
@@ -54,14 +55,14 @@ include "navbar.php";
                 $warranties = $warrantyStatement->fetchAll(PDO::FETCH_ASSOC);
 
             // Populate warranties dynamically
-echo "<h3>Warranty</h3>";
-echo "<select name='selected_warranty'>";
-echo "<option value=''>Select Warranty</option>";
-foreach ($warranties as $warranty) {
-    $selected = (isset($_POST['selected_warranty']) && $_POST['selected_warranty'] == $warranty['WarrantyDetails']) ? ' selected' : '';
-    echo "<option value='" . $warranty['WarrantyDetails'] . "'$selected>" . $warranty['WarrantyDetails'] . " Months</option>";
-}
-echo "</select>";
+                echo "<h3>Warranty</h3>";
+                echo "<select name='selected_warranty'>";
+                echo "<option value=''>Select Warranty</option>";
+                foreach ($warranties as $warranty) {
+                    $selected = (isset($_POST['selected_warranty']) && $_POST['selected_warranty'] == $warranty['WarrantyDetails']) ? ' selected' : '';
+                    echo "<option value='" . $warranty['WarrantyDetails'] . "'$selected>" . $warranty['WarrantyDetails'] . " Months</option>";
+                }
+                echo "</select>";
 
                 // Fetch operating systems from the database
                 $osQuery = "SELECT DISTINCT OperatingSystem FROM Item";
@@ -159,28 +160,29 @@ echo "</select>";
         <br>
         <div id="productlist">
             <?php
-            session_start();
 
             if(isset($_GET['reset']) && $_GET['reset'] === 'true') {
-                session_unset();
-                session_destroy();
-                header("Location: browse.php");
+                unset($_SESSION['selected_brand']);
+                unset($_SESSION['selected_warranty']);
+                unset($_SESSION['minprice']);
+                unset($_SESSION['maxprice']);
+                unset($_SESSION['operating_system']);
+                unset($_SESSION['battery_size']);
+                unset($_SESSION['biometrics']);
+                unset($_SESSION['color']);
+                unset($_SESSION['storage_size']);
+                unset($_SESSION['display_size_range']);
+                header("Refresh:0");
                 exit();
             }
 
             // Check if a search query has been submitted
             if(isset($_POST['searchitem']) && !empty($_POST['searchitem'])) {
                 $_SESSION['searched_word'] = $_POST['searchitem'];
-                unset($_SESSION['selected_brand']);
-                unset($_SESSION['selected_warranty']);
-                unset($_SESSION['minprice']);
-                unset($_SESSION['maxprice']);
             } elseif(isset($_SESSION['searched_word'])) {
                 // If the search word is already stored in session, use it
                 $_POST['searchitem'] = $_SESSION['searched_word'];
             }
-            // Connect to database
-            include "connectdb.php";
 
             // Construct the base query
             $query = "SELECT
@@ -371,35 +373,56 @@ if(isset($_POST['display_size_range']) && !empty($_POST['display_size_range'])) 
                 //Verify no dupes
                 if(!in_array($row, $rowset)){
 
-                echo "<div class='product-item'>";
-                echo "<a href = 'productdescription.php/".$row['Item_ID']."/".$row['BrandName']."_".$row['ItemName']."'<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong></a><br>";
-                echo "<strong>£" . $row['Price'] . "</strong><br>";
-                echo "<img src='CSS/images/" . $row['Img'] . "'><br>";
-                echo "<form method='post'>";
-                echo "<input type='hidden' name='product_id' value='" . $row['Item_ID'] . "'>";
-                echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
-                echo "</form>";
-                echo "</div>";
+                    echo "<div class='product-item'>";
+                    echo "<a href = 'productdescription.php/".$row['Item_ID']."/".$row['BrandName']."_".$row['ItemName']."'<strong>" . $row['BrandName'] . " " . $row['ItemName'] . "</strong></a><br>";
+                    echo "<strong>£" . $row['Price'] . "</strong><br>";
+                    echo "<img src='CSS/images/" . $row['Img'] . "'><br>";
+                    echo "<form method='post'>";
+                    echo "<input type='hidden' name='product_id".$row['Item_ID']."' value='" . $row['Item_ID'] . "'>";
+                    echo "<button type='submit' name='add_to_basket'>Add to basket</button>";
+                    echo "</form>";
+                    echo "</div>";
 
-                if(isset($_POST['add_to_basket']) && isset($_POST['User_ID'])){
-                    $itemID = $_POST['Item_ID'];
-                    $userID = $_POST['User_ID'];
+                    //Prepare add item to basket for logged in user
 
-                    $newbasket = "INSERT INTO basket (User_ID) VALUES('$userID')";
-                    $addSQL = "INSERT INTO basketitem (Basket_ID, Item_ID, Quantity) VALUES ('$newbasket', '$itemID', 1)";
-                } elseif(!isset($_POST['User_ID']) && isset($_POST['email'])) {
-                    $email = $_POST(['email']);
-                    $guest = "INSERT INTO session (Item_ID, email) VALUES ('$itemID', '$email')";
-                    echo "<script>notLoggedIn()</script>";
-                }
-                array_push($rowset, $row);
+                    if(isset($_POST['product_id'.$row['Item_ID']]) && isset($_SESSION['User_ID']) && isset($_SESSION['username'])){
+                        $itemID = $row['Item_ID'];
+                        $userID = $_SESSION['User_ID'];
+                        //if no basket exists in session, make a new one
+                        if(!isset($_SESSION['Basket_ID'])){
+                            //Add new basket
+                            $newBasketSQL = "INSERT INTO `basket` (User_ID) VALUES($userID)";
+                            $prepBasket = $pdo->prepare($newBasketSQL);
+                            $prepBasket->execute();
+
+                            //Get the most recent basket
+                            $getNewBasket = "SELECT * FROM `basket` WHERE Basket_ID = (SELECT MAX(Basket_ID) FROM `basket` WHERE User_ID = $userID)";
+                            $getUserBasket = $pdo->prepare($getNewBasket);
+                            $getUserBasket->execute();
+                            foreach($getUserBasket as $userbasketID){
+                                //Set the most recent basketID as the basketid in the current session
+                                //Will need to unset once basket turns into order
+                                $_SESSION['Basket_ID'] = $userbasketID['Basket_ID'];
+                            }
+                        }
+
+                        //Add item to itembasket
+                        $addItemSQL = "INSERT INTO `basketitem` (Basket_ID, Item_ID, Quantity) VALUES (".$_SESSION['Basket_ID'].", $itemID, 1)";
+
+                        $addBasketItem = $pdo->prepare($addItemSQL);
+                        $addBasketItem->execute();
+
+                        unset($_POST['product'.$row['Item_ID']]);
+
+                    }
+                    array_push($rowset, $row);
                 }
             }
             ?>
         </div>
     </div>
-</body>
-    <!-- Add footer -->
+<!-- Add footer -->
 <?php include "footer.php";?>
+</body>
 </html>
  
