@@ -99,6 +99,11 @@ tr:nth-child(even) {
     text-decoration: none;
 }
 
+.product-image{
+    max-width: 75px;
+    max-height: 50px;
+}
+
 
 
 
