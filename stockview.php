@@ -64,8 +64,6 @@
             <th>Location ID</th>
             <th>Created At</th>
             <th>Updated At</th>
-
-            
         </tr>
         <?php
            $pdo = new PDO('mysql:host=localhost;dbname=cs2tp', 'root', '');
@@ -77,7 +75,8 @@
             print "<td>" . $rows['ItemDesc'] . "</td>";
             print "<td>" . $rows['Price'] . "</td>";
             $image_url = "img/" . $rows['Img'];
-            print "<td><img src='$image_url' alt='Product Image' class= 'product-image' style></td>";
+            print "<td><div class=product-image'>
+            <img src='$image_url' alt='Product Image' style></div></td>";
             print "<td>" . $rows['Location_ID'] . "</td>";
             print "<td>" . $rows['Created_at'] . "</td>";
             print "<td>" . $rows['Updated_at'] . "</td></tr>";
